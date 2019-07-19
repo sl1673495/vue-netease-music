@@ -1,0 +1,17 @@
+body {
+  min-width: 1000px;
+}
+
+.el-loading-mask {
+  background: rgba(0, 0, 0, .2);
+}
+
+.el-loading-spinner {
+  .path {
+    stroke: $theme-color;
+  }
+
+  .el-loading-text {
+    color: $font-color;
+  }
+}

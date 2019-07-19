@@ -2,11 +2,11 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        '/api': {
-          target:  'http://localhost:3000',
-          pathRewrite: { '^/api': '' },
+        "/api": {
+          target: "http://localhost:3000",
+          pathRewrite: { "^/api": "" },
           changeOrigin: true,
-          secure: false,
+          secure: false
         }
       }
     }
@@ -14,8 +14,11 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `@import "~@/style/variables.scss";`
+        data: `
+          @import "~@/style/variables.scss";
+          @import "~@/style/_mixin.scss";
+        `
       }
     }
   }
-}
+};
