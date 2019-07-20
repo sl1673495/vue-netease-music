@@ -1,12 +1,12 @@
-export function hasClass (el, className) {
+export function hasClass(el, className) {
   return el.classList.contains(className)
 }
 
-export function addClass (el, className) {
+export function addClass(el, className) {
   el.classList.add(className)
 }
 
-export function getData (el, name, val) {
+export function getData(el, name, val) {
   const prefix = 'data-'
   if (val) {
     return el.setAttribute(prefix + name, val)
@@ -34,7 +34,7 @@ let vendor = (() => {
   return false
 })()
 
-export function prefixStyle (style) {
+export function prefixStyle(style) {
   if (vendor === false) {
     return false
   }

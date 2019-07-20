@@ -9,15 +9,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Banner from "./banner";
-import Recommend from "./recommend";
-import NewSongs from "./new-songs";
+import Banner from "./banner"
+import Recommend from "./recommend"
+import NewSongs from "./new-songs"
 export default {
   data() {
-    return {};
+    return {}
   },
   components: { Banner, Recommend, NewSongs }
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,7 +5,10 @@
       <div class="desc-wrap">
         <span class="desc">{{desc}}</span>
       </div>
-      <Icon type="bofang" class="play-icon" />
+      <Icon
+        type="bofang"
+        class="play-icon"
+      />
     </div>
     <p class="name">{{name}}</p>
   </div>
@@ -13,8 +16,8 @@
 
 <script>
 export default {
-  props: ["img", "name", "desc"],
-};
+  props: ["img", "name", "desc"]
+}
 </script>
 
 <style lang="scss" scoped>

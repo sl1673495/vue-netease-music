@@ -14,21 +14,21 @@
 </template>
 
 <script>
-import Title from "@/base/title";
-import PlayListCard from "@/components/play-list-card";
+import Title from "@/base/title"
+import PlayListCard from "@/components/play-list-card"
 
 export default {
   async created() {
-    const { result } = await this.$request("/personalized?limit=10");
-    this.list = result;
+    const { result } = await this.$request("/personalized?limit=10")
+    this.list = result
   },
   data() {
     return {
       list: []
-    };
+    }
   },
   components: { Title, PlayListCard }
-};
+}
 </script>
 
 <style lang="scss" scoped>

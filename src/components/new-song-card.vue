@@ -6,8 +6,10 @@
     <div class="img-wrap">
       <img :src="img" />
       <div class="play-icon-wrap">
-        <Icon class="play-icon"
-              type="play" />
+        <Icon
+          class="play-icon"
+          type="play"
+        />
       </div>
     </div>
     <div class="song-content">
@@ -20,7 +22,7 @@
 <script>
 export default {
   props: ["order", "name", "img", "artistsText"]
-};
+}
 </script>
 
 <style lang="scss" scoped>

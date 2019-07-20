@@ -1,25 +1,27 @@
 <template>
   <div class="header">
     <div class="logo-wrap">
-      <img class="logo"
-           :src="logo" />
+      <img
+        class="logo"
+        :src="logo"
+      />
       <span>云音乐</span>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.png"
 
 export default {
   created() {
-    this.logo = logo;
+    this.logo = logo
   },
   data() {
-    return {};
+    return {}
   },
   components: {}
-};
+}
 </script>
 
 <style lang="scss" scoped>

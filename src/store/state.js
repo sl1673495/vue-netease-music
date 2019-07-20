@@ -1,4 +1,4 @@
 export default {
   currentSong: {},
-  playing: false,
+  playing: false
 }

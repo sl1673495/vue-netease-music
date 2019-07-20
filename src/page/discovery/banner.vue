@@ -1,28 +1,34 @@
 <template>
-  <el-carousel :interval="4000"
-               type="card"
-               height="200px">
-    <el-carousel-item v-for="(banner) in banners"
-                      :key="banner.scm">
-      <img class="banner-img"
-           :src="banner.imageUrl" />
+  <el-carousel
+    :interval="4000"
+    type="card"
+    height="200px"
+  >
+    <el-carousel-item
+      v-for="(banner) in banners"
+      :key="banner.scm"
+    >
+      <img
+        class="banner-img"
+        :src="banner.imageUrl"
+      />
     </el-carousel-item>
   </el-carousel>
 </template>
 
 <script>
-import { getBanner } from "@/api/discovery";
+import { getBanner } from "@/api/discovery"
 export default {
   async created() {
-    const { banners } = await getBanner();
-    this.banners = banners;
+    const { banners } = await getBanner()
+    this.banners = banners
   },
   data() {
     return {
       banners: []
-    };
+    }
   }
-};
+}
 </script>
 
 

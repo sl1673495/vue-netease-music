@@ -1,5 +1,5 @@
-import axios from "axios";
-import { Loading } from "element-ui";
+import axios from 'axios'
+import { Loading } from 'element-ui'
 
 let loading
 let loadingCount = 0
@@ -8,20 +8,19 @@ export let request
 export default {
   install(Vue) {
     request = axios.create({
-      baseURL: "/api"
-    });
+      baseURL: '/api'
+    })
 
-    request.interceptors.request.use((config) => {
-      loading || (
-        loading = Loading.service({
+    request.interceptors.request.use(config => {
+      loading ||
+        (loading = Loading.service({
           target: '#page-content',
           background: 'transparent',
           text: '载入中'
-        })
-      )
+        }))
       loadingCount++
       return config
-    });
+    })
 
     request.interceptors.response.use(response => {
       loadingCount--
@@ -29,12 +28,12 @@ export default {
         loading.close()
       }
       if (response.status === 200) {
-        return response.data;
+        return response.data
       } else {
-        console.log("error", response);
+        console.log('error', response)
       }
-    });
+    })
 
-    Vue.prototype.$request = request;
+    Vue.prototype.$request = request
   }
-};
+}

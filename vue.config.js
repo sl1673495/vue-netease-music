@@ -2,9 +2,9 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        "/api": {
-          target: "http://localhost:3000",
-          pathRewrite: { "^/api": "" },
+        '/api': {
+          target: 'http://localhost:3000',
+          pathRewrite: { '^/api': '' },
           changeOrigin: true,
           secure: false
         }
@@ -21,4 +21,4 @@ module.exports = {
       }
     }
   }
-};
+}

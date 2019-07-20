@@ -14,6 +14,6 @@ export default new Router({
       path: '/discovery',
       name: 'discovery',
       component: Discovery
-    },
+    }
   ]
 })

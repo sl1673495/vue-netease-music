@@ -1,4 +1,4 @@
-import { Carousel, CarouselItem } from "element-ui";
+import { Carousel, CarouselItem } from 'element-ui'
 import Icon from '@/base/icon'
 export default {
   install(Vue) {

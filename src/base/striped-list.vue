@@ -13,30 +13,30 @@ export default {
     }
   },
   mounted() {
-    this.mixinStriped();
+    this.mixinStriped()
   },
   methods: {
     mixinStriped() {
       if (this.$slots.default && this.$slots.default.length) {
         this.$nextTick(() => {
           this.$slots.default.forEach((vnode, index) => {
-            const { elm } = vnode;
-            const cls = index % 2 === 0 ? "stripe-deep" : "stripe-shallow";
-            elm.classList.add(cls);
-          });
-        });
+            const { elm } = vnode
+            const cls = index % 2 === 0 ? "stripe-deep" : "stripe-shallow"
+            elm.classList.add(cls)
+          })
+        })
       }
     }
   },
   watch: {
     source: {
       handler() {
-        this.mixinStriped();
+        this.mixinStriped()
       },
       deep: true
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

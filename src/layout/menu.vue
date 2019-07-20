@@ -10,7 +10,10 @@
         :key="index"
         :to="item.to"
       >
-        <i class="iconfont" :class="item.icon" />
+        <i
+          class="iconfont"
+          :class="item.icon"
+        />
         <span class="menu-title">{{item.title}}</span>
       </router-link>
     </ul>
@@ -18,7 +21,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import User from "@/components/user";
+import User from "@/components/user"
 
 export default {
   data() {
@@ -34,12 +37,12 @@ export default {
           to: "/fm"
         }
       ]
-    };
+    }
   },
   components: {
     User
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

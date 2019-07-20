@@ -1,10 +1,14 @@
 <template>
-  <i class="iconfont" :class="`icon-${type}`" :style="{fontSize: `${size}px`}" />
+  <i
+    class="iconfont"
+    :class="`icon-${type}`"
+    :style="{fontSize: `${size}px`}"
+  />
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  props: ['size', 'type']
+  props: ["size", "type"]
 }
 </script>
 

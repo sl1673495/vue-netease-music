@@ -1,11 +1,5 @@
 export function createSong(song) {
-  const {
-    id,
-    name,
-    img,
-    artists,
-    duration
-  } = song
+  const { id, name, img, artists, duration } = song
 
   return {
     id,
@@ -14,10 +8,10 @@ export function createSong(song) {
     artists,
     duration,
     artistsText: genArtistisText(artists),
-    durationSecond: duration / 1000,
+    durationSecond: duration / 1000
   }
 }
 
 export function genArtistisText(artists) {
-  return (artists || []).map(({ name }) => name).join("/");
+  return (artists || []).map(({ name }) => name).join('/')
 }
