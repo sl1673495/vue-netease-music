@@ -3,8 +3,7 @@
     <layout-header />
     <div class="layout-body">
       <layout-menu />
-      <div id="page-content"
-           class="content">
+      <div id="page-content" class="content">
         <router-view />
       </div>
     </div>
@@ -37,7 +36,7 @@ export default {
     .content {
       flex: 1;
       overflow-y: auto;
-      padding-bottom: 32px;
+      padding-bottom: 32px + $mini-player-height;
     }
   }
 }

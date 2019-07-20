@@ -40,11 +40,14 @@ export default {
 </script>
 
 <style lang="scss">
+.stripe-row:hover {
+  background: #2e2e2e;
+}
 .stripe-shallow {
-  background: #1a1c20;
+  background: #2e2e2e;
 }
 
 .stripe-deep {
-  background: #16181c;
+  background: $body-bgcolor;
 }
 </style>

@@ -2,33 +2,31 @@
   <div class="new-songs">
     <Title>最新音乐</Title>
     <div class="list-wrap">
-      <div class="list"
-           :key="listIndex"
-           v-for="(list, listIndex) in thunkedList">
-        <StripedList v-if="list.length"
-                     :source="list">
-          <NewSongCard v-for="(item,index) in list"
-                       :order="getSongOrder(listIndex, index)"
-                       :key="item.id"
-                       :img="item.song.album.blurPicUrl"
-                       :name="item.name"
-                       :artists="item.song.artists" />
-        </StripedList>
+      <div class="list" :key="listIndex" v-for="(list, listIndex) in thunkedList">
+        <NewSongCard
+          class="song-card"
+          v-for="(item,index) in list"
+          :order="getSongOrder(listIndex, index)"
+          :key="item.id"
+          v-bind="nomalizeSong(item)"
+          @click.native="onClickSong(item)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Title from "@/base/title";
-import StripedList from "@/base/striped-list";
 import NewSongCard from "@/components/new-song-card";
+import { createSong } from '@/utils/song'
 
 const songsLimit = 10;
 export default {
   async created() {
     const { result } = await this.$request(
-      `/personalized/newsong?limit=${songsLimit}`
+      `/personalized/newsong`
     );
     this.list = result;
   },
@@ -41,7 +39,32 @@ export default {
   methods: {
     getSongOrder(listIndex, index) {
       return listIndex * this.chunkLimit + index + 1;
-    }
+    },
+    nomalizeSong(song) {
+      const {
+        id,
+        name,
+        song: {
+          artists,
+          album: {
+            blurPicUrl,
+          },
+          duration
+        }
+      } = song
+      return createSong({
+        id,
+        name,
+        img: blurPicUrl,
+        artists,
+        duration
+      })
+    },
+    onClickSong(song) {
+      const nomalizedSong = this.nomalizeSong(song)
+      this.getCurrentSong(nomalizedSong)
+    },
+    ...mapActions(['getCurrentSong'])
   },
   computed: {
     thunkedList() {
@@ -51,7 +74,7 @@ export default {
       ];
     }
   },
-  components: { Title, StripedList, NewSongCard }
+  components: { Title, NewSongCard }
 };
 </script>
 
@@ -61,6 +84,14 @@ export default {
 
   .list {
     flex: 1;
+  }
+
+  .song-card {
+    cursor: pointer;
+
+    &:hover {
+      background: $light-bgcolor;
+    }
   }
 }
 </style>

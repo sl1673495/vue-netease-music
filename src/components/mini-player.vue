@@ -1,0 +1,207 @@
+<template>
+  <div class="mini-player">
+    <!-- 歌曲内容 -->
+    <div v-if="currentSong.id" class="song">
+      <div class="img-wrap">
+        <img :src="currentSong.img" />
+      </div>
+      <div class="content">
+        <div class="top">
+          <p class="name">{{currentSong.name}}</p>
+          <p class="split">-</p>
+          <p class="artists">{{currentSong.artistsText}}</p>
+        </div>
+        <div class="time">
+          <span class="played-time">{{formatTime(currentTime)}}</span>
+          <span class="split">/</span>
+          <span class="total-time">{{formatTime(currentSong.duration / 1000)}}</span>
+        </div>
+      </div>
+    </div>
+    <!-- 控制台 -->
+    <div class="control">
+      <div @click="togglePlaying" class="play-icon">
+        <Icon :type="playIcon" :size="20" />
+      </div>
+    </div>
+
+    <div></div>
+    <div class="progress-bar-wrap">
+      <ProgressBar />
+    </div>
+    <audio ref="audio" :src="currentSong.url" @play="ready" @ended="end" @timeupdate="updateTime"></audio>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+import { mapState, mapMutations } from 'vuex'
+import ProgressBar from '@/base/progress-bar'
+import { formatTime } from '@/utils/common'
+
+export default {
+  created() {
+    this.formatTime = formatTime
+  },
+  data() {
+    return {
+      songReady: false,
+      currentTime: 0,
+    }
+  },
+  methods: {
+    togglePlaying() {
+      if (!this.currentSong) {
+        return
+      }
+      this.setPlayingState(!this.playing)
+    },
+    ready() {
+      this.songReady = true
+    },
+    play() {
+      this.audio.play()
+    },
+    pause() {
+      this.audio.pause()
+    },
+    updateTime(e) {
+      const time = e.target.currentTime
+      this.currentTime = time
+    },
+    end() {
+      this.audio.currentTime = 0
+    },
+    ...mapMutations(['setPlayingState'])
+  },
+  watch: {
+    currentSong(newSong, oldSong) {
+      if (!newSong.id) {
+        return
+      }
+      if (oldSong) {
+        if (newSong.id === oldSong.id) {
+          return
+        }
+      }
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => {
+        this.play()
+      }, 1000);
+    },
+    playing(newPlaying) {
+      this.$nextTick(() => {
+        newPlaying ? this.audio.play() : this.audio.pause()
+      })
+    }
+  },
+  computed: {
+    playIcon() {
+      return this.playing ? 'pause' : 'play'
+    },
+    audio() {
+      return this.$refs.audio
+    },
+    ...mapState(['currentSong', 'playing'])
+  },
+  components: {
+    ProgressBar
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.mini-player {
+  position: relative;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  height: $mini-player-height;
+  padding: 8px;
+  background: $body-bgcolor;
+
+  .song {
+    display: flex;
+
+    .img-wrap {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      .top {
+        display: flex;
+        align-items: flex-end;
+
+        .name {
+          color: $font-color-white;
+        }
+
+        .split {
+          font-size: $font-size-xs;
+          margin: 0 4px;
+        }
+
+        .artists {
+          font-size: $font-size-xs;
+        }
+      }
+
+      .time {
+        font-size: $font-size-xs;
+        color: $font-color-grey;
+
+        .split {
+          margin: 0 4px;
+        }
+      }
+    }
+  }
+
+  .control {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .play-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: $theme-color;
+      cursor: pointer;
+    }
+  }
+
+  .progress-bar-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: $mini-player-height - 14px;
+  }
+}
+</style>

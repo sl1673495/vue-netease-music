@@ -2,11 +2,13 @@
   <div class="recommend">
     <Title>推荐歌单</Title>
     <div class="list-wrap">
-      <PlayListCard v-for="item in list"
-                    :key="item.id"
-                    :name="item.name"
-                    :img="item.picUrl"
-                    :desc="item.copywriter" />
+      <PlayListCard
+        v-for="item in list"
+        :key="item.id"
+        :name="item.name"
+        :img="item.picUrl"
+        :desc="item.copywriter"
+      />
     </div>
   </div>
 </template>

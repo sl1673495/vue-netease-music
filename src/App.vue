@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <layout />
+    <Layout />
+    <MiniPlayer />
   </div>
 </template>
 
 <script>
 import Layout from "@/layout";
+import MiniPlayer from '@/components/mini-player'
 export default {
-  components: { Layout }
+  components: { Layout, MiniPlayer }
 };
 </script>
 

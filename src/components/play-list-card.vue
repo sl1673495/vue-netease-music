@@ -5,7 +5,7 @@
       <div class="desc-wrap">
         <span class="desc">{{desc}}</span>
       </div>
-      <i class="play-icon iconfont icon-bofang1" />
+      <Icon type="bofang" class="play-icon" />
     </div>
     <p class="name">{{name}}</p>
   </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ["img", "name", "desc"]
+  props: ["img", "name", "desc"],
 };
 </script>
 

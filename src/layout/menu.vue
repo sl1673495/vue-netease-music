@@ -2,14 +2,15 @@
   <div class="menu">
     <user />
     <ul class="menu-list">
-      <router-link class="menu-item"
-                   active-class="menu-item-active"
-                   v-for="(item, index) in menus"
-                   tag="li"
-                   :key="index"
-                   :to="item.to">
-        <i class="iconfont"
-           :class="item.icon" />
+      <router-link
+        class="menu-item"
+        active-class="menu-item-active"
+        v-for="(item, index) in menus"
+        tag="li"
+        :key="index"
+        :to="item.to"
+      >
+        <i class="iconfont" :class="item.icon" />
         <span class="menu-title">{{item.title}}</span>
       </router-link>
     </ul>
