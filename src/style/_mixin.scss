@@ -11,3 +11,10 @@
   -webkit-line-clamp: $line;
   -webkit-box-orient: vertical;
 }
+
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}

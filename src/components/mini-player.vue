@@ -1,7 +1,8 @@
 <template>
   <div class="mini-player">
     <!-- 歌曲内容 -->
-    <div v-if="currentSong.id" class="song">
+    <div v-if="hasCurrentSong"
+         class="song">
       <div class="img-wrap">
         <img :src="currentSong.img" />
       </div>
@@ -20,95 +21,115 @@
     </div>
     <!-- 控制台 -->
     <div class="control">
-      <div @click="togglePlaying" class="play-icon">
-        <Icon :type="playIcon" :size="20" />
+      <div @click="togglePlaying"
+           class="play-icon">
+        <Icon :type="playIcon"
+              :size="20" />
       </div>
     </div>
 
     <div></div>
-    <div class="progress-bar-wrap">
-      <ProgressBar />
+    <div v-if="hasCurrentSong"
+         class="progress-bar-wrap">
+      <ProgressBar :percent="playedPercent"
+                   @percentChange="onProgressChange" />
     </div>
-    <audio ref="audio" :src="currentSong.url" @play="ready" @ended="end" @timeupdate="updateTime"></audio>
+    <audio ref="audio"
+           :src="currentSong.url"
+           @play="ready"
+           @ended="end"
+           @timeupdate="updateTime"></audio>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState, mapMutations } from 'vuex'
-import ProgressBar from '@/base/progress-bar'
-import { formatTime } from '@/utils/common'
+import { mapState, mapMutations } from "vuex";
+import ProgressBar from "@/base/progress-bar";
+import { formatTime } from "@/utils/common";
 
 export default {
   created() {
-    this.formatTime = formatTime
+    this.formatTime = formatTime;
   },
   data() {
     return {
       songReady: false,
-      currentTime: 0,
-    }
+      currentTime: 0
+    };
   },
   methods: {
     togglePlaying() {
       if (!this.currentSong) {
-        return
+        return;
       }
-      this.setPlayingState(!this.playing)
+      this.setPlayingState(!this.playing);
     },
     ready() {
-      this.songReady = true
+      this.songReady = true;
     },
     play() {
-      this.audio.play()
+      this.audio.play();
     },
     pause() {
-      this.audio.pause()
+      this.audio.pause();
     },
     updateTime(e) {
-      const time = e.target.currentTime
-      this.currentTime = time
+      const time = e.target.currentTime;
+      this.currentTime = time;
     },
     end() {
-      this.audio.currentTime = 0
+      this.audio.currentTime = 0;
+      this.audio.play();
     },
-    ...mapMutations(['setPlayingState'])
+    onProgressChange(percent) {
+      this.audio.currentTime = this.currentSong.durationSecond * percent;
+    },
+    ...mapMutations(["setPlayingState"])
   },
   watch: {
     currentSong(newSong, oldSong) {
       if (!newSong.id) {
-        return
+        return;
       }
       if (oldSong) {
         if (newSong.id === oldSong.id) {
-          return
+          return;
         }
       }
       if (this.timer) {
-        clearTimeout(this.timer)
+        clearTimeout(this.timer);
       }
       this.timer = setTimeout(() => {
-        this.play()
+        this.play();
       }, 1000);
     },
     playing(newPlaying) {
       this.$nextTick(() => {
-        newPlaying ? this.audio.play() : this.audio.pause()
-      })
+        newPlaying ? this.audio.play() : this.audio.pause();
+      });
     }
   },
   computed: {
+    hasCurrentSong() {
+      return !!this.currentSong.id;
+    },
     playIcon() {
-      return this.playing ? 'pause' : 'play'
+      return this.playing ? "pause" : "play";
     },
     audio() {
-      return this.$refs.audio
+      return this.$refs.audio;
     },
-    ...mapState(['currentSong', 'playing'])
+    // 播放的进度百分比
+    playedPercent() {
+      const { durationSecond } = this.currentSong;
+      return Math.min(this.currentTime / durationSecond, 1);
+    },
+    ...mapState(["currentSong", "playing"])
   },
   components: {
     ProgressBar
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -181,14 +202,10 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-center();
 
     .play-icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flex-center();
       width: 45px;
       height: 45px;
       border-radius: 50%;
