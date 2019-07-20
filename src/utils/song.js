@@ -12,12 +12,12 @@ export function createSong(song) {
     name,
     img,
     artists,
-    artistsText: genArtistis(artists),
     duration,
+    artistsText: genArtistisText(artists),
     durationSecond: duration / 1000,
   }
 }
 
-export function genArtistis(artists) {
+export function genArtistisText(artists) {
   return (artists || []).map(({ name }) => name).join("/");
 }

@@ -2,32 +2,31 @@
   <div class="new-songs">
     <Title>最新音乐</Title>
     <div class="list-wrap">
-      <div class="list" :key="listIndex" v-for="(list, listIndex) in thunkedList">
-        <NewSongCard
-          class="song-card"
-          v-for="(item,index) in list"
-          :order="getSongOrder(listIndex, index)"
-          :key="item.id"
-          v-bind="nomalizeSong(item)"
-          @click.native="onClickSong(item)"
-        />
+      <div class="list"
+           :key="listIndex"
+           v-for="(list, listIndex) in thunkedList">
+        <NewSongCard class="song-card"
+                     v-for="(item,index) in list"
+                     v-bind="nomalizeSong(item)"
+                     :order="getSongOrder(listIndex, index)"
+                     :key="item.id"
+                     @click.native="onClickSong(item)" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
+import { getNewSongs } from "@/api/discovery";
 import Title from "@/base/title";
 import NewSongCard from "@/components/new-song-card";
-import { createSong } from '@/utils/song'
+import { createSong } from "@/utils/song";
 
 const songsLimit = 10;
 export default {
   async created() {
-    const { result } = await this.$request(
-      `/personalized/newsong`
-    );
+    const { result } = await getNewSongs();
     this.list = result;
   },
   data() {
@@ -46,25 +45,17 @@ export default {
         name,
         song: {
           artists,
-          album: {
-            blurPicUrl,
-          },
+          album: { blurPicUrl },
           duration
         }
-      } = song
-      return createSong({
-        id,
-        name,
-        img: blurPicUrl,
-        artists,
-        duration
-      })
+      } = song;
+      return createSong({ id, name, img: blurPicUrl, artists, duration });
     },
     onClickSong(song) {
-      const nomalizedSong = this.nomalizeSong(song)
-      this.getCurrentSong(nomalizedSong)
+      const nomalizedSong = this.nomalizeSong(song);
+      this.startSong(nomalizedSong);
     },
-    ...mapActions(['getCurrentSong'])
+    ...mapActions(["startSong"])
   },
   computed: {
     thunkedList() {
