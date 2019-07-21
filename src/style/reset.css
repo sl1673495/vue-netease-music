@@ -85,7 +85,7 @@ video {
 }
 
 body {
-  line-height: 1;
+  line-height: 1.2;
 }
 
 :focus {
@@ -121,7 +121,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 
@@ -174,4 +174,9 @@ hr {
 input,
 select {
   vertical-align: middle;
+}
+
+img[src=''],
+img:not([src]) {
+  opacity: 0;
 }

@@ -2,7 +2,7 @@
   <div class="layout">
     <layout-header />
     <div class="layout-body">
-      <layout-menu />
+      <!-- <layout-menu /> -->
       <div
         id="page-content"
         class="content"

@@ -26,6 +26,7 @@ export default {
       loadingCount--
       if (loadingCount === 0) {
         loading.close()
+        loading = null
       }
       if (response.status === 200) {
         return response.data

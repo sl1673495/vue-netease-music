@@ -1,6 +1,9 @@
 <template>
   <div class="header">
-    <div class="logo-wrap">
+    <div
+      @click="onClickLogo"
+      class="logo-wrap"
+    >
       <img
         class="logo"
         :src="logo"
@@ -20,6 +23,11 @@ export default {
   data() {
     return {}
   },
+  methods: {
+    onClickLogo() {
+      this.$router.push("/discovery")
+    }
+  },
   components: {}
 }
 </script>
@@ -37,6 +45,7 @@ export default {
     align-items: center;
     font-size: $font-size-title;
     color: $white;
+    cursor: pointer;
 
     .logo {
       width: 30px;
