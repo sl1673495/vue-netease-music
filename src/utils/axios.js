@@ -8,7 +8,7 @@ export let request
 export default {
   install(Vue) {
     request = axios.create({
-      baseURL: '/api'
+      baseURL: '/netease-api'
     })
 
     request.interceptors.request.use(config => {

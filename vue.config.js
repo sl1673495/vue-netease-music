@@ -2,9 +2,9 @@ module.exports = {
   configureWebpack: {
     devServer: {
       proxy: {
-        '/api': {
+        '/netease-api': {
           target: 'http://localhost:3000',
-          pathRewrite: { '^/api': '' },
+          pathRewrite: { '^/netease-api': '' },
           changeOrigin: true,
           secure: false
         }
