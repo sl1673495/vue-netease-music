@@ -30,8 +30,6 @@ export default {
       }
       if (response.status === 200) {
         return response.data
-      } else {
-        console.log('error', response)
       }
     })
 
