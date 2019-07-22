@@ -12,11 +12,11 @@
       <div
         class="progress-btn-wrapper"
         ref="progressBtn"
-        @touchstart.prevent="progressTouchStart"
-        @touchmove.prevent="progressTouchMove"
-        @touchend="progressTouchEnd"
       >
-        <div class="progress-btn"></div>
+        <div
+          class="progress-btn"
+          :class="{show: alwaysShowBtn}"
+        ></div>
       </div>
     </div>
   </div>
@@ -25,7 +25,6 @@
 <script type="text/ecmascript-6">
 import { prefixStyle } from "@/utils/dom"
 
-const progressBtnWidth = 16
 const transform = prefixStyle("transform")
 
 export default {
@@ -33,36 +32,24 @@ export default {
     percent: {
       type: Number,
       default: 0
+    },
+    alwaysShowBtn: {
+      type: Boolean,
+      default: false
     }
   },
   created() {
     this.touch = {}
   },
+  mounted() {
+    if (this.percent > 0) {
+      this.setProgressOffset(this.percent)
+    }
+  },
   methods: {
-    progressTouchStart(e) {
-      this.touch.initiated = true
-      this.touch.startX = e.touches[0].pageX
-      this.touch.left = this.$refs.progress.clientWidth
-    },
-    progressTouchMove(e) {
-      if (!this.touch.initiated) {
-        return
-      }
-      const deltaX = e.touches[0].pageX - this.touch.startX
-      const offsetWidth = Math.min(
-        this.$refs.progressBar.clientWidth - progressBtnWidth,
-        Math.max(0, this.touch.left + deltaX)
-      )
-      this._offset(offsetWidth)
-      this.$emit("percentChanging", this._getPercent())
-    },
-    progressTouchEnd() {
-      this.touch.initiated = false
-      this._triggerPercent()
-    },
     progressClick(e) {
       const rect = this.$refs.progressBar.getBoundingClientRect()
-      const offsetWidth = e.pageX - rect.left
+      const offsetWidth = Math.max(0, Math.min(e.pageX - rect.left, this.$refs.progressBar.clientWidth))
       this._offset(offsetWidth)
       // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
       // this._offset(e.offsetX)
@@ -70,7 +57,7 @@ export default {
     },
     setProgressOffset(percent) {
       if (percent >= 0 && !this.touch.initiated) {
-        const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth
+        const barWidth = this.$refs.progressBar.clientWidth
         const offsetWidth = percent * barWidth
         this._offset(offsetWidth)
       }
@@ -85,7 +72,7 @@ export default {
       ] = `translate3d(${offsetWidth}px,0,0)`
     },
     _getPercent() {
-      const barWidth = this.$refs.progressBar.clientWidth - progressBtnWidth
+      const barWidth = this.$refs.progressBar.clientWidth
       return this.$refs.progress.clientWidth / barWidth
     }
   },
@@ -104,7 +91,7 @@ export default {
 
   .bar-inner {
     position: relative;
-    top: 13px;
+    top: 14px;
     height: 2px;
     background: rgba(0, 0, 0, 0.3);
 
@@ -116,7 +103,7 @@ export default {
 
     .progress-btn-wrapper {
       position: absolute;
-      left: -8px;
+      left: -15px;
       top: -13px;
       width: 30px;
       height: 30px;
@@ -125,12 +112,16 @@ export default {
         display: none;
         position: relative;
         top: 8px;
-        left: 7px;
+        left: 9px;
         box-sizing: border-box;
         width: 12px;
         height: 12px;
         border-radius: 50%;
         background: $theme-color;
+
+        &.show {
+          display: block;
+        }
       }
     }
   }

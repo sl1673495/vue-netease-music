@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
+import { mapActions, mapMutations } from "vuex"
 import { getNewSongs } from "@/api/discovery"
 import Title from "@/base/title"
 import NewSongCard from "@/components/new-song-card"
@@ -61,7 +61,9 @@ export default {
     onClickSong(song) {
       const nomalizedSong = this.nomalizeSong(song)
       this.startSong(nomalizedSong)
+      this.setPlaylist(this.normalizedSongs)
     },
+    ...mapMutations(["setPlaylist"]),
     ...mapActions(["startSong"])
   },
   computed: {
@@ -70,6 +72,9 @@ export default {
         this.list.slice(0, this.chunkLimit),
         this.list.slice(this.chunkLimit, this.list.length)
       ]
+    },
+    normalizedSongs() {
+      return this.list.map(song => this.nomalizeSong(song))
     }
   },
   components: { Title, NewSongCard }

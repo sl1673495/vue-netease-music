@@ -16,6 +16,8 @@ $font-size-sm: 12px;
 $font-size-xs: 10px;
 $font-size-title: 18px;
 
+$border: 1px solid #3F3F3F;
+
 // header
 $header-height: 50px;
 
@@ -25,3 +27,8 @@ $menu-item-active-bg: #1b1b1b;
 
 // mini-player
 $mini-player-height: 60px;
+$mini-player-z-index: 4;
+
+//playlist
+$playlist-bgcolor: #363636;
+$playlist-z-index: 3;

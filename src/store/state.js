@@ -1,4 +1,6 @@
 export default {
   currentSong: {},
-  playing: false
+  playing: false,
+  isPlaylistShow: false,
+  playlist: []
 }
