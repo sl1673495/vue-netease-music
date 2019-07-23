@@ -53,13 +53,14 @@ export default {
   bottom: $mini-player-height;
   display: flex;
   flex-direction: column;
-  background: $playlist-bgcolor;
+  background: var(--playlist-bgcolor);
   z-index: $playlist-z-index;
+  @include box-shadow;
 
   .header {
     padding: 16px 0;
     margin: 0 20px;
-    border-bottom: $border;
+    border-bottom: 1px solid var(--border);
 
     .total {
       font-size: $font-size-sm;

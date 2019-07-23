@@ -93,7 +93,7 @@ export default {
     cursor: pointer;
 
     &:hover {
-      background: $light-bgcolor;
+      background: var(--light-bgcolor);
     }
   }
 }

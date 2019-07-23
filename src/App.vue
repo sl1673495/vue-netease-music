@@ -18,8 +18,8 @@ export default {
 <style lang="scss">
 #app {
   height: 100%;
-  background-color: $body-bgcolor;
-  color: $font-color;
+  background-color: var(--body-bgcolor);
+  color: var(--font-color);
   font-size: $font-size;
 }
 </style>

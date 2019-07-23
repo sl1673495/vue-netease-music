@@ -68,7 +68,7 @@ export default {
   padding: 0 16px;
 
   .icon {
-    color: $font-color;
+    color: var(--font-color);
     cursor: pointer;
     margin-right: 8px;
   }

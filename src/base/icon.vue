@@ -23,7 +23,8 @@ export default {
 
 <style lang="scss">
 .icon-component {
-  color: #fff;
+  color: var(--font-color-white);
+  cursor: pointer;
 }
 
 .icon-color-theme {

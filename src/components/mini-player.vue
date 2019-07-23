@@ -198,7 +198,7 @@ export default {
   height: $mini-player-height;
   padding: 8px;
   padding-right: 24px;
-  background: $body-bgcolor;
+  background: var(--body-bgcolor);
 
   .song {
     display: flex;
@@ -225,7 +225,7 @@ export default {
         align-items: flex-end;
 
         .name {
-          color: $font-color-white;
+          color: var(--font-color-white);
         }
 
         .split {
@@ -240,7 +240,7 @@ export default {
 
       .time {
         font-size: $font-size-xs;
-        color: $font-color-grey;
+        color: var(--font-color-grey);
 
         .split {
           margin: 0 4px;
@@ -266,6 +266,10 @@ export default {
       border-radius: 50%;
       background: $theme-color;
       cursor: pointer;
+
+      i {
+        color: #fff;
+      }
     }
 
     .icon {
@@ -287,7 +291,7 @@ export default {
 }
 
 .icon {
-  color: $font-color;
+  color: var(--font-color);
   cursor: pointer;
 }
 </style>

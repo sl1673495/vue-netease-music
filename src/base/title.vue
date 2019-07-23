@@ -19,7 +19,7 @@ export default {
 
   .title {
     font-size: $font-size-title;
-    color: $font-color-white;
+    color: var(--font-color-white);
   }
 }
 </style>

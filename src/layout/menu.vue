@@ -49,7 +49,7 @@ export default {
 .menu {
   width: 300px;
   height: 100%;
-  background-color: $menu-bgcolor;
+  background-color: var(--menu-bgcolor);
 }
 
 .menu-item {
@@ -57,12 +57,12 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background: $menu-item-hover-bg;
+    background: var(--menu-item-hover-bg);
   }
 
   &-active {
     color: $theme-color;
-    background: $menu-item-active-bg;
+    background: var(--menu-item-active-bg);
   }
 
   .menu-title {

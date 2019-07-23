@@ -4,7 +4,7 @@
     :data="songs"
     @row-click="onRowClick"
     :cell-class-name="tableCellClassName"
-    style="width: 99.9%"
+    style="width: 99.99%"
   >
     <template v-for="(column, index) in showColumns">
       <!-- 需要自定义渲染的列 -->
@@ -111,7 +111,7 @@ export default {
 
 <style lang="scss">
 .song-table-title-td {
-  color: $font-color-white;
+  color: var(--font-color-white);
 }
 
 .song-active {

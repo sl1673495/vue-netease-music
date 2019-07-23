@@ -1,6 +1,6 @@
-body {
-  min-width: 1000px;
-}
+/**
+ ** 应用级别的一些样式
+ **/
 
 ::selection  {
   background-color:$theme-color;
@@ -9,7 +9,7 @@ body {
 
 // 滚动条
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $menu-bgcolor;
+  background-color: var(--menu-bgcolor);
 }
 
 // table
@@ -32,19 +32,15 @@ body {
   height: 0!important;
 }
 .el-table--enable-row-hover .el-table__body tr:hover > td {
-  background-color: $light-bgcolor !important;
-}
-// 斑马纹颜色
-.el-table--striped .el-table__body tr.el-table__row--striped td {
-  background: $light-bgcolor !important;
+  background-color: var(--playlist-hover-bgcolor) !important;
 }
 // 空数据
 .el-table__empty-block {
-  background: $body-bgcolor;
-  color: $font-color;
+  background: var(--body-bgcolor);
+  color: var(--font-color);
 }
 .el-table__header-wrapper th {
-  color: $font-color;
+  color: var(--font-color);
 }
 
 @mixin el-table-theme($color) {
@@ -55,10 +51,10 @@ body {
   }
 }
 
-@include el-table-theme($body-bgcolor);
+@include el-table-theme(var(--body-bgcolor));
 
 .playlist {
-  @include el-table-theme($playlist-bgcolor);
+  @include el-table-theme(var(--playlist-bgcolor));
 }
 
 // carosel 

@@ -88,7 +88,7 @@ export default {
 
       .title {
         font-size: $font-size-lg;
-        color: $white;
+        color: var(--font-color-white);
       }
     }
 
