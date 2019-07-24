@@ -93,7 +93,7 @@ export default {
     position: relative;
     top: 14px;
     height: 2px;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--progress-bgcolor);
 
     .progress {
       position: absolute;

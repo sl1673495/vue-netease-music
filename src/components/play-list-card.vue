@@ -56,7 +56,7 @@ export default {
       transition: all 0.3s;
 
       .desc {
-        color: var(--white);
+        color: $white;
         font-size: $font-size-sm;
       }
     }
@@ -68,7 +68,7 @@ export default {
       bottom: 4px;
       font-size: 24px;
       transition: all 0.3s;
-      color: var(--font-color-white);
+      color: $white;
     }
 
     &:hover {

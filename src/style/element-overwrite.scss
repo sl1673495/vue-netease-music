@@ -1,0 +1,70 @@
+// table
+.el-table th,
+.el-table td {
+  padding: 4px !important;
+  font-size: $font-size-sm !important;
+}
+.el-table::before {
+  height: 0 !important;
+}
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: var(--playlist-hover-bgcolor) !important;
+}
+// 空数据
+.el-table__empty-block {
+  background: var(--body-bgcolor);
+  color: var(--font-color);
+}
+.el-table__header-wrapper th {
+  color: var(--font-color);
+}
+.el-table td,
+.el-table th {
+    background-color: var(--body-bgcolor) !important;
+    border-bottom: none !important;
+}
+// 允许外部在某个类下面覆写table样式
+@mixin el-table-theme($color) {
+  /deep/.el-table td,
+  /deep/.el-table th {
+    background-color: $color !important;
+    border-bottom: none !important;
+  }
+}
+// carosel
+.el-carousel--horizontal {
+  overflow: hidden;
+}
+
+// popover
+@each $direction in "bottom" "top" "left" "right" {
+  .el-popper[x-placement^="#{$direction}"] .popper__arrow,
+  .el-popper[x-placement^="#{$direction}"] .popper__arrow::after {
+    border-#{$direction}-color: var(--playlist-bgcolor) !important;
+  }
+}
+.el-popover {
+  background: var(--playlist-bgcolor) !important;
+  border: none !important;
+  @include box-shadow;
+}
+
+// input
+$input-height: 24px;
+.el-input {
+  .el-input__inner {
+    height: $input-height !important;
+    line-height: $input-height !important;
+    background: var(--input-bgcolor) !important;
+    border: none !important;
+
+    &:hover {
+      border: none !important;
+    }
+  }
+  .el-input__prefix {
+    i {
+      line-height: $input-height + 1px !important;
+    }
+  }
+}

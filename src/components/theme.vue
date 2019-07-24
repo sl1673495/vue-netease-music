@@ -1,7 +1,6 @@
 <template>
   <div class="theme">
     <el-popover
-      popper-class="popover-wrap"
       placement="top"
       width="160"
       v-model="visible"
@@ -11,7 +10,7 @@
           :key="index"
           class="theme-item"
           v-for="(themeValue, themeKey, index) in themeMap"
-          @click="changeTheme(themeValue.file)"
+          @click="changeTheme(themeKey)"
         >
           <div
             :style="themeValue.style"
@@ -32,10 +31,10 @@
 <script type="text/ecmascript-6">
 import variables from '@/style/themes/variables'
 import variablesWhite from '@/style/themes/variables-white'
-
+import storage from 'good-storage'
+const THEME_KEY = '__theme__'
 export default {
   created() {
-    this.changeTheme(variables)
     this.themeMap = {
       'dark': {
         title: '深色',
@@ -53,6 +52,8 @@ export default {
         }
       },
     }
+    this.changeTheme(storage.get(THEME_KEY, 'dark'))
+
   },
   data() {
     return {
@@ -60,7 +61,9 @@ export default {
     }
   },
   methods: {
-    changeTheme(theme) {
+    changeTheme(themeKey) {
+      storage.set(THEME_KEY, themeKey)
+      const theme = this.themeMap[themeKey].file
       Object.keys(theme).forEach(key => {
         document.documentElement.style.setProperty(key, theme[key])
       })
@@ -72,17 +75,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.el-popper[x-placement^="bottom"] .popper__arrow,
-.el-popper[x-placement^="bottom"] .popper__arrow::after {
-  border-bottom-color: var(--playlist-bgcolor) !important;
-}
-.popover-wrap {
-  background: var(--playlist-bgcolor) !important;
-  border: none !important;
-  @include box-shadow;
-}
-
+<style lang="scss" scoped>
 .themes {
   @include flex-center();
 

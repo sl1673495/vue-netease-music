@@ -13,10 +13,8 @@ import { getListDetail } from "@/api/song-list"
 import { getSongDetail } from "@/api/song"
 export default {
   async created() {
-    const { listId } = this.$route.params
-    const { playlist } = await getListDetail({ id: listId })
-    this.playlist = playlist
-    this.genSonglist(playlist)
+    this.init()
+    this.$watch('$route.params', this.init)
   },
   data() {
     return {
@@ -25,6 +23,12 @@ export default {
     }
   },
   methods: {
+    async init() {
+      const { listId } = this.$route.params
+      const { playlist } = await getListDetail({ id: listId })
+      this.playlist = playlist
+      this.genSonglist(playlist)
+    },
     async genSonglist(playlist) {
       const trackIds = playlist.trackIds.map(({ id }) => id)
       const songDetails = await getSongDetail(trackIds)

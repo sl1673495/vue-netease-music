@@ -11,7 +11,6 @@ export default {
         ...song,
         url: resultSong.url
       })
-      commit('setPlayingState', true)
     } else {
       alert('暂时无法播放')
     }

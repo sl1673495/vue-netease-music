@@ -4,7 +4,7 @@
     :data="songs"
     @row-click="onRowClick"
     :cell-class-name="tableCellClassName"
-    style="width: 99.99%"
+    style="width: 99.9%"
   >
     <template v-for="(column, index) in showColumns">
       <!-- 需要自定义渲染的列 -->

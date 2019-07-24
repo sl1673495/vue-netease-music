@@ -1,50 +1,73 @@
 <template>
-  <div
-    v-show="isPlaylistShow"
-    class="playlist"
+  <LeaveHide
+    @clickOutside="setPlaylistShow(false)"
+    :show="isPlaylistShow"
+    :reserveDoms="reserveDoms"
   >
-    <div class="header">
-      <p class="total">总共{{playlist.length}}首</p>
+    <div
+      ref="playlist"
+      v-show="isPlaylistShow"
+      class="playlist"
+    >
+      <div class="header">
+        <p class="total">总共{{playlist.length}}首</p>
+      </div>
+      <template>
+        <div
+          v-if="playlist.length"
+          class="song-table-wrap"
+        >
+          <SongTable
+            :songs="playlist"
+            :hideColumns="['index', 'albumName']"
+          />
+        </div>
+        <div
+          class="empty"
+          v-else
+        >
+          你还没有添加任何歌曲
+        </div>
+      </template>
     </div>
-    <template>
-      <div
-        v-if="playlist.length"
-        class="song-table-wrap"
-      >
-        <SongTable
-          :songs="playlist"
-          :hideColumns="['index', 'albumName']"
-        />
-      </div>
-      <div
-        class="empty"
-        v-else
-      >
-        你还没有添加任何歌曲
-      </div>
-    </template>
-  </div>
+  </LeaveHide>
+
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import LeaveHide from '@/base/leave-hide'
 import SongTable from './song-table'
 export default {
+  mounted() {
+    // 点击需要保留播放器的dom
+    this.reserveDoms = [
+      this.$refs.playlist,
+      document.getElementById('mini-player'),
+      ...document.querySelectorAll('.el-loading-mask')
+    ]
+  },
   data() {
     return {
-
+      reserveDoms: null
     }
+  },
+  methods: {
+    ...mapMutations(['setPlaylistShow'])
   },
   computed: {
     ...mapState(['isPlaylistShow', 'playlist'])
   },
   components: {
-    SongTable
+    SongTable,
+    LeaveHide
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "~@/style/element-overwrite.scss";
+
 .playlist {
   position: fixed;
   top: 0;
@@ -56,6 +79,7 @@ export default {
   background: var(--playlist-bgcolor);
   z-index: $playlist-z-index;
   @include box-shadow;
+  @include el-table-theme(var(--playlist-bgcolor));
 
   .header {
     padding: 16px 0;

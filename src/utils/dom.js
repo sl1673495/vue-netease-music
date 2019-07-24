@@ -45,3 +45,17 @@ export function prefixStyle(style) {
 
   return vendor + style.charAt(0).toUpperCase() + style.substr(1)
 }
+
+export function hasParent(dom, parentDom) {
+  parentDom = Array.isArray(parentDom) ? parentDom: [parentDom]
+  let find = false
+  while(dom) {
+    if (parentDom.find(p => p === dom)) {
+      find = true
+      break;
+    }else {
+      dom = dom.parentNode
+    }
+  }
+  return find
+} 

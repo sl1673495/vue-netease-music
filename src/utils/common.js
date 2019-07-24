@@ -13,3 +13,24 @@ export function formatTime(interval) {
   const second = pad(interval % 60)
   return `${minute}:${second}`
 }
+
+export function debounce(fn, delay) {
+  let timer = null;
+
+  return function () {
+    const args = arguments;
+    const context = this;
+
+    if (timer) {
+      clearTimeout(timer);
+
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    } else {
+      timer = setTimeout(function () {
+        fn.apply(context, args);
+      }, delay);
+    }
+  }
+}

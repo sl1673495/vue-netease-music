@@ -10,7 +10,10 @@
       />
       <span>云音乐</span>
     </div>
-    <div>
+    <div class="right">
+      <div class="search-wrap">
+        <Search />
+      </div>
       <Theme />
     </div>
   </div>
@@ -19,6 +22,7 @@
 <script type="text/ecmascript-6">
 import logo from "@/assets/logo.png"
 import Theme from '@/components/theme'
+import Search from '@/components/search'
 export default {
   created() {
     this.logo = logo
@@ -31,7 +35,7 @@ export default {
       this.$router.push("/discovery")
     }
   },
-  components: { Theme }
+  components: { Theme, Search }
 }
 </script>
 
@@ -56,6 +60,15 @@ export default {
       width: 30px;
       height: 30px;
       margin-right: 8px;
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+
+    .search-wrap {
+      margin-right: 16px;
     }
   }
 }
