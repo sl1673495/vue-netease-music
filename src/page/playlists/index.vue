@@ -10,7 +10,10 @@
           :img="item.coverImgUrl"
         />
       </div>
-      <div class="pagination">
+      <div
+        class="pagination"
+        v-show="playlists.length"
+      >
         <el-pagination
           layout="prev, pager, next"
           :total="total"
