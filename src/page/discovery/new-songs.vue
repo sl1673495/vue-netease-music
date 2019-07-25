@@ -10,7 +10,7 @@
         :key="listIndex"
         v-for="(list, listIndex) in thunkedList"
       >
-        <NewSongCard
+        <SongCard
           class="song-card"
           v-for="(item,index) in list"
           v-bind="nomalizeSong(item)"
@@ -27,7 +27,7 @@
 import { mapActions, mapMutations } from "vuex"
 import { getNewSongs } from "@/api/discovery"
 import Title from "@/base/title"
-import NewSongCard from "@/components/new-song-card"
+import SongCard from "@/components/song-card"
 import { createSong } from "@/utils/song"
 
 const songsLimit = 10
@@ -61,7 +61,7 @@ export default {
     onClickSong(song) {
       const nomalizedSong = this.nomalizeSong(song)
       this.startSong(nomalizedSong)
-      this.setPlaylist(this.normalizedSongs)
+      this.setPlaylist({ data: this.normalizedSongs })
     },
     ...mapMutations(["setPlaylist"]),
     ...mapActions(["startSong"])
@@ -77,7 +77,7 @@ export default {
       return this.list.map(song => this.nomalizeSong(song))
     }
   },
-  components: { Title, NewSongCard }
+  components: { Title, SongCard }
 }
 </script>
 

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const Discovery = () => import('@/page/discovery')
-const SongListDetail = () => import('@/page/song-list-detail')
+const PlaylistDetail = () => import('@/page/playlist-detail')
+const Playlists = () => import('@/page/playlists')
 
 Vue.use(Router)
 
@@ -18,9 +19,14 @@ export default new Router({
       component: Discovery
     },
     {
-      path: '/song-list-detail/:listId',
-      name: 'song-list-detail',
-      component: SongListDetail
+      path: '/playlist/:listId',
+      name: 'playlist',
+      component: PlaylistDetail
+    },
+    {
+      path: '/playlists',
+      name: 'playlists',
+      component: Playlists
     }
   ]
 })

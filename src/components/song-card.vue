@@ -1,10 +1,10 @@
 <template>
-  <div class="new-song-card">
+  <div class="song-card">
     <div class="order-wrap">
       <span class="order">0{{order}}</span>
     </div>
     <div class="img-wrap">
-      <img :src="img" />
+      <img :src="`${img}?param=120y120`" />
       <div class="play-icon-wrap">
         <Icon
           class="play-icon"
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.new-song-card {
+.song-card {
   display: flex;
   padding: 8px;
   font-size: $font-size-sm;

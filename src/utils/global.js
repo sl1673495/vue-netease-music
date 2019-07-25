@@ -1,4 +1,4 @@
-import { Input, Carousel, CarouselItem, Table, TableColumn, Popover } from 'element-ui'
+import { Input, Carousel, CarouselItem, Table, TableColumn, Popover, Pagination } from 'element-ui'
 import { formatTime } from './common'
 import Icon from '@/base/icon'
 import NButton from '@/base/button'
@@ -14,6 +14,7 @@ export default {
     Vue.use(Table)
     Vue.use(TableColumn)
     Vue.use(Popover)
+    Vue.use(Pagination)
 
     Vue.filter('formatTime', formatTime)
   }

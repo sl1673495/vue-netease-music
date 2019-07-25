@@ -5,13 +5,13 @@
   >
     <Title>推荐歌单</Title>
     <div class="list-wrap">
-      <PlayListCard
+      <PlaylistCard
         v-for="item in list"
         :key="item.id"
+        :id="item.id"
         :name="item.name"
         :img="item.picUrl"
         :desc="item.copywriter"
-        @click.native="onClickCard(item.id)"
       />
     </div>
   </div>
@@ -19,7 +19,7 @@
 
 <script>
 import Title from "@/base/title"
-import PlayListCard from "@/components/play-list-card"
+import PlaylistCard from "@/components/playlist-card"
 import { getPersonalized } from "@/api/discovery"
 
 export default {
@@ -32,12 +32,7 @@ export default {
       list: []
     }
   },
-  methods: {
-    onClickCard(id) {
-      this.$router.push(`/song-list-detail/${id}`)
-    }
-  },
-  components: { Title, PlayListCard }
+  components: { Title, PlaylistCard }
 }
 </script>
 

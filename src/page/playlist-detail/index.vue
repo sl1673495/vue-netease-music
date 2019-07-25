@@ -1,5 +1,5 @@
 <template>
-  <div class="song-list-detail">
+  <div class="playlist-detail">
     <DetailHeader :playlist="playlist" />
     <SongTable :songs="songs" />
   </div>

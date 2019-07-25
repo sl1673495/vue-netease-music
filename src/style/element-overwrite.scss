@@ -18,10 +18,17 @@
 .el-table__header-wrapper th {
   color: var(--font-color);
 }
+.el-table {
+  background-color: var(--body-bgcolor) !important;
+}
 .el-table td,
 .el-table th {
     background-color: var(--body-bgcolor) !important;
     border-bottom: none !important;
+
+    .cell {
+      white-space: nowrap!important;;
+    }
 }
 // 允许外部在某个类下面覆写table样式
 @mixin el-table-theme($color) {
@@ -57,6 +64,7 @@ $input-height: 24px;
     line-height: $input-height !important;
     background: var(--input-bgcolor) !important;
     border: none !important;
+    color: var(--font-color) !important;
 
     &:hover {
       border: none !important;

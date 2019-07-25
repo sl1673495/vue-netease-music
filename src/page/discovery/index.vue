@@ -2,7 +2,7 @@
   <div class="discovery">
     <div class="discovery-content">
       <Banner />
-      <NewSongList />
+      <NewPlaylists />
       <NewSongs />
     </div>
   </div>
@@ -10,13 +10,13 @@
 
 <script type="text/ecmascript-6">
 import Banner from "./banner"
-import NewSongList from "./new-song-list"
+import NewPlaylists from "./new-playlists"
 import NewSongs from "./new-songs"
 export default {
   data() {
     return {}
   },
-  components: { Banner, NewSongList, NewSongs }
+  components: { Banner, NewPlaylists, NewSongs }
 }
 </script>
 
@@ -28,7 +28,7 @@ export default {
   padding: 0 36px;
 
   .discovery-content {
-    max-width: 1000px;
+    max-width: $center-content-width;
   }
 }
 </style>

@@ -56,7 +56,7 @@
         :value="isPlaylistPromptShow"
         trigger="manual"
       >
-        <p>已加入歌单</p>
+        <p>已更新歌单</p>
         <Icon
           slot="reference"
           class="icon"
@@ -65,8 +65,8 @@
           @click.native="togglePlaylistShow"
         />
       </el-popover>
-
-      <volume @volumeChange="onVolumeChange" />
+      <!-- 音量 -->
+      <Volume @volumeChange="onVolumeChange" />
     </div>
     <div
       v-if="hasCurrentSong"
@@ -84,14 +84,13 @@
       @ended="end"
       @timeupdate="updateTime"
     ></audio>
-
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex"
 import ProgressBar from "@/base/progress-bar"
-import volume from '@/base/volume'
+import Volume from '@/base/volume'
 import { formatTime } from "@/utils/common"
 
 export default {
@@ -155,9 +154,13 @@ export default {
   },
   watch: {
     currentSong(newSong, oldSong) {
+      // 清空了歌曲
       if (!newSong.id) {
+        this.audio.pause()
+        this.audio.currentTime = 0
         return
       }
+      // 单曲循环
       if (oldSong) {
         if (newSong.id === oldSong.id) {
           this.currentTime = 0
@@ -203,7 +206,7 @@ export default {
     ...mapGetters(["prevSong", "nextSong"])
   },
   components: {
-    ProgressBar, volume
+    ProgressBar, Volume
   }
 }
 </script>

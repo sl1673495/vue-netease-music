@@ -131,11 +131,11 @@ export default {
         id, name, artists, duration
       })
       this.startSong(song)
-      this.setPlaylist([song])
+      this.setPlaylist({ data: [song] })
     },
     onClickPlaylist(item) {
       const { id } = item
-      this.$router.push(`/song-list-detail/${id}`)
+      this.$router.push(`/playlist/${id}`)
       this.searchPanelShow = false
     },
     ...mapMutations(['setPlaylist']),

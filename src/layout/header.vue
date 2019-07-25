@@ -1,14 +1,19 @@
 <template>
   <div class="header">
-    <div
-      @click="onClickLogo"
-      class="logo-wrap"
-    >
-      <img
-        class="logo"
-        :src="logo"
-      />
-      <span>云音乐</span>
+    <div class="left">
+      <div
+        @click="onClickLogo"
+        class="logo-wrap"
+      >
+        <img
+          class="logo"
+          :src="logo"
+        />
+        <span>云音乐</span>
+      </div>
+      <div class="nav-wrap">
+        <Tabs :tabs="tabs" />
+      </div>
     </div>
     <div class="right">
       <div class="search-wrap">
@@ -22,20 +27,37 @@
 <script type="text/ecmascript-6">
 import logo from "@/assets/logo.png"
 import Theme from '@/components/theme'
+import Tabs from '@/base/tabs'
 import Search from '@/components/search'
 export default {
   created() {
     this.logo = logo
+    this.tabs = [
+      {
+        title: '个性推荐',
+        to: '/discovery',
+      },
+      {
+        title: '歌单',
+        to: '/playlists',
+      },
+      // {
+      //   title: '音乐',
+      //   to: '/songs'
+      // }
+    ]
   },
   data() {
-    return {}
+    return {
+
+    }
   },
   methods: {
     onClickLogo() {
       this.$router.push("/discovery")
     }
   },
-  components: { Theme, Search }
+  components: { Theme, Search, Tabs }
 }
 </script>
 
@@ -49,17 +71,23 @@ export default {
   padding: 16px;
   padding-right: 36px;
 
-  .logo-wrap {
+  .left {
     display: flex;
     align-items: center;
-    font-size: $font-size-title;
-    color: var(--font-color-white);
-    cursor: pointer;
 
-    .logo {
-      width: 30px;
-      height: 30px;
-      margin-right: 8px;
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      margin-right: 36px;
+      font-size: $font-size-title;
+      color: var(--font-color-white);
+      cursor: pointer;
+
+      .logo {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+      }
     }
   }
 

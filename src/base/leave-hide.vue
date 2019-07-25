@@ -14,7 +14,8 @@ export default {
       default: false
     },
     reserveDoms: {
-      type: Array
+      type: Array,
+      default: () => []
     }
   },
   methods: {
@@ -22,11 +23,13 @@ export default {
       const triggerElement = e.target
       // 触发点击事件的dom是否是playlist的子节点
       const firstChildElm = this.$slots.default[0].elm
+      const defaultReserveDoms = Array.from(
+        document.querySelectorAll('.el-loading-mask, .el-loading-spinner')
+      )
+      const reserves = defaultReserveDoms.concat(firstChildElm)
       if (!hasParent(
         triggerElement,
-        this.reserveDoms
-          ? this.reserveDoms.concat(firstChildElm)
-          : firstChildElm
+        reserves.concat(this.reserveDoms)
       )) {
         this.$emit('clickOutside')
       }

@@ -1,8 +1,14 @@
 <template>
-  <div class="play-list-card">
+  <div
+    @click="onClickCard"
+    class="playlist-card"
+  >
     <div class="img-wrap">
-      <img :src="img" />
-      <div class="desc-wrap">
+      <img :src="`${img}?param=300y300`" />
+      <div
+        v-if="desc"
+        class="desc-wrap"
+      >
         <span class="desc">{{desc}}</span>
       </div>
       <Icon
@@ -16,12 +22,17 @@
 
 <script>
 export default {
-  props: ["img", "name", "desc"]
+  props: ["id", "img", "name", "desc"],
+  methods: {
+    onClickCard() {
+      this.$router.push(`/playlist/${this.id}`)
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.play-list-card {
+.playlist-card {
   position: relative;
   width: calc(20% - 8px);
   margin: 4px;
@@ -33,6 +44,7 @@ export default {
     width: 100%;
     padding-top: 100%;
     margin-bottom: 8px;
+    border-radius: 4px;
     overflow: hidden;
 
     img {

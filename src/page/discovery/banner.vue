@@ -10,7 +10,7 @@
     >
       <img
         class="banner-img"
-        :src="banner.imageUrl"
+        :src="`${banner.imageUrl}?param=1000y400`"
       />
     </el-carousel-item>
   </el-carousel>

@@ -30,4 +30,9 @@ export default {
   //button
   ['--button-border-color']: '#D9D9D9',
   ['--button-hover-bgcolor']: '#F5F5F5',
+
+  //tab
+  ['--tab-item-color']: '#7F7F81',
+  ['--tab-item-hover-color']: '#343434',
+  ['--tab-item-active-color']: '#000',
 }
