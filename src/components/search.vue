@@ -89,6 +89,7 @@
 import { mapActions, mapMutations } from 'vuex'
 import LeaveHide from '@/base/leave-hide'
 import { getSearchHot, getSearchSuggest } from '@/api/search'
+import { getAlbum } from '@/api/album'
 import { createSong, genArtistisText } from '@/utils/song'
 import { debounce } from '@/utils/common'
 export default {
@@ -124,10 +125,12 @@ export default {
     onBlur() {
       this.searchPanelShow = false
     },
-    onClickSong(item) {
-      const { id, name, artists, duration } = item
+    async onClickSong(item) {
+      const { id, name, artists, duration, album: { id: albumId } } = item
+      const { songs } = await getAlbum(albumId)
+      const { al: { picUrl } } = songs.find(({ id: songId }) => songId === id) || {}
       const song = createSong({
-        id, name, artists, duration
+        id, name, artists, duration, img: picUrl
       })
       this.startSong(song)
       this.setPlaylist({ data: [song] })

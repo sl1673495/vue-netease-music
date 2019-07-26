@@ -6,7 +6,10 @@
     <!-- 歌曲内容 -->
     <div class="song">
       <template v-if="hasCurrentSong">
-        <div class="img-wrap">
+        <div
+          v-if="currentSong.img"
+          class="img-wrap"
+        >
           <img :src="$utils.genImgUrl(currentSong.img, 80)" />
         </div>
         <div class="content">
@@ -218,7 +221,7 @@ export default {
   display: flex;
   justify-content: space-between;
   height: $mini-player-height;
-  padding: 8px;
+  padding: 8px 16px;
   padding-right: 24px;
   background: var(--body-bgcolor);
 
