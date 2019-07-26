@@ -173,7 +173,6 @@ export default {
         clearTimeout(this.timer)
       }
       this.timer = setTimeout(() => {
-        this.setPlayingState(true)
         this.play()
       }, 1000)
     },

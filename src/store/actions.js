@@ -24,6 +24,7 @@ export default {
       }
       playHistoryCopy.unshift(song)
       commit('setPlayHistory', playHistoryCopy)
+      commit('setPlayingState', true)
       storage.set(HISTORY_KEY, playHistoryCopy)
     } else {
       alert('暂时无法播放')
