@@ -16,6 +16,7 @@
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
 import LayoutMenu from "./menu"
+import { topRoutes } from '@/router'
 
 export default {
   data() {
@@ -27,7 +28,9 @@ export default {
   },
   computed: {
     routerViewCls() {
-      return ['/discovery', '/playlists'].includes(this.$route.path) ? 'router-view-center' : ''
+      return topRoutes.find(({ path }) => path === this.$route.path)
+        ? 'router-view-center'
+        : ''
     }
   }
 }
@@ -46,11 +49,10 @@ export default {
       overflow-y: auto;
       margin-bottom: $mini-player-height;
       padding-bottom: 32px;
-      display: flex;
-      justify-content: center;
 
       .router-view-center {
         max-width: $center-content-width;
+        margin: auto;
       }
     }
   }

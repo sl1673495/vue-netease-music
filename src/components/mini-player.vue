@@ -7,7 +7,7 @@
     <div class="song">
       <template v-if="hasCurrentSong">
         <div class="img-wrap">
-          <img :src="currentSong.img" />
+          <img :src="$utils.genImgUrl(currentSong.img, 80)" />
         </div>
         <div class="content">
           <div class="top">

@@ -27,7 +27,6 @@
 <script type="text/ecmascript-6">
 import logo from "@/assets/logo.png"
 import Theme from '@/components/theme'
-import Tabs from '@/base/tabs'
 import Search from '@/components/search'
 export default {
   created() {
@@ -41,10 +40,10 @@ export default {
         title: '歌单',
         to: '/playlists',
       },
-      // {
-      //   title: '音乐',
-      //   to: '/songs'
-      // }
+      {
+        title: '最新音乐',
+        to: '/songs'
+      }
     ]
   },
   data() {
@@ -57,7 +56,7 @@ export default {
       this.$router.push("/discovery")
     }
   },
-  components: { Theme, Search, Tabs }
+  components: { Theme, Search }
 }
 </script>
 

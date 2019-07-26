@@ -1,14 +1,26 @@
 <template>
-  <div class="playlists">
+  <div
+    class="playlists"
+    v-if="playlists.length"
+  >
     <div
+      v-if="topPlaylist.id"
       class="top-play-list-card"
-      v-if="topPlaylist.id && playlists.length"
     >
       <TopPlaylistCard
         :id="topPlaylist.id"
         :name="topPlaylist.name"
         :img="topPlaylist.coverImgUrl"
         :desc="topPlaylist.description"
+      />
+    </div>
+    <div class="tabs">
+      <Tabs
+        v-model="activeTabIndex"
+        :tabs="tabs"
+        type="small"
+        align="right"
+        @tabChange="onTabChange"
       />
     </div>
     <div class="playlist-cards">
@@ -21,13 +33,12 @@
         :desc="`播放量：${$utils.formatNumber(item.playCount)}`"
       />
     </div>
-    <div
-      class="pagination"
-      v-show="playlists.length"
-    >
+    <div class="pagination">
       <el-pagination
         layout="prev, pager, next"
+        :page-size="PAGE_SIZE"
         :total="total"
+        :current-page.sync="currentPage"
         @current-change="onPageChange"
       >
       </el-pagination>
@@ -43,18 +54,17 @@ import TopPlaylistCard from '@/components/top-playlist-card'
 const PAGE_SIZE = 50
 export default {
   async created() {
-    this.getPlaylists({
-      limit: PAGE_SIZE
-    })
-    this.getTopPlaylists({
-      limit: 1
-    })
+    this.PAGE_SIZE = PAGE_SIZE
+    this.tabs = ['全部', '欧美', '华语', '流行', '说唱', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG', '怀旧', '治愈', '旅行']
+    this.onPageChange(1)
   },
   data() {
     return {
+      activeTabIndex: 0,
       playlists: [],
-      topPlaylist: {},
+      currentPage: 0,
       total: 0,
+      topPlaylist: {},
     }
   },
   methods: {
@@ -68,19 +78,24 @@ export default {
       this.topPlaylist = playlists[0] || {}
     },
     onPageChange(page) {
+      this.currentPage = page
       this.playlists = []
       this.getPlaylists({
         limit: PAGE_SIZE,
-        offset: (page - 1) * PAGE_SIZE
+        offset: (page - 1) * PAGE_SIZE,
+        cat: this.tabs[this.activeTabIndex]
       })
       this.getTopPlaylists({
         limit: 1,
-        before: this.topPlaylist.updateTime
+        cat: this.tabs[this.activeTabIndex]
       })
+    },
+    onTabChange() {
+      this.onPageChange(1)
     }
   },
   components: {
-    PlaylistCard, TopPlaylistCard
+    TopPlaylistCard, PlaylistCard
   }
 }
 </script>
@@ -101,6 +116,7 @@ export default {
   .pagination {
     display: flex;
     justify-content: flex-end;
+    margin-bottom: 36px;
   }
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div class="playlist-detail">
     <DetailHeader :playlist="playlist" />
-    <SongTable :songs="songs" />
+    <SongTable
+      class="table"
+      :songs="songs"
+    />
   </div>
 </template>
 
@@ -38,7 +41,8 @@ export default {
           name,
           artists: ar,
           duration: dt,
-          albumName: al.name
+          albumName: al.name,
+          img: al.picUrl
         })
       )
       this.songs = songs
@@ -51,5 +55,9 @@ export default {
 <style lang="scss" scoped>
 .playlist-detail {
   width: 100%;
+
+  .table {
+    padding-bottom: 36px;
+  }
 }
 </style>
