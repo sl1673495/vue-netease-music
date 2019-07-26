@@ -4,13 +4,8 @@
       <span class="order">0{{order}}</span>
     </div>
     <div class="img-wrap">
-      <img :src="`${img}?param=120y120`" />
-      <div class="play-icon-wrap">
-        <Icon
-          class="play-icon"
-          type="play"
-        />
-      </div>
+      <img :src="$utils.genImgUrl(img, 120)" />
+      <PlayIcon class="play-icon" />
     </div>
     <div class="song-content">
       <p class="song-name">{{name}}</p>
@@ -20,8 +15,10 @@
 </template>
 
 <script>
+import PlayIcon from '@/base/play-icon'
 export default {
-  props: ["order", "name", "img", "artistsText"]
+  props: ["order", "name", "img", "artistsText"],
+  components: { PlayIcon }
 }
 </script>
 
@@ -47,20 +44,11 @@ export default {
       height: 100%;
     }
 
-    .play-icon-wrap {
-      @include flex-center();
+    .play-icon {
       position: absolute;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.5);
-
-      .play-icon {
-        color: $theme-color;
-      }
     }
   }
 

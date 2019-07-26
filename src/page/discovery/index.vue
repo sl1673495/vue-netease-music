@@ -22,13 +22,6 @@ export default {
 
 <style lang="scss" scoped>
 .discovery {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 0 36px;
-
-  .discovery-content {
-    max-width: $center-content-width;
-  }
 }
 </style>

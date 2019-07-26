@@ -2,6 +2,7 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+  font-weight: 300;
 }
 
 html,

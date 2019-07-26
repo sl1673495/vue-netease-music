@@ -1,5 +1,5 @@
 import { Input, Carousel, CarouselItem, Table, TableColumn, Popover, Pagination } from 'element-ui'
-import { formatTime } from './common'
+import * as commonUtils from './common'
 import Icon from '@/base/icon'
 import NButton from '@/base/button'
 export default {
@@ -8,6 +8,8 @@ export default {
     Vue.component('NButton', NButton)
 
     Vue.prototype.$ELEMENT = { size: 'small' };
+    Vue.prototype.$utils = commonUtils
+
     Vue.use(Input)
     Vue.use(Carousel)
     Vue.use(CarouselItem)
@@ -15,7 +17,5 @@ export default {
     Vue.use(TableColumn)
     Vue.use(Popover)
     Vue.use(Pagination)
-
-    Vue.filter('formatTime', formatTime)
   }
 }

@@ -26,7 +26,7 @@
             <span v-else>{{scope.$index + 1}}</span>
           </template>
           <template v-else-if="column.prop === 'durationSecond'">
-            <span>{{ scope.row.durationSecond | formatTime }}</span>
+            <span>{{ $utils.formatTime(scope.row.durationSecond) }}</span>
           </template>
         </template>
 

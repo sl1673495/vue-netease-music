@@ -29,9 +29,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+import storage from 'good-storage'
 import variables from '@/style/themes/variables'
 import variablesWhite from '@/style/themes/variables-white'
-import storage from 'good-storage'
+
 const THEME_KEY = '__theme__'
 export default {
   created() {
@@ -53,7 +54,6 @@ export default {
       },
     }
     this.changeTheme(storage.get(THEME_KEY, 'dark'))
-
   },
   data() {
     return {

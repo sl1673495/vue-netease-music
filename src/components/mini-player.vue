@@ -16,9 +16,9 @@
             <p class="artists">{{currentSong.artistsText}}</p>
           </div>
           <div class="time">
-            <span class="played-time">{{formatTime(currentTime)}}</span>
+            <span class="played-time">{{$utils.formatTime(currentTime)}}</span>
             <span class="split">/</span>
-            <span class="total-time">{{formatTime(currentSong.duration / 1000)}}</span>
+            <span class="total-time">{{$utils.formatTime(currentSong.duration / 1000)}}</span>
           </div>
         </div>
       </template>
@@ -91,12 +91,8 @@
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex"
 import ProgressBar from "@/base/progress-bar"
 import Volume from '@/base/volume'
-import { formatTime } from "@/utils/common"
 
 export default {
-  created() {
-    this.formatTime = formatTime
-  },
   data() {
     return {
       songReady: false,

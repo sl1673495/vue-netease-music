@@ -7,7 +7,7 @@
         id="page-content"
         class="content"
       >
-        <router-view />
+        <router-view :class="routerViewCls" />
       </div>
     </div>
   </div>
@@ -24,6 +24,11 @@ export default {
   components: {
     LayoutHeader,
     LayoutMenu
+  },
+  computed: {
+    routerViewCls() {
+      return ['/discovery', '/playlists'].includes(this.$route.path) ? 'router-view-center' : ''
+    }
   }
 }
 </script>
@@ -41,6 +46,12 @@ export default {
       overflow-y: auto;
       margin-bottom: $mini-player-height;
       padding-bottom: 32px;
+      display: flex;
+      justify-content: center;
+
+      .router-view-center {
+        max-width: $center-content-width;
+      }
     }
   }
 }

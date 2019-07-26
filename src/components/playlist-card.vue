@@ -4,15 +4,15 @@
     class="playlist-card"
   >
     <div class="img-wrap">
-      <img :src="`${img}?param=300y300`" />
+      <img :src="$utils.genImgUrl(img, 300)" />
       <div
         v-if="desc"
         class="desc-wrap"
       >
         <span class="desc">{{desc}}</span>
       </div>
-      <Icon
-        type="bofang"
+      <PlayIcon
+        :size="36"
         class="play-icon"
       />
     </div>
@@ -21,13 +21,16 @@
 </template>
 
 <script>
+import PlayIcon from '@/base/play-icon'
+
 export default {
   props: ["id", "img", "name", "desc"],
   methods: {
     onClickCard() {
       this.$router.push(`/playlist/${this.id}`)
     }
-  }
+  },
+  components: { PlayIcon }
 }
 </script>
 

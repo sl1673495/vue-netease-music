@@ -49,4 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.playlist-detail {
+  width: 100%;
+}
 </style>
