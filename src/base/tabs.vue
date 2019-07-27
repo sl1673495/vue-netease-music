@@ -19,25 +19,25 @@
 </template>
 
 <script type="text/ecmascript-6">
-const ACTIVE_PROP = 'active'
-const ACTIVE_CHANGE = 'tabChange'
+const ACTIVE_PROP = "active"
+const ACTIVE_CHANGE = "tabChange"
 
 const typeStyleMap = {
   small: {
-    itemStyle: { fontSize: '12px' },
-    activeItemStyle: { color: '#d33a31' }
+    itemStyle: { fontSize: "12px" },
+    activeItemStyle: { color: "#d33a31" }
   }
 }
 
 export default {
-  name: 'Tabs',
+  name: "Tabs",
   created() {
     this.ACTIVE_PROP = ACTIVE_PROP
   },
   props: {
     [ACTIVE_PROP]: {
       type: Number,
-      default: 0,
+      default: 0
     },
     tabs: {
       type: Array,
@@ -45,7 +45,7 @@ export default {
     },
     align: {
       type: String,
-      default: 'left'
+      default: "left"
     },
     itemStyle: {
       type: Object,
@@ -56,7 +56,7 @@ export default {
       default: () => ({})
     },
     type: {
-      type: String,
+      type: String
     }
   },
   model: {
@@ -83,8 +83,8 @@ export default {
       return false
     },
     getActiveCls(tab, index) {
-      const ACTIVE_CLS = 'active'
-      return this.isActive(tab, index) ? ACTIVE_CLS : ''
+      const ACTIVE_CLS = "active"
+      return this.isActive(tab, index) ? ACTIVE_CLS : ""
     },
     getTabItemStyle(tab, index) {
       return Object.assign(
@@ -93,10 +93,10 @@ export default {
         this.itemStyle,
         this.isActive(tab, index)
           ? Object.assign(
-            {},
-            (typeStyleMap[this.type] || {}).activeItemStyle,
-            this.activeItemStyle
-          )
+              {},
+              (typeStyleMap[this.type] || {}).activeItemStyle,
+              this.activeItemStyle
+            )
           : null
       )
     }
@@ -106,11 +106,11 @@ export default {
       return this.tabs.length && !!this.tabs[0].to
     },
     normalizedTabs() {
-      return typeof this.tabs[0] === 'string'
+      return typeof this.tabs[0] === "string"
         ? this.tabs.map(tab => ({ title: tab }))
         : this.tabs
-    },
-  },
+    }
+  }
 }
 </script>
 
@@ -118,7 +118,6 @@ export default {
 .tab-wrap {
   // padding: 12px;
   display: flex;
-  flex-wrap: wrap;
 
   &.center {
     justify-content: center;
@@ -132,6 +131,7 @@ export default {
     padding: 12px;
     color: var(--tab-item-color);
     font-size: $font-size-medium;
+    white-space: nowrap;
     cursor: pointer;
 
     &.active {

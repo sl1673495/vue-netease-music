@@ -35,25 +35,25 @@
 
 <script type="text/ecmascript-6">
 import logo from "@/assets/logo.png"
-import Theme from '@/components/theme'
-import Search from '@/components/search'
-import { mapState, mapMutations } from 'vuex'
+import Theme from "@/components/theme"
+import Search from "@/components/search"
+import { mapState, mapMutations } from "vuex"
 
 export default {
   created() {
     this.logo = logo
     this.tabs = [
       {
-        title: '个性推荐',
-        to: '/discovery',
+        title: "个性推荐",
+        to: "/discovery"
       },
       {
-        title: '歌单',
-        to: '/playlists',
+        title: "歌单",
+        to: "/playlists"
       },
       {
-        title: '最新音乐',
-        to: '/songs'
+        title: "最新音乐",
+        to: "/songs"
       }
     ]
   },
@@ -64,10 +64,10 @@ export default {
     onClickDown() {
       this.setPlayerShow(false)
     },
-    ...mapMutations(['setPlayerShow'])
+    ...mapMutations(["setPlayerShow"])
   },
   computed: {
-    ...mapState(['isPlayerShow'])
+    ...mapState(["isPlayerShow"])
   },
   components: { Theme, Search }
 }
@@ -93,6 +93,7 @@ export default {
       margin-right: 36px;
       font-size: $font-size-title;
       color: var(--font-color-white);
+      white-space: nowrap;
       cursor: pointer;
 
       .logo {
@@ -100,6 +101,10 @@ export default {
         height: 30px;
         margin-right: 8px;
       }
+    }
+
+    .font-weight {
+      white-space: nowrap;
     }
   }
 
