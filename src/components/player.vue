@@ -141,10 +141,8 @@ export default {
     clearTimer(type) {
       this.lyricTimer[type] && clearTimeout(this.lyricTimer[type])
     },
-    onCommentPageChange(page) {
-      if (page > 1) {
-        this.$refs.comments.$el.scrollIntoView({ behavior: "smooth" })
-      }
+    onCommentPageChange() {
+      this.$refs.comments.$el.scrollIntoView({ behavior: "smooth" })
     },
     /**
      * 计算内层Image的transform，并同步到外层容器
