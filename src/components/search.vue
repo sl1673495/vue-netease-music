@@ -53,6 +53,7 @@
                 class="button"
                 :key="index"
                 v-for="(hot, index) in searchHots"
+                @click="onClickHot(hot)"
               >
                 {{hot.first}}
               </NButton>
@@ -86,15 +87,17 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapActions, mapMutations } from 'vuex'
-import LeaveHide from '@/base/leave-hide'
-import { getSearchHot, getSearchSuggest } from '@/api/search'
-import { getAlbum } from '@/api/album'
-import { createSong, genArtistisText } from '@/utils/song'
-import { debounce } from '@/utils/common'
+import { mapActions, mapMutations } from "vuex"
+import LeaveHide from "@/base/leave-hide"
+import { getSearchHot, getSearchSuggest } from "@/api/search"
+import { getAlbum } from "@/api/album"
+import { createSong, genArtistisText } from "@/utils/song"
+import { debounce } from "@/utils/common"
 export default {
   async created() {
-    const { result: { hots } } = await getSearchHot()
+    const {
+      result: { hots }
+    } = await getSearchHot()
     this.searchHots = hots
   },
   mounted() {
@@ -103,15 +106,15 @@ export default {
   data() {
     return {
       searchPanelShow: false,
-      searchKeyword: '',
+      searchKeyword: "",
       searchHots: [],
       searchHistorys: [],
       suggest: {},
-      reserveDoms: [],
+      reserveDoms: []
     }
   },
   methods: {
-    onInput: debounce(function (value) {
+    onInput: debounce(function(value) {
       if (!value.trim()) {
         return
       }
@@ -125,12 +128,29 @@ export default {
     onBlur() {
       this.searchPanelShow = false
     },
+    onClickHot(hot) {
+      const { first } = hot
+      this.searchKeyword = first
+      this.onInput(first)
+    },
     async onClickSong(item) {
-      const { id, name, artists, duration, album: { id: albumId } } = item
+      const {
+        id,
+        name,
+        artists,
+        duration,
+        album: { id: albumId }
+      } = item
       const { songs } = await getAlbum(albumId)
-      const { al: { picUrl } } = songs.find(({ id: songId }) => songId === id) || {}
+      const {
+        al: { picUrl }
+      } = songs.find(({ id: songId }) => songId === id) || {}
       const song = createSong({
-        id, name, artists, duration, img: picUrl
+        id,
+        name,
+        artists,
+        duration,
+        img: picUrl
       })
       this.startSong(song)
       this.setPlaylist({ data: [song] })
@@ -140,30 +160,34 @@ export default {
       this.$router.push(`/playlist/${id}`)
       this.searchPanelShow = false
     },
-    ...mapMutations(['setPlaylist']),
+    ...mapMutations(["setPlaylist"]),
     ...mapActions(["startSong"])
   },
   computed: {
     suggestShow() {
-      return this.searchKeyword.length && (
-        ['songs', 'playlists'].find(key => {
+      return (
+        this.searchKeyword.length &&
+        ["songs", "playlists"].find(key => {
           return this.suggest[key] && this.suggest[key].length
         })
       )
     },
     normalizedSuggests() {
-      return [{
-        title: '单曲',
-        data: this.suggest.songs,
-        renderName(song) {
-          return `${song.name} - ${genArtistisText(song.artists)}`
+      return [
+        {
+          title: "单曲",
+          data: this.suggest.songs,
+          renderName(song) {
+            return `${song.name} - ${genArtistisText(song.artists)}`
+          },
+          onClick: this.onClickSong.bind(this)
         },
-        onClick: this.onClickSong.bind(this)
-      }, {
-        title: '歌单',
-        data: this.suggest.playlists,
-        onClick: this.onClickPlaylist.bind(this)
-      }].filter(item => item.data && item.data.length)
+        {
+          title: "歌单",
+          data: this.suggest.playlists,
+          onClick: this.onClickPlaylist.bind(this)
+        }
+      ].filter(item => item.data && item.data.length)
     }
   },
   components: {
