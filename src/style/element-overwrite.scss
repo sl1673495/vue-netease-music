@@ -29,7 +29,7 @@
   transition: background-color 0s !important;
 
   .cell {
-    white-space: nowrap!important;;
+    white-space: nowrap !important;
   }
 }
 .el-table td,
@@ -83,8 +83,10 @@ $input-height: 24px;
 }
 
 // pagination
-.el-pagination, .el-pagination button, .el-pager li {
-  background: var(--body-bgcolor) !important;
+.el-pagination,
+.el-pagination button,
+.el-pager li {
+  background: inherit !important;
   color: var(--font-color) !important;
 
   .active {

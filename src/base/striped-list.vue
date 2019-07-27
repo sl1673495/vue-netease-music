@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: 'StripedList',
   props: {
     source: {
       type: Array,
@@ -48,6 +49,6 @@ export default {
 }
 
 .stripe-deep {
-  background: $body-bgcolor;
+  background: var(--body-bgcolor);
 }
 </style>

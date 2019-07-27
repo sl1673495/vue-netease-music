@@ -11,7 +11,16 @@
         />
         <span>云音乐</span>
       </div>
-      <div class="nav-wrap">
+      <div
+        @click="onClickDown"
+        v-if="isPlayerShow"
+      >
+        <Icon type="down" />
+      </div>
+      <div
+        v-else
+        class="nav-wrap"
+      >
         <Tabs :tabs="tabs" />
       </div>
     </div>
@@ -28,6 +37,8 @@
 import logo from "@/assets/logo.png"
 import Theme from '@/components/theme'
 import Search from '@/components/search'
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   created() {
     this.logo = logo
@@ -46,15 +57,17 @@ export default {
       }
     ]
   },
-  data() {
-    return {
-
-    }
-  },
   methods: {
     onClickLogo() {
       this.$router.push("/discovery")
-    }
+    },
+    onClickDown() {
+      this.setPlayerShow(false)
+    },
+    ...mapMutations(['setPlayerShow'])
+  },
+  computed: {
+    ...mapState(['isPlayerShow'])
   },
   components: { Theme, Search }
 }

@@ -8,7 +8,6 @@ export default {
   ['--font-color-white']: '#333333',
   ['--font-color-grey']: '#5c5c5c',
   ['--font-color-grey-shallow']: '#BEBEBE',
-
   ['--border']: '#f2f2f1',
 
   ['--header-bgcolor']: '#F9F9F9',
@@ -35,4 +34,7 @@ export default {
   ['--tab-item-color']: '#7F7F81',
   ['--tab-item-hover-color']: '#343434',
   ['--tab-item-active-color']: '#000',
+
+  //song-detail
+  ['--song-shallow-grey-bg']: '#E6E5E6',
 }

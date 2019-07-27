@@ -1,6 +1,8 @@
 $theme-color: #d33a31;
+$black: #000;
 $white: #fff;
-$gold: #E7AA5A;
+$gold: #e7aa5a;
+$blue: #517eaf;
 
 $font-size: 14px;
 $font-size-medium: 15px;
@@ -8,10 +10,13 @@ $font-size-lg: 16px;
 $font-size-sm: 12px;
 $font-size-xs: 10px;
 $font-size-title: 18px;
+$font-size-title-lg: 24px;
 
-$font-color-transparent: rgba(255,255,255, 0.5);
+$font-weight-bold: 500;
 
-$border: 1px solid #3F3F3F;
+$font-color-transparent: rgba(255, 255, 255, 0.5);
+
+$border: 1px solid #3f3f3f;
 
 // content
 $center-content-width: 1000px;
@@ -20,10 +25,13 @@ $header-height: 50px;
 
 // mini-player
 $mini-player-height: 60px;
-$mini-player-z-index: 4;
+$mini-player-z-index: 5;
 
 //playlist
-$playlist-z-index: 3;
+$playlist-z-index: 4;
 
 //search
-$search-panel-z-index: 3;
+$search-panel-z-index: 4;
+
+//song-detail
+$song-detail-z-index: 3;

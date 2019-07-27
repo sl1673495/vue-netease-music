@@ -3,6 +3,7 @@ body {
   height: 100%;
   overflow: hidden;
   font-weight: 300;
+  font-family: PingFang SC, STHeitiSC-Light, Helvetica-Light, arial, sans-serif;
 }
 
 html,
@@ -122,7 +123,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -177,7 +178,7 @@ select {
   vertical-align: middle;
 }
 
-img[src=''],
+img[src=""],
 img:not([src]) {
   opacity: 0;
 }

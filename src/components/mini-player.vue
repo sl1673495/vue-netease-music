@@ -9,8 +9,19 @@
         <div
           v-if="currentSong.img"
           class="img-wrap"
+          @click="togglePlayerShow"
         >
-          <img :src="$utils.genImgUrl(currentSong.img, 80)" />
+          <img
+            class="blur"
+            :src="$utils.genImgUrl(currentSong.img, 80)"
+          />
+          <div class="player-control">
+            <Icon
+              :size="24"
+              :type="playControlIcon"
+              color="white"
+            />
+          </div>
         </div>
         <div class="content">
           <div class="top">
@@ -99,12 +110,11 @@ export default {
   data() {
     return {
       songReady: false,
-      currentTime: 0
     }
   },
   methods: {
     togglePlaying() {
-      if (!this.currentSong) {
+      if (!this.currentSong.id) {
         return
       }
       this.setPlayingState(!this.playing)
@@ -124,7 +134,7 @@ export default {
     },
     updateTime(e) {
       const time = e.target.currentTime
-      this.currentTime = time
+      this.setCurrentTime(time)
     },
     prev() {
       if (this.songReady) {
@@ -148,7 +158,10 @@ export default {
     togglePlaylistShow() {
       this.setPlaylistShow(!this.isPlaylistShow)
     },
-    ...mapMutations(["setPlayingState", "setPlaylistShow"]),
+    togglePlayerShow() {
+      this.setPlayerShow(!this.isPlayerShow)
+    },
+    ...mapMutations(["setCurrentTime", "setPlayingState", "setPlaylistShow", "setPlayerShow"]),
     ...mapActions(["startSong"])
   },
   watch: {
@@ -162,7 +175,7 @@ export default {
       // 单曲循环
       if (oldSong) {
         if (newSong.id === oldSong.id) {
-          this.currentTime = 0
+          this.setCurrentTime(0)
           this.audio.currentTime = 0
           this.play()
           return
@@ -177,9 +190,6 @@ export default {
       }, 1000)
     },
     playing(newPlaying) {
-      if (!this.songReady) {
-        return
-      }
       this.$nextTick(() => {
         newPlaying ? this.play() : this.pause()
       })
@@ -200,7 +210,10 @@ export default {
       const { durationSecond } = this.currentSong
       return Math.min(this.currentTime / durationSecond, 1)
     },
-    ...mapState(["currentSong", "playing", "isPlaylistShow", "isPlaylistPromptShow"]),
+    playControlIcon() {
+      return this.isPlayerShow ? 'shrink' : 'open'
+    },
+    ...mapState(["currentSong", "currentTime", "playing", "isPlaylistShow", "isPlaylistPromptShow", "isPlayerShow"]),
     ...mapGetters(["prevSong", "nextSong"])
   },
   components: {
@@ -226,20 +239,31 @@ export default {
 
   .song {
     display: flex;
+    flex: 4;
+    overflow: hidden;
 
     .img-wrap {
-      width: 40px;
-      height: 40px;
+      position: relative;
       margin-right: 8px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      @include img-wrap(40px);
 
       img {
-        width: 100%;
-        height: 100%;
-        border-radius: 6px;
+        &.blur {
+          filter: blur(4px);
+        }
+      }
+
+      .player-control {
+        @include abs-center;
       }
     }
 
     .content {
+      flex: 1;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -247,9 +271,11 @@ export default {
       .top {
         display: flex;
         align-items: flex-end;
+        white-space: nowrap;
 
         .name {
           color: var(--font-color-white);
+          @include text-ellipsis;
         }
 
         .split {
@@ -259,6 +285,7 @@ export default {
 
         .artists {
           font-size: $font-size-xs;
+          @include text-ellipsis;
         }
       }
 
@@ -294,6 +321,9 @@ export default {
       i {
         color: #fff;
       }
+      .icon-play {
+        transform: translateX(1px);
+      }
     }
 
     .icon {
@@ -304,6 +334,8 @@ export default {
   .mode {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    flex: 6;
   }
 
   .progress-bar-wrap {

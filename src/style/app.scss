@@ -2,8 +2,8 @@
  ** 应用级别的一些样式
  **/
 
-::selection  {
-  background-color:$theme-color;
+::selection {
+  background-color: $theme-color;
   color: white;
 }
 
@@ -22,3 +22,12 @@
   background-color: var(--menu-bgcolor);
 }
 
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s;
+  transform: none;
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(100%);
+}

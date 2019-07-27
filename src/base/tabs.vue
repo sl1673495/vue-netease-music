@@ -30,6 +30,7 @@ const typeStyleMap = {
 }
 
 export default {
+  name: 'Tabs',
   created() {
     this.ACTIVE_PROP = ACTIVE_PROP
   },

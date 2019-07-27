@@ -26,6 +26,7 @@
 @mixin img-wrap($width, $height: $width) {
   width: $width;
   height: $height;
+  flex-shrink: 0;
 
   img {
     width: 100%;
@@ -46,4 +47,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+@mixin round($d) {
+  width: $d;
+  height: $d;
+  border-radius: 50%;
 }

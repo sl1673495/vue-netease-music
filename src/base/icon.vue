@@ -8,6 +8,7 @@
 
 <script type="text/ecmascript-6">
 export default {
+  name: 'Icon',
   props: ["size", "type", "color"],
   methods: {
     getIconCls() {
@@ -29,5 +30,9 @@ export default {
 
 .icon-color-theme {
   color: $theme-color;
+}
+
+.icon-color-white {
+  color: $white;
 }
 </style>

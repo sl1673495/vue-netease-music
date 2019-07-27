@@ -8,6 +8,7 @@
 import { hasParent } from '@/utils/dom'
 
 export default {
+  name: 'LeaveHide',
   props: {
     show: {
       type: Boolean,

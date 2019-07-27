@@ -19,6 +19,7 @@
 <script type="text/ecmascript-6">
 import ProgressBar from '@/base/progress-bar'
 export default {
+  name: 'Volume',
   data() {
     return {
       volumePercent: 1
