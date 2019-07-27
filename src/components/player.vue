@@ -234,6 +234,9 @@ export default {
           scroller.getScroller().scrollToElement(lyric[newIndex], 200, 0, true)
         }
       }
+    },
+    $route() {
+      this.setPlayerShow(false)
     }
   },
   components: {
