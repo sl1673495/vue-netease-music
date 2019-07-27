@@ -42,6 +42,7 @@ export default {
         handleError()
       }
     }, (e) => {
+      handleLoading()
       handleError(e)
     })
 
