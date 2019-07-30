@@ -35,4 +35,8 @@ export default {
 .icon-color-white {
   color: $white;
 }
+
+.icon-color-shallow {
+  color: var(--font-color-shallow-grey);
+}
 </style>

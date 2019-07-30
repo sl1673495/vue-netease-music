@@ -103,6 +103,7 @@
                       <Icon
                         :size="12"
                         type="play"
+                        color="shallow"
                       />
                       <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
                     </div>
