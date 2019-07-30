@@ -64,11 +64,10 @@ export default {
     changeTheme(themeKey) {
       storage.set(THEME_KEY, themeKey)
       const theme = this.themeMap[themeKey].file
-      const themeStyleText = Object.keys(theme).reduce((total, currentKey) => {
-        total += `${currentKey}: ${theme[currentKey]};`
-        return total
-      }, '')
-      document.documentElement.style.cssText = themeStyleText;
+      Object.keys(theme).forEach(key => {
+        const value = theme[key]
+        document.documentElement.style.setProperty(key, value)
+      })
     }
   },
   components: {

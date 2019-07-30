@@ -12,6 +12,23 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    !function () {
+      var calc = function () {
+        var remBase = 14
+        var maxFontSize = 18
+        var minFontSize = 14
+        var html = document.getElementsByTagName("html")[0]
+        var width = html.clientWidth
+        var size = remBase * (width / 1440)
+        size = Math.min(maxFontSize, size)
+        size = Math.max(minFontSize, size)
+        html.style.fontSize = size + "px";
+
+      }
+      calc()
+      window.addEventListener('resize', calc)
+    }()  </script>
   <!-- built files will be auto injected -->
 </body>
 
