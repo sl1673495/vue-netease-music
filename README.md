@@ -28,6 +28,7 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 * 主题换肤用的css变量替换。
 * ES 6 / 7 （JavaScript 语言的下一代标准）
 * Sass（CSS预处理器）
+* postcss-pxtorem（自动处理rem，妈妈再也不用担心屏幕太大太小了）
 
 ### Screenshots
 
