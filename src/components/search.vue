@@ -114,7 +114,7 @@ export default {
     }
   },
   methods: {
-    onInput: debounce(function(value) {
+    onInput: debounce(function (value) {
       if (!value.trim()) {
         return
       }
@@ -153,7 +153,7 @@ export default {
         img: picUrl
       })
       this.startSong(song)
-      this.setPlaylist({ data: [song] })
+      this.addToPlaylist(song)
     },
     onClickPlaylist(item) {
       const { id } = item
@@ -161,7 +161,7 @@ export default {
       this.searchPanelShow = false
     },
     ...mapMutations(["setPlaylist"]),
-    ...mapActions(["startSong"])
+    ...mapActions(["startSong", 'addToPlaylist'])
   },
   computed: {
     suggestShow() {
