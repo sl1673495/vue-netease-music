@@ -14,6 +14,7 @@
         :tabs="tabs"
       />
       <el-input
+        v-show="activeTab === SONG_IDX"
         prefix-icon="el-icon-search"
         class="input"
         :class="getInputCls()"
