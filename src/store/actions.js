@@ -38,5 +38,11 @@ export default {
     const history = []
     commit('setPlayHistory', history)
     storage.set(HISTORY_KEY, history)
+  },
+  addToPlaylist({ commit, state }, song) {
+    const { playlist } = state
+    const copy = playlist.slice()
+    copy.unshift(song)
+    commit('setPlaylist', { data: copy })
   }
 }

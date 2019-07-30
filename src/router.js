@@ -11,11 +11,11 @@ export const topRoutes = [{
   path: '/discovery',
   name: 'discovery',
   component: Discovery
-},{
+}, {
   path: '/playlists',
   name: 'playlists',
   component: Playlists
-},   
+},
 {
   path: '/songs',
   name: 'songs',
@@ -30,9 +30,9 @@ export default new Router({
       path: '/',
       redirect: '/discovery'
     },
-    
+
     {
-      path: '/playlist/:listId',
+      path: '/playlist/:id',
       name: 'playlist',
       component: PlaylistDetail
     },

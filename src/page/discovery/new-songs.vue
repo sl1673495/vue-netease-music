@@ -88,13 +88,5 @@ export default {
   .list {
     flex: 1;
   }
-
-  .song-card {
-    cursor: pointer;
-
-    &:hover {
-      background: var(--light-bgcolor);
-    }
-  }
 }
 </style>

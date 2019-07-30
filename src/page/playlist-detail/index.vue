@@ -28,8 +28,8 @@ export default {
   },
   methods: {
     async init() {
-      const { listId } = this.$route.params
-      const { playlist } = await getListDetail({ id: listId })
+      const { id } = this.$route.params
+      const { playlist } = await getListDetail({ id })
       this.playlist = playlist
       this.genSonglist(playlist)
     },

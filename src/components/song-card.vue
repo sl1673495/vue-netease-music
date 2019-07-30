@@ -27,7 +27,11 @@ export default {
   display: flex;
   padding: 8px;
   font-size: $font-size-sm;
+  cursor: pointer;
 
+  &:hover {
+    background: var(--light-bgcolor);
+  }
   .order-wrap {
     @include flex-center();
     width: 30px;

@@ -31,3 +31,13 @@
 .slide-leave-to {
   transform: translateY(100%);
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+  opacity: 1;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

@@ -252,7 +252,7 @@ export default {
 
       img {
         &.blur {
-          filter: blur(4px);
+          filter: blur(2px);
         }
       }
 

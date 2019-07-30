@@ -68,11 +68,69 @@
           </div>
         </div>
         <div class="bottom">
-          <Comments
-            ref="comments"
-            @pageChange="onCommentPageChange"
-            :id="currentSong.id"
-          />
+          <div class="left">
+            <Comments
+              ref="comments"
+              @pageChange="onCommentPageChange"
+              :id="currentSong.id"
+            />
+          </div>
+          <div
+            class="right"
+            v-if="simiPlaylists.concat(simiSongs).length"
+          >
+            <Loading
+              v-if="simiLoading"
+              :loading="simiLoading"
+            />
+            <div v-else>
+              <div
+                class="simi-playlists"
+                v-if="simiPlaylists.length"
+              >
+                <p class="title">
+                  包含这首歌的歌单
+                </p>
+                <Card
+                  v-for="simiPlaylist in simiPlaylists"
+                  :key="simiPlaylist.id"
+                  :img="simiPlaylist.coverImgUrl"
+                  :name="simiPlaylist.name"
+                  @click="onClickPlaylist(simiPlaylist.id)"
+                >
+                  <template v-slot:desc>
+                    <div class="desc">
+                      <Icon
+                        :size="12"
+                        type="play"
+                      />
+                      <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
+                    </div>
+                  </template>
+                </Card>
+              </div>
+              <div
+                class="simi-songs"
+                v-if="simiSongs.length"
+              >
+                <p class="title">
+                  相似歌曲
+                </p>
+                <Card
+                  v-for="simiSong in simiSongs"
+                  :key="simiSong.id"
+                  :img="simiSong.img"
+                  :name="simiSong.name"
+                  :desc="simiSong.artistsText"
+                  @click="onClickSong(simiSong)"
+                >
+                  <template v-slot:img-mask>
+                    <PlayIcon class="play-icon" />
+                  </template>
+                </Card>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -81,12 +139,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getLyric } from '@/api/song'
+import { getLyric, getSimiSongs } from '@/api/song'
+import { getSimiPlaylists } from '@/api/playlist'
 import lyricParser from '@/utils/lrcparse'
 import { prefixStyle } from "@/utils/dom"
+import { createSong } from '@/utils/song'
 
 import Comments from '@/components/comments'
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 const WHEEL_TYPE = 'wheel'
 const SCROLL_TYPE = 'scroll'
@@ -106,16 +166,37 @@ export default {
     return {
       rawLyric: '',
       lyric: [],
-      tlyric: []
+      tlyric: [],
+      simiLoading: false,
+      simiPlaylists: [],
+      simiSongs: [],
     }
   },
   methods: {
+    async updateSong() {
+      this.updateLyric()
+      this.updateSimi()
+    },
     async updateLyric() {
       const lrc = await getLyric(this.currentSong.id)
       const { lyric, tlyric } = lyricParser(lrc)
       this.rawLyric = lrc.lrc.lyric
       this.lyric = lyric
       this.tlyric = tlyric
+    },
+    async updateSimi() {
+      this.simiLoading = true
+      const [simiPlaylists, simiSongs] = await Promise.all([
+        getSimiPlaylists(this.currentSong.id, { showLoading: false }),
+        getSimiSongs(this.currentSong.id, { showLoading: false })
+      ]).finally(() => {
+        this.simiLoading = false
+      })
+      this.simiPlaylists = simiPlaylists.playlists
+      this.simiSongs = simiSongs.songs.map(song => {
+        const { id, name, artists, album: { picUrl }, duration } = song
+        return createSong({ id, name, artists, duration, img: picUrl })
+      })
     },
     getActiveCls(index) {
       return this.activeLyricIndex === index ? 'active' : ''
@@ -159,7 +240,20 @@ export default {
       let iTransform = getComputedStyle(image)[transform]
       imageWrapper.style[transform] = wTransform === 'none' ? iTransform : iTransform.concat(' ', wTransform)
     },
-    ...mapMutations(['setPlayerShow'])
+    onClickPlaylist(id) {
+      // 点击的歌单和当前打开的个单页是同一个 直接关闭player
+      if (id === Number(this.$route.params.id)) {
+        this.setPlayerShow(false)
+      } else {
+        this.$router.push(`/playlist/${id}`)
+      }
+    },
+    onClickSong(song) {
+      this.startSong(song)
+      this.addToPlaylist(song)
+    },
+    ...mapMutations(['setPlayerShow']),
+    ...mapActions(['startSong', 'addToPlaylist'])
   },
   computed: {
     activeLyricIndex() {
@@ -205,6 +299,12 @@ export default {
     ...mapState(['currentSong', "currentTime", "playing", "isPlayerShow"])
   },
   watch: {
+    isPlayerShow(show) {
+      if (show) {
+        // 歌词短期内不会变化 所以只拉取相似信息
+        this.updateSimi()
+      }
+    },
     playing(newPlaying) {
       if (!newPlaying) {
         this.syncWrapperTransform('disc', 'discRotate')
@@ -218,7 +318,13 @@ export default {
       if (newSong.id === oldSong.id) {
         return
       }
-      this.updateLyric()
+      // 如果歌曲详情显示状态切歌 需要拉取歌曲相关信息
+      if (this.isPlayerShow) {
+        this.updateSong()
+      } else {
+        // 否则只是更新歌词
+        this.updateLyric()
+      }
     },
     activeLyricIndex(newIndex, oldIndex) {
       if (
@@ -274,8 +380,7 @@ export default {
       display: flex;
 
       .left {
-        padding-top: 80px;
-        flex: 0 0 400px;
+        padding: 80px 70px 0 36px;
         display: flex;
         justify-content: center;
 
@@ -309,7 +414,6 @@ export default {
 
         .name {
           font-size: $font-size-title-lg;
-          font-weight: $font-weight-bold;
           color: var(--font-color-white);
           margin-bottom: 16px;
         }
@@ -349,8 +453,10 @@ export default {
 
           .lyric-item {
             margin-bottom: 16px;
+            font-size: $font-size-sm;
 
             &.active {
+              font-size: $font-size;
               color: var(--font-color-white);
               font-weight: $font-weight-bold;
             }
@@ -364,7 +470,43 @@ export default {
     }
 
     .bottom {
+      display: flex;
       margin-top: 48px;
+
+      .left {
+        flex: 1;
+      }
+
+      .right {
+        padding-left: 36px;
+        width: 28%;
+        overflow: hidden;
+
+        .simi-playlists {
+          margin-bottom: 36px;
+        }
+
+        .simi-songs {
+          .play-icon {
+            @include abs-center;
+          }
+        }
+
+        .title {
+          font-size: $font-size-lg;
+          font-weight: $font-weight-bold;
+          margin-bottom: 12px;
+        }
+
+        .desc {
+          display: flex;
+          align-items: center;
+
+          .count {
+            margin-left: 4px;
+          }
+        }
+      }
     }
   }
 }
