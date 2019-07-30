@@ -451,6 +451,15 @@ export default {
         .lyric-wrap {
           width: 380px;
           height: 350px;
+          mask-image: linear-gradient(
+            180deg,
+            hsla(0, 0%, 100%, 0) 0,
+            hsla(0, 0%, 100%, 0.6) 15%,
+            #fff 25%,
+            #fff 75%,
+            hsla(0, 0%, 100%, 0.6) 85%,
+            hsla(0, 0%, 100%, 0)
+          );
 
           .lyric-item {
             margin-bottom: 16px;

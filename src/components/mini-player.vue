@@ -7,10 +7,10 @@
     <div class="song">
       <template v-if="hasCurrentSong">
         <div
-          v-if="currentSong.img"
           class="img-wrap"
           @click="togglePlayerShow"
         >
+          <div class="mask"></div>
           <img
             class="blur"
             :src="$utils.genImgUrl(currentSong.img, 80)"
@@ -258,6 +258,11 @@ export default {
 
       .player-control {
         @include abs-center;
+      }
+
+      .mask {
+        @include abs-stretch;
+        background: rgba(0, 0, 0, 0.2);
       }
     }
 

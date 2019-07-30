@@ -20,7 +20,19 @@
           {{playlist.createTime}}创建
         </p>
       </div>
-      <div class="action-wrap"></div>
+      <div class="action-wrap">
+        <NButton
+          @click="playAll"
+          class="button"
+        >
+          <Icon
+            class="icon middle"
+            type="play-round"
+            color="white"
+          />
+          <span class="middle">播放全部</span>
+        </NButton>
+      </div>
       <div class="desc-wrap">
         <p
           class="desc"
@@ -40,7 +52,7 @@
           <span class="label">
             简介:
           </span>
-          <span>
+          <span class="value">
             {{playlist.description}}
           </span>
         </p>
@@ -50,12 +62,25 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
 export default {
   props: {
     playlist: {
       type: Object,
       default: () => ({})
+    },
+    songs: {
+      type: Array,
+      default: () => []
     }
+  },
+  methods: {
+    playAll() {
+      this.startSong(this.songs[0])
+      this.setPlaylist({ data: this.songs })
+    },
+    ...mapMutations(['setPlaylist']),
+    ...mapActions(['startSong']),
   },
   computed: {
     tagsText() {
@@ -98,6 +123,25 @@ export default {
       }
     }
 
+    .action-wrap {
+      margin-bottom: 18px;
+
+      .button {
+        background: #f95043;
+        background: linear-gradient(to right, #fa5143, #f44d41, #d53b32);
+        color: #fbdfdd;
+        border: none;
+
+        .icon {
+          margin-right: 4px;
+        }
+
+        .middle {
+          vertical-align: middle;
+        }
+      }
+    }
+
     .creator-wrap {
       display: flex;
       align-items: center;
@@ -125,6 +169,10 @@ export default {
       .label {
         display: inline-block;
         margin-right: 8px;
+      }
+
+      .value {
+        @include text-ellipsis-multi(3);
       }
     }
   }

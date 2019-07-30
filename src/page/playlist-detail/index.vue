@@ -1,6 +1,9 @@
 <template>
   <div class="playlist-detail">
-    <DetailHeader :playlist="playlist" />
+    <DetailHeader
+      :songs="songs"
+      :playlist="playlist"
+    />
     <SongTable
       class="table"
       :songs="songs"
@@ -17,8 +20,7 @@ import { getSongDetail } from "@/api/song"
 const MAX = 500
 export default {
   async created() {
-    this.init()
-    this.$watch('$route.params', this.init)
+    this.$watch('$route.params', this.init, { immediate: true })
   },
   data() {
     return {
