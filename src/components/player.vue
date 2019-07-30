@@ -71,7 +71,6 @@
           <div class="left">
             <Comments
               ref="comments"
-              @pageChange="onCommentPageChange"
               :id="currentSong.id"
             />
           </div>
@@ -188,8 +187,8 @@ export default {
     async updateSimi() {
       this.simiLoading = true
       const [simiPlaylists, simiSongs] = await Promise.all([
-        getSimiPlaylists(this.currentSong.id, { showLoading: false }),
-        getSimiSongs(this.currentSong.id, { showLoading: false })
+        getSimiPlaylists(this.currentSong.id),
+        getSimiSongs(this.currentSong.id)
       ]).finally(() => {
         this.simiLoading = false
       })
@@ -222,9 +221,6 @@ export default {
     },
     clearTimer(type) {
       this.lyricTimer[type] && clearTimeout(this.lyricTimer[type])
-    },
-    onCommentPageChange() {
-      this.$refs.comments.$el.scrollIntoView({ behavior: "smooth" })
     },
     /**
      * 计算内层Image的transform，并同步到外层容器

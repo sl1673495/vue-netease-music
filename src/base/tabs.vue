@@ -7,9 +7,9 @@
       v-for="(tab, index) in normalizedTabs"
       :key="index"
       class="tab-item"
-      :class="getActiveCls(tab, index)"
+      :class="getItemCls(tab, index)"
       @click="onChangeTab(tab, index)"
-      :style="getTabItemStyle(tab, index)"
+      :style="getItemStyle(tab, index)"
     >
       <span class="title">
         {{tab.title}}
@@ -21,13 +21,6 @@
 <script type="text/ecmascript-6">
 const ACTIVE_PROP = "active"
 const ACTIVE_CHANGE = "tabChange"
-
-const typeStyleMap = {
-  small: {
-    itemStyle: { fontSize: "12px" },
-    activeItemStyle: { color: "#d33a31" }
-  }
-}
 
 export default {
   name: "Tabs",
@@ -54,6 +47,14 @@ export default {
     activeItemStyle: {
       type: Object,
       default: () => ({})
+    },
+    itemClass: {
+      type: String,
+      default: '',
+    },
+    activeItemClass: {
+      type: String,
+      default: '',
     },
     type: {
       type: String
@@ -82,21 +83,25 @@ export default {
       }
       return false
     },
-    getActiveCls(tab, index) {
-      const ACTIVE_CLS = "active"
-      return this.isActive(tab, index) ? ACTIVE_CLS : ""
+    getItemCls(tab, index) {
+      let base = this.itemClass
+      if (this.type) {
+        base += ` ${this.type}`
+      }
+      if (this.isActive(tab, index)) {
+        base += `${this.activeItemClass} active`
+      }
+      return base;
     },
-    getTabItemStyle(tab, index) {
+    getItemStyle(tab, index) {
       return Object.assign(
         {},
-        (typeStyleMap[this.type] || {}).itemStyle,
         this.itemStyle,
         this.isActive(tab, index)
           ? Object.assign(
-              {},
-              (typeStyleMap[this.type] || {}).activeItemStyle,
-              this.activeItemStyle
-            )
+            {},
+            this.activeItemStyle
+          )
           : null
       )
     }
@@ -128,7 +133,8 @@ export default {
   }
 
   .tab-item {
-    padding: 12px;
+    padding: 12px 0;
+    margin: 0 12px;
     color: var(--tab-item-color);
     font-size: $font-size-medium;
     white-space: nowrap;
@@ -139,6 +145,25 @@ export default {
 
       &:hover {
         color: var(--tab-item-active-color);
+      }
+    }
+
+    // 对应prop的type
+    &.small {
+      font-size: $font-size-sm;
+
+      &.active {
+        color: $theme-color;
+      }
+    }
+
+    &.theme {
+      font-size: $font-size;
+
+      &.active {
+        color: $theme-color;
+        border-bottom: 2px solid $theme-color;
+        font-weight: $font-weight-bold;
       }
     }
 

@@ -6,7 +6,7 @@
     <template v-else>
       <div
         class="block"
-        v-if="hotComments.length"
+        v-if="hotComments.length && currentPage === 1"
       >
         <p class="title">
           精彩评论
@@ -22,7 +22,10 @@
         class="block"
         v-if="comments.length"
       >
-        <p class="title">
+        <p
+          class="title"
+          ref="commentTitle"
+        >
           最新评论 <span class="count">({{total}})</span>
         </p>
         <Comment
@@ -49,12 +52,23 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getSongComment } from '@/api/comment'
+import { getSongComment, getPlaylistComment, getHotComment } from '@/api/comment'
 import Comment from './comment'
 
+const SONG_TYPE = 'song'
+const PLAYLIST_TYPE = 'playlist'
 const PAGE_SIZE = 20
 export default {
-  props: ['id'],
+  props: {
+    id: {
+      type: Number,
+      required: true
+    },
+    type: {
+      type: String,
+      default: SONG_TYPE
+    }
+  },
   created() {
     this.PAGE_SIZE = PAGE_SIZE
   },
@@ -70,25 +84,36 @@ export default {
   methods: {
     async getComment() {
       this.loading = true
-      const { hotComments = [], comments = [], total } = await getSongComment(
+      const commentReuqest = ({
+        [PLAYLIST_TYPE]: getPlaylistComment,
+        [SONG_TYPE]: getSongComment
+      })[this.type]
+      const { hotComments = [], comments = [], total } = await commentReuqest(
         {
           id: this.id,
           pageSize: PAGE_SIZE,
           offset: (this.currentPage - 1) * PAGE_SIZE
-        }, {
-          showLoading: false
         })
         .finally(() => {
           this.loading = false
         })
-      this.hotComments = hotComments
+      // 歌单的热评需要重新获取
+      if (this.type === PLAYLIST_TYPE) {
+        const { hotComments: exactHotComments = [] } = await getHotComment({
+          id: this.id,
+          type: 2 // 歌单type
+        })
+        this.hotComments = exactHotComments
+      } else {
+        this.hotComments = hotComments
+      }
       this.comments = comments
       this.total = total
     },
-    async onPageChange(page) {
+    async onPageChange() {
       await this.getComment()
       this.$nextTick(() => {
-        this.$emit('pageChange', page)
+        this.$refs.commentTitle.scrollIntoView({ behavior: "smooth" })
       })
     }
   },
