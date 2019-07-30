@@ -1,3 +1,4 @@
+import { shallowEqual } from '@/utils/common'
 export default {
   setCurrentSong(state, song) {
     state.currentSong = song
@@ -17,11 +18,12 @@ export default {
   setPlaylistPromptShow(state, show) {
     state.isPlaylistPromptShow = show
   },
-  setPlaylist(state, payload) {
-    const { data, showPrompt = true } = payload
-    state.playlist = data
-    // 弹出提示
-    if (showPrompt) {
+  setPlaylist(state, playlist) {
+    const { isPlaylistShow, playlist: oldPlaylist } = state
+    state.playlist = playlist
+    // 播放列表未显示 并且两次播放列表的不一样 则弹出提示
+    console.log(shallowEqual(oldPlaylist, playlist, 'id'))
+    if (!isPlaylistShow && !shallowEqual(oldPlaylist, playlist, 'id')) {
       state.isPlaylistPromptShow = true
       setTimeout(() => {
         state.isPlaylistPromptShow = false

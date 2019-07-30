@@ -98,7 +98,7 @@ export default {
           this.loading = false
         })
       // 歌单的热评需要重新获取
-      if (this.type === PLAYLIST_TYPE) {
+      if (this.type === PLAYLIST_TYPE && this.currentPage === 1) {
         const { hotComments: exactHotComments = [] } = await getHotComment({
           id: this.id,
           type: 2 // 歌单type
@@ -109,6 +109,7 @@ export default {
       }
       this.comments = comments
       this.total = total
+      this.$emit('update', { comments, hotComments, total })
     },
     async onPageChange() {
       await this.getComment()

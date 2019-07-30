@@ -69,11 +69,6 @@ export default {
       type: Array,
       default: () => []
     },
-    // 播放歌曲是否弹出歌单提示
-    showPromptOnPlay: {
-      type: Boolean,
-      default: true
-    }
   },
   data() {
     return {
@@ -106,7 +101,7 @@ export default {
   methods: {
     onRowClick(song) {
       this.startSong(song)
-      this.setPlaylist({ data: this.songs, showPrompt: this.showPromptOnPlay })
+      this.setPlaylist(this.songs)
     },
     isActiveSong(song) {
       return song.id === this.currentSong.id

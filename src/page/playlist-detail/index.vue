@@ -1,7 +1,9 @@
 <template>
-  <div class="playlist-detail">
+  <div
+    class="playlist-detail"
+    v-if="playlist.id"
+  >
     <DetailHeader
-      v-if="playlist.id"
       :songs="songs"
       :playlist="playlist"
     />
@@ -9,20 +11,37 @@
       <Tabs
         v-model="activeTab"
         type="theme"
-        class="tabs"
         :tabs="tabs"
       />
+      <el-input
+        prefix-icon="el-icon-search"
+        class="input"
+        :class="getInputCls()"
+        @focus="onInputFocus"
+        @blur="onInputBlur"
+        placeholder="搜索歌单音乐"
+        v-model.trim="searchValue"
+      ></el-input>
+    </div>
+    <div
+      v-if="searchValue && !filteredSongs.length"
+      class="empty"
+    >
+      未能找到和
+      <span class="keyword">“{{searchValue}}”</span>
+      相关的任何音乐
     </div>
     <SongTable
       v-show="activeTab === SONG_IDX"
       class="table"
-      :songs="songs"
+      :songs="filteredSongs"
     />
     <div class="comments">
       <Comments
         v-show="activeTab === COMMENT_IDX"
         type="playlist"
         :id="id"
+        @update="onCommentsUpdate"
       />
     </div>
   </div>
@@ -41,16 +60,18 @@ const SONG_IDX = 0
 const COMMENT_IDX = 1
 export default {
   async created() {
-    this.tabs = ['歌曲列表', '评论']
     this.SONG_IDX = SONG_IDX
     this.COMMENT_IDX = COMMENT_IDX
     this.$watch('id', this.init, { immediate: true })
   },
   data() {
     return {
+      tabs: ['歌曲列表', '评论'],
       activeTab: SONG_IDX,
       playlist: {},
-      songs: []
+      songs: [],
+      searchValue: '',
+      inputFocus: false,
     }
   },
   methods: {
@@ -73,11 +94,26 @@ export default {
         })
       )
       this.songs = songs
+    },
+    onCommentsUpdate({ total }) {
+      this.tabs.splice(COMMENT_IDX, 1, `评论(${total})`)
+    },
+    onInputFocus() {
+      this.inputFocus = true
+    },
+    onInputBlur() {
+      this.inputFocus = false
+    },
+    getInputCls() {
+      return !this.inputFocus ? 'inactive' : ''
     }
   },
   computed: {
     id() {
       return Number(this.$route.params.id)
+    },
+    filteredSongs() {
+      return this.songs.filter(({ name }) => name.toLowerCase().includes(this.searchValue.toLowerCase()))
     }
   },
   components: { DetailHeader, SongTable, Comments }
@@ -89,10 +125,37 @@ export default {
   width: 100%;
 
   .tabs-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 24px;
+    border-bottom: 1px solid var(--border);
 
-    .tabs {
-      border-bottom: 1px solid var(--border);
+    .input {
+      width: 125px;
+
+      @mixin inactive {
+        /deep/.el-input__inner {
+          background: transparent !important;
+        }
+      }
+
+      &:not(:hover) {
+        &.inactive {
+          /deep/.el-input__inner {
+            background: transparent !important;
+          }
+        }
+      }
+    }
+  }
+
+  .empty {
+    @include flex-center;
+    height: 200px;
+
+    .keyword {
+      color: $blue;
     }
   }
 

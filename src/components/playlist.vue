@@ -33,7 +33,6 @@
           <SongTable
             :songs="dataSource"
             :hideColumns="['index', 'img', 'albumName']"
-            :showPromptOnPlay="false"
           />
         </div>
         <div
@@ -76,10 +75,7 @@ export default {
   methods: {
     clear() {
       if (this.isPlaylist) {
-        this.setPlaylist({
-          data: [],
-          showPrompt: false
-        })
+        this.setPlaylist([])
         this.clearCurrentSong()
       } else {
         this.clearHistory()

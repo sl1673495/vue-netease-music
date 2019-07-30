@@ -34,7 +34,7 @@
             </div>
             <div
               class="no-lyric"
-              v-if="!rawLyric"
+              v-if="!rawLyric || nolyric"
             >
               还没有歌词哦~
             </div>
@@ -170,6 +170,7 @@ export default {
       simiLoading: false,
       simiPlaylists: [],
       simiSongs: [],
+      nolyric: false
     }
   },
   methods: {
@@ -179,10 +180,15 @@ export default {
     },
     async updateLyric() {
       const lrc = await getLyric(this.currentSong.id)
-      const { lyric, tlyric } = lyricParser(lrc)
-      this.rawLyric = lrc.lrc.lyric
-      this.lyric = lyric
-      this.tlyric = tlyric
+      const { nolyric } = lrc
+      this.nolyric = !!nolyric
+      if (!this.nolyric) {
+        const { lyric, tlyric } = lyricParser(lrc)
+        this.rawLyric = lrc.lrc.lyric
+        this.lyric = lyric
+        this.tlyric = tlyric
+      }
+
     },
     async updateSimi() {
       this.simiLoading = true

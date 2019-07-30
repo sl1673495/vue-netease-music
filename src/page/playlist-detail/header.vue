@@ -38,22 +38,16 @@
           class="desc"
           v-if="tagsText"
         >
-          <span class="label">
-            标签:
-          </span>
           <span>
-            {{tagsText}}
+            标签：{{tagsText}}
           </span>
         </p>
         <p
           class="desc"
           v-if="playlist.description"
         >
-          <span class="label">
-            简介:
-          </span>
           <span class="value">
-            {{playlist.description}}
+            简介：{{playlist.description}}
           </span>
         </p>
       </div>
@@ -77,7 +71,7 @@ export default {
   methods: {
     playAll() {
       this.startSong(this.songs[0])
-      this.setPlaylist({ data: this.songs })
+      this.setPlaylist(this.songs)
     },
     ...mapMutations(['setPlaylist']),
     ...mapActions(['startSong']),

@@ -61,7 +61,7 @@ export default {
     onClickSong(song) {
       const nomalizedSong = this.nomalizeSong(song)
       this.startSong(nomalizedSong)
-      this.setPlaylist({ data: this.normalizedSongs })
+      this.setPlaylist(this.normalizedSongs)
     },
     ...mapMutations(["setPlaylist"]),
     ...mapActions(["startSong"])
