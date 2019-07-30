@@ -11,7 +11,11 @@
 * 播放列表
 * 全部歌单
 * 最新音乐
-* cd页（评论区才是灵魂）
+* cd页
+  * 歌词
+  * 评论区
+  * 推荐歌单
+  * 推荐歌曲
 * 主题换肤功能
 
 ### 后端接口
@@ -20,7 +24,7 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 ### 技术栈
 * Vue全家桶 vue-cli3 create出来的。
 * ui库用了魔改样式的element-ui
-* 歌词滚动部分用了黄轶老大的better-scrool（贼爽）
+* 歌词滚动部分用了黄轶老大的better-scroll（贼爽）
 * 主题换肤用的css变量替换。
 * ES 6 / 7 （JavaScript 语言的下一代标准）
 * Sass（CSS预处理器）
