@@ -1,59 +1,3 @@
-<template>
-  <el-table
-    v-bind="$attrs"
-    v-if="songs.length"
-    :data="songs"
-    @row-click="onRowClick"
-    :cell-class-name="tableCellClassName"
-    style="width: 99.9%"
-  >
-    <template v-for="(column, index) in showColumns">
-      <!-- 需要自定义渲染的列 -->
-      <el-table-column
-        v-if="['index', 'img', 'durationSecond'].includes(column.prop)"
-        :key="index"
-        :label="column.label"
-        :prop="column.prop"
-        v-bind="column"
-      >
-        <template slot-scope="scope">
-          <!-- 序号 -->
-          <template v-if="column.prop === 'index'">
-            <Icon
-              class="horn"
-              v-if="isActiveSong(scope.row)"
-              type="horn"
-              color="theme"
-            />
-            <span v-else>{{scope.$index + 1}}</span>
-          </template>
-
-          <!-- 时长 -->
-          <template v-else-if="column.prop === 'durationSecond'">
-            <span>{{ $utils.formatTime(scope.row.durationSecond) }}</span>
-          </template>
-
-          <!-- 图片 -->
-          <template v-else-if="column.prop === 'img'">
-            <div class="song-table-img-wrap">
-              <img :src="$utils.genImgUrl(scope.row.img, 120)" />
-              <PlayIcon class="song-table-play-icon" />
-            </div>
-          </template>
-        </template>
-
-      </el-table-column>
-
-      <!-- 普通列 -->
-      <el-table-column
-        v-else
-        :key="index"
-        v-bind="column"
-      >
-      </el-table-column>
-    </template>
-  </el-table>
-</template>
 
 <script>
 import { mapMutations, mapActions, mapState } from "vuex"
@@ -69,32 +13,80 @@ export default {
       type: Array,
       default: () => []
     },
+    highLightText: {
+      type: String,
+      default: '',
+    }
   },
   data() {
+    const commonHighLightSlotScopes = {
+      default: (scope) => {
+        return (
+          <span>{this.genHighlight(scope.row[scope.column.property])}</span>
+        )
+      }
+    }
     return {
       columns: [{
         prop: 'index',
         label: '',
-        width: '50'
+        width: '50',
+        scopedSlots: {
+          default: (scope) => {
+            return (
+              <div>
+                {this.isActiveSong(scope.row) ? (
+                  <Icon
+                    class="horn"
+                    type="horn"
+                    color="theme"
+                  />
+                ) : (
+                    <span>{scope.$index + 1}</span>
+                  )}
+              </div>
+            )
+          }
+        }
       }, {
         prop: 'img',
         label: ' ',
         width: '100',
+        scopedSlots: {
+          default: (scope) => {
+            return (
+              <div class="song-table-img-wrap">
+                <img src={this.$utils.genImgUrl(scope.row.img, 120)} />
+                <PlayIcon class="song-table-play-icon" />
+              </div>
+            )
+          }
+        }
       }, {
         prop: 'name',
         label: '音乐标题',
-        ['label-class-name']: "song-table-title-th",
-        ['class-name']: "song-table-title-td"
+        labelClassName: "song-table-title-th",
+        className: "song-table-title-td",
+        scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'artistsText',
-        label: '歌手'
+        label: '歌手',
+        scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'albumName',
-        label: '专辑'
+        label: '专辑',
+        scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'durationSecond',
         label: '时长',
         width: '100',
+        scopedSlots: {
+          default: (scope) => {
+            return (
+              <span>{this.$utils.formatTime(scope.row.durationSecond)}</span>
+            )
+          }
+        }
       }]
     }
   },
@@ -114,6 +106,25 @@ export default {
         return 'song-active'
       }
     },
+    genHighlight(title = '') {
+      if (!this.highLightText) {
+        return title
+      }
+      const titleToMatch = title.toLowerCase()
+      const keyWord = this.highLightText.toLowerCase()
+      const matchIndex = titleToMatch.indexOf(keyWord);
+      const beforeStr = title.substr(0, matchIndex);
+      const afterStr = title.substr(matchIndex + keyWord.length);
+      const hitStr = title.substr(matchIndex, keyWord.length);
+      const titleSpan = matchIndex > -1 ? (
+        <span>
+          {beforeStr}
+          <span class="high-light-text">{hitStr}</span>
+          {afterStr}
+        </span>
+      ) : title;
+      return titleSpan;
+    },
     ...mapMutations(['setPlaylist']),
     ...mapActions(["startSong"])
   },
@@ -131,7 +142,34 @@ export default {
     },
     ...mapState(['currentSong'])
   },
-  components: { PlayIcon }
+  components: { PlayIcon },
+  render() {
+    const tableAttrs = {
+      attrs: this.$attrs,
+      on: {
+        ...this.$listeners,
+        ['row-click']: this.onRowClick
+      },
+      props: {
+        ['table-cell-class-name']: this.tableCellClassName,
+        data: this.songs
+      },
+      style: { width: '99.9%' }
+    }
+    return this.songs.length ? (
+      <el-table
+        {...tableAttrs}
+      >
+        {this.showColumns.map((column, index) => {
+          const { scopedSlots, ...columnProps } = column
+          return (
+            <el-table-column key={index} {...{ props: columnProps }} scopedSlots={scopedSlots} >
+            </el-table-column>
+          )
+        })}
+      </el-table>
+    ) : null
+  }
 }
 </script>
 
@@ -154,5 +192,9 @@ export default {
   .song-table-play-icon {
     @include abs-center;
   }
+}
+
+.high-light-text {
+  color: $blue;
 }
 </style>

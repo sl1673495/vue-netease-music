@@ -21,7 +21,7 @@
         @focus="onInputFocus"
         @blur="onInputBlur"
         placeholder="搜索歌单音乐"
-        v-model.trim="searchValue"
+        v-model="searchValue"
       ></el-input>
     </div>
     <div
@@ -36,6 +36,7 @@
       v-show="activeTab === SONG_IDX"
       class="table"
       :songs="filteredSongs"
+      :highLightText="searchValue"
     />
     <div class="comments">
       <Comments
@@ -114,7 +115,7 @@ export default {
       return Number(this.$route.params.id)
     },
     filteredSongs() {
-      return this.songs.filter(({ name }) => name.toLowerCase().includes(this.searchValue.toLowerCase()))
+      return this.songs.filter(({ name, artistsText, albumName }) => `${name}${artistsText}${albumName}`.toLowerCase().includes(this.searchValue.toLowerCase()))
     }
   },
   components: { DetailHeader, SongTable, Comments }
@@ -134,12 +135,6 @@ export default {
 
     .input {
       width: 125px;
-
-      @mixin inactive {
-        /deep/.el-input__inner {
-          background: transparent !important;
-        }
-      }
 
       &:not(:hover) {
         &.inactive {
