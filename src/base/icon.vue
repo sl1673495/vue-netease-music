@@ -1,5 +1,6 @@
 <template>
   <i
+    @click="onClick"
     class="iconfont icon-component"
     :class="getIconCls()"
     :style="{fontSize: `${size}px`}"
@@ -8,7 +9,7 @@
 
 <script type="text/ecmascript-6">
 export default {
-  name: 'Icon',
+  name: "Icon",
   props: ["size", "type", "color"],
   methods: {
     getIconCls() {
@@ -17,6 +18,9 @@ export default {
         cls += ` icon-color-${this.color}`
       }
       return cls
+    },
+    onClick(e) {
+      this.$emit("click", e)
     }
   }
 }

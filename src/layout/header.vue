@@ -2,16 +2,6 @@
   <div class="header">
     <div class="left">
       <div
-        @click="onClickLogo"
-        class="logo-wrap"
-      >
-        <img
-          class="logo"
-          :src="logo"
-        />
-        <span>云音乐</span>
-      </div>
-      <div
         @click="onClickDown"
         v-if="isPlayerShow"
       >
@@ -86,22 +76,6 @@ export default {
   .left {
     display: flex;
     align-items: center;
-
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      margin-right: 36px;
-      font-size: $font-size-title;
-      color: var(--font-color-white);
-      white-space: nowrap;
-      cursor: pointer;
-
-      .logo {
-        width: 30px;
-        height: 30px;
-        margin-right: 8px;
-      }
-    }
 
     .font-weight {
       white-space: nowrap;

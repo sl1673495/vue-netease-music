@@ -43,7 +43,7 @@
         class="icon"
         type="prev"
         :size="24"
-        @click.native="prev"
+        @click="prev"
       />
       <div
         @click="togglePlaying"
@@ -59,11 +59,16 @@
         class="icon"
         type="next"
         :size="24"
-        @click.native="next"
+        @click="next"
       />
     </div>
 
     <div class="mode">
+      <Icon
+        class="icon"
+        type="github"
+        @click="goGitHub"
+      />
       <el-popover
         placement="top"
         width="160"
@@ -76,7 +81,7 @@
           class="icon"
           type="playlist"
           :size="18"
-          @click.native="togglePlaylistShow"
+          @click="togglePlaylistShow"
         />
       </el-popover>
       <!-- 音量 -->
@@ -160,6 +165,9 @@ export default {
     },
     togglePlayerShow() {
       this.setPlayerShow(!this.isPlayerShow)
+    },
+    goGitHub() {
+      window.open('https://github.com/sl1673495/vue-netease-music')
     },
     ...mapMutations(["setCurrentTime", "setPlayingState", "setPlaylistShow", "setPlayerShow"]),
     ...mapActions(["startSong"])
@@ -341,6 +349,10 @@ export default {
     align-items: center;
     justify-content: flex-end;
     flex: 6;
+
+    .icon {
+      margin-right: 16px;
+    }
   }
 
   .progress-bar-wrap {

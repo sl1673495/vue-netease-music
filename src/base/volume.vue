@@ -4,7 +4,7 @@
       :size="20"
       class="icon"
       :type="getIconType()"
-      @click.native="toggleSilence"
+      @click="toggleSilence"
     />
     <div class="progress-wrap">
       <ProgressBar
@@ -66,7 +66,6 @@ export default {
   display: flex;
   align-items: center;
   width: 150px;
-  padding: 0 16px;
 
   .icon {
     color: var(--font-color);
