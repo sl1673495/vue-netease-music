@@ -2,7 +2,6 @@
   <div class="layout">
     <layout-header />
     <div class="layout-body">
-      <!-- <layout-menu /> -->
       <div
         id="page-content"
         class="content"
@@ -15,7 +14,6 @@
 
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
-import LayoutMenu from "./menu"
 import { topRoutes } from '@/router'
 
 export default {
@@ -24,7 +22,6 @@ export default {
   },
   components: {
     LayoutHeader,
-    LayoutMenu
   },
   computed: {
     routerViewCls() {

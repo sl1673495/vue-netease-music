@@ -1,5 +1,4 @@
 #!/bin/bash
-#menu.sh
  
 git add .
 echo 'git add success'
@@ -10,7 +9,7 @@ git commit -m "$message"
 echo 'commit success'
 echo
 echo "选择要发布的方式?"
-select var in release-major  release-minor release-patch;
+select var in release-major release-minor release-patch;
 do
     break
 done
