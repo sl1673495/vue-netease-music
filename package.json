@@ -9,7 +9,8 @@
     "release-f": "standard-version -f",
     "release-major": "standard-version -r major",
     "release-minor": "standard-version -r minor",
-    "release-patch": "standard-version -r patch"
+    "release-patch": "standard-version -r patch",
+    "release": "sh release.sh"
   },
   "dependencies": {
     "@better-scroll/core": "^2.0.0-alpha.20",
@@ -36,7 +37,7 @@
     "postcss-pxtorem": "^4.0.1",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10",
-    "standard-changelog": "^2.0.13",
+    "standard-changelog": "^2.0.13"
   },
   "eslintConfig": {
     "root": true,
