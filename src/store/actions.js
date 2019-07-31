@@ -1,10 +1,11 @@
 import { getSongUrl } from '@/api/song'
 import storage from 'good-storage'
 import { HISTORY_KEY } from '@/utils/config'
+import { notify } from '@/utils/common'
 
 export default {
   // 整合歌曲信息 并且开始播放
-  async startSong({ commit, state, dispatch }, song) {
+  async startSong({ commit, state, dispatch, getters }, song) {
 
     commit('setCurrentSong', {
       ...song,
@@ -26,8 +27,16 @@ export default {
     // 检查是否能播放
     const canPlay = await checkCanPlay(song.id)
     if (!canPlay) {
-      alert('播放失败')
-      dispatch('clearCurrentSong')
+      // 只有一首的情况下不自动播放下首
+      if (state.playlist.length && state.playlist.length !== 1) {
+        notify(`${song.name}播放失败，自动开始下一首`)
+        dispatch('startSong', getters.nextSong)
+      } else {
+        notify(`${song.name}播放失败`)
+        // 清空播放列表
+        dispatch('clearCurrentSong')
+        commit('setPlaylist', [])
+      }
     }
   },
   clearCurrentSong({ commit }) {
@@ -44,7 +53,7 @@ export default {
     const copy = playlist.slice()
     if (!copy.find(({ id }) => id === song.id)) {
       copy.unshift(song)
-      commit('setPlaylist', { data: copy })
+      commit('setPlaylist', copy)
     }
   }
 }

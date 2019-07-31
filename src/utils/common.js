@@ -1,3 +1,5 @@
+import { Notification } from 'element-ui';
+
 export function pad(num, n = 2) {
   let len = num.toString().length
   while (len < n) {
@@ -93,4 +95,11 @@ export function shallowEqual(a, b, compareKey) {
     }
   }
   return true
+}
+
+export function notify(message) {
+  return Notification({
+    title: '提示',
+    message
+  })
 }
