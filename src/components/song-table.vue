@@ -151,7 +151,7 @@ export default {
         ['row-click']: this.onRowClick
       },
       props: {
-        ['table-cell-class-name']: this.tableCellClassName,
+        ['cell-class-name']: this.tableCellClassName,
         data: this.songs
       },
       style: { width: '99.9%' }
