@@ -24,14 +24,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import logo from "@/assets/logo.png"
 import Theme from "@/components/theme"
 import Search from "@/components/search"
 import { mapState, mapMutations } from "vuex"
 
 export default {
   created() {
-    this.logo = logo
     this.tabs = [
       {
         title: "个性推荐",
