@@ -1,6 +1,6 @@
 
-import { Input, Loading, Carousel, CarouselItem, Table, TableColumn, Popover, Pagination } from 'element-ui'
-import * as commonUtils from './common'
+import { Input, Dialog, Button, Loading, Carousel, CarouselItem, Table, TableColumn, Popover, Pagination } from 'element-ui'
+import * as utils from './index'
 
 // 全局图片错误处理
 window.addEventListener('error', function (e) {
@@ -19,12 +19,14 @@ export default {
     // 批量注册base组件
     requireComponent.keys().forEach(fileName => {
       const componentConfig = requireComponent(fileName)
-      const componentName = componentConfig.default.name || ''
-      Vue.component(componentName, componentConfig.default || componentConfig)
+      const componentName = componentConfig.default.name
+      if (componentName) {
+        Vue.component(componentName, componentConfig.default || componentConfig)
+      }
     })
 
     Vue.prototype.$ELEMENT = { size: 'small' };
-    Vue.prototype.$utils = commonUtils
+    Vue.prototype.$utils = utils
 
     Vue.use(Input)
     Vue.use(Carousel)
@@ -34,5 +36,7 @@ export default {
     Vue.use(Popover)
     Vue.use(Pagination)
     Vue.use(Loading)
+    Vue.use(Dialog)
+    Vue.use(Button)
   }
 }

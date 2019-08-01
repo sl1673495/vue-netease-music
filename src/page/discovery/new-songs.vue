@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex"
+import { mapActions, mapMutations } from "@/store/helper/music"
 import { getNewSongs } from "@/api/discovery"
 import Title from "@/base/title"
 import SongCard from "@/components/song-card"

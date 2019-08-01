@@ -1,12 +1,11 @@
 import { getSongUrl } from '@/api/song'
 import storage from 'good-storage'
-import { HISTORY_KEY } from '@/utils/config'
+import { PLAY_HISTORY_KEY } from '@/utils/config'
 import { notify } from '@/utils/common'
 
 export default {
   // 整合歌曲信息 并且开始播放
   async startSong({ commit, state, dispatch, getters }, song) {
-
     commit('setCurrentSong', {
       ...song,
       url: genSongPlayUrl(song.id)
@@ -23,15 +22,18 @@ export default {
     playHistoryCopy.unshift(song)
     commit('setPlayHistory', playHistoryCopy)
     commit('setPlayingState', true)
-    storage.set(HISTORY_KEY, playHistoryCopy)
+    storage.set(PLAY_HISTORY_KEY, playHistoryCopy)
     // 检查是否能播放
     const canPlay = await checkCanPlay(song.id)
     if (!canPlay) {
-      // 只有一首的情况下不自动播放下首
-      if (state.playlist.length && state.playlist.length !== 1) {
+      if (
+        state.playlist.length &&
+        state.playlist.length !== 1
+      ) {
         notify(`${song.name}播放失败，自动开始下一首`)
         dispatch('startSong', getters.nextSong)
       } else {
+        // 只有一首的情况下不自动播放下首
         notify(`${song.name}播放失败`)
         // 清空播放列表
         dispatch('clearCurrentSong')
@@ -42,11 +44,16 @@ export default {
   clearCurrentSong({ commit }) {
     commit('setCurrentSong', {})
     commit('setPlayingState', false)
+    commit('setCurrentTime', 0)
+  },
+  clearPlaylist({ commit, dispatch }) {
+    commit('setPlaylist', [])
+    dispatch('clearCurrentSong')
   },
   clearHistory({ commit }) {
     const history = []
     commit('setPlayHistory', history)
-    storage.set(HISTORY_KEY, history)
+    storage.set(PLAY_HISTORY_KEY, history)
   },
   addToPlaylist({ commit, state }, song) {
     const { playlist } = state

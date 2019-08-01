@@ -34,17 +34,21 @@ import variables from '@/style/themes/variables'
 import variablesWhite from '@/style/themes/variables-white'
 
 const THEME_KEY = '__theme__'
+const themes = {
+  white: 'white',
+  dark: 'dark'
+}
 export default {
   created() {
     this.themeMap = {
-      'dark': {
+      [themes.dark]: {
         title: '深色',
         file: variables,
         style: {
           backgroundColor: '#202020',
         }
       },
-      'white': {
+      [themes.white]: {
         title: '浅色',
         file: variablesWhite,
         style: {
@@ -53,7 +57,8 @@ export default {
         }
       },
     }
-    this.changeTheme(storage.get(THEME_KEY, 'dark'))
+    // 默认浅色
+    this.changeTheme(storage.get(THEME_KEY, themes.white))
   },
   data() {
     return {

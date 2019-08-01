@@ -87,10 +87,7 @@
       <!-- 音量 -->
       <Volume @volumeChange="onVolumeChange" />
     </div>
-    <div
-      v-if="hasCurrentSong"
-      class="progress-bar-wrap"
-    >
+    <div class="progress-bar-wrap">
       <ProgressBar
         :percent="playedPercent"
         @percentChange="onProgressChange"
@@ -107,7 +104,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState, mapMutations, mapGetters, mapActions } from "vuex"
+import { mapState, mapMutations, mapGetters, mapActions } from "@/store/helper/music"
 import ProgressBar from "@/base/progress-bar"
 import Volume from '@/base/volume'
 
@@ -216,7 +213,7 @@ export default {
     // 播放的进度百分比
     playedPercent() {
       const { durationSecond } = this.currentSong
-      return Math.min(this.currentTime / durationSecond, 1)
+      return Math.min(this.currentTime / durationSecond, 1) || 0
     },
     playControlIcon() {
       return this.isPlayerShow ? 'shrink' : 'open'

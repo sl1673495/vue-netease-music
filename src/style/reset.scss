@@ -3,8 +3,8 @@ body {
   height: 100%;
   overflow: hidden;
   font-weight: 400;
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial,
+    sans-serif;
 }
 
 html,
@@ -124,7 +124,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
+  content: "";
   content: none;
 }
 
@@ -179,7 +179,7 @@ select {
   vertical-align: middle;
 }
 
-img[src=''],
+img[src=""],
 img:not([src]) {
   opacity: 0;
 }
