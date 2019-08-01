@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/sl1673495/vue-netease-music/compare/v1.2.0...v1.2.1) (2019-08-01)
+
+
+### Features
+
+* 使用节流处理rem函数 播放页面resize时候refresh better-scroll容器 ([a4e123e](https://github.com/sl1673495/vue-netease-music/commit/a4e123e))
+
 ## [1.2.0](https://github.com/sl1673495/vue-netease-music/compare/v1.1.2...v1.2.0) (2019-07-31)
 
 ### Features
