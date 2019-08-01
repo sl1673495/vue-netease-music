@@ -4,4 +4,7 @@ export const playMode = {
   random: 2
 }
 
-export const HISTORY_KEY = '__history__'
+// 存储播放记录
+export const PLAY_HISTORY_KEY = '__play_history__'
+
+export const UID_KEY = '__uid__'

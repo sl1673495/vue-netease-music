@@ -22,7 +22,6 @@ export default {
 #app {
   height: 100%;
   background-color: var(--body-bgcolor);
-  color: var(--font-color);
   font-size: $font-size;
 }
 </style>

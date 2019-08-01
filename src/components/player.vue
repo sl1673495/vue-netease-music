@@ -151,11 +151,9 @@
 import { getLyric, getSimiSongs } from "@/api/song"
 import { getSimiPlaylists } from "@/api/playlist"
 import lyricParser from "@/utils/lrcparse"
-import { prefixStyle } from "@/utils/dom"
-import { createSong } from "@/utils/song"
-import { debounce } from "@/utils/common"
+import { debounce, isDef, createSong, prefixStyle } from "@/utils"
 import Comments from "@/components/comments"
-import { mapState, mapMutations, mapActions } from "vuex"
+import { mapState, mapMutations, mapActions } from "@/store/helper/music"
 
 const WHEEL_TYPE = "wheel"
 const SCROLL_TYPE = "scroll"
@@ -189,8 +187,8 @@ export default {
     },
     async updateLyric() {
       const lrc = await getLyric(this.currentSong.id)
-      const { nolyric } = lrc
-      this.nolyric = !!nolyric
+      const { lyric } = lrc
+      this.nolyric = !isDef(lyric)
       if (!this.nolyric) {
         const { lyric, tlyric } = lyricParser(lrc)
         this.rawLyric = lrc.lrc.lyric
@@ -270,7 +268,7 @@ export default {
       this.startSong(song)
       this.addToPlaylist(song)
     },
-    resizeScroller: debounce(function() {
+    resizeScroller: debounce(function () {
       this.$refs.scroller.getScroller().refresh()
     }, 500),
     addListener() {
@@ -286,12 +284,12 @@ export default {
     activeLyricIndex() {
       return this.lyricWithTranslation
         ? this.lyricWithTranslation.findIndex((l, index) => {
-            const nextLyric = this.lyricWithTranslation[index + 1]
-            return (
-              this.currentTime >= l.time &&
-              (nextLyric ? this.currentTime < nextLyric.time : true)
-            )
-          })
+          const nextLyric = this.lyricWithTranslation[index + 1]
+          return (
+            this.currentTime >= l.time &&
+            (nextLyric ? this.currentTime < nextLyric.time : true)
+          )
+        })
         : -1
     },
     lyricWithTranslation() {

@@ -48,7 +48,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from '@/store/helper/music'
 import LeaveHide from '@/base/leave-hide'
 import SongTable from './song-table'
 export default {
@@ -75,14 +75,13 @@ export default {
   methods: {
     clear() {
       if (this.isPlaylist) {
-        this.setPlaylist([])
-        this.clearCurrentSong()
+        this.clearPlaylist()
       } else {
         this.clearHistory()
       }
     },
     ...mapMutations(['setPlaylistShow', 'setPlaylist']),
-    ...mapActions(['clearCurrentSong', 'clearHistory'])
+    ...mapActions(['clearCurrentSong', 'clearPlaylist', 'clearHistory'])
   },
   computed: {
     dataSource() {

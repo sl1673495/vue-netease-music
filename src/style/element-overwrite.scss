@@ -93,3 +93,13 @@ $input-height: 24px;
     color: $theme-color !important;
   }
 }
+
+// dialog
+.el-dialog {
+  background: var(--modal-bg-color) !important;
+  @include box-shadow;
+
+  .el-dialog__body {
+    color: var(--font-color) !important;
+  }
+}

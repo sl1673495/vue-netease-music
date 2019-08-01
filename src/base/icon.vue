@@ -3,11 +3,12 @@
     @click="onClick"
     class="iconfont icon-component"
     :class="getIconCls()"
-    :style="{fontSize: `${size}px`}"
+    :style="getIconStyle()"
   />
 </template>
 
 <script type="text/ecmascript-6">
+import { toRem } from '@/utils/rem'
 export default {
   name: "Icon",
   props: ["size", "type", "color"],
@@ -21,6 +22,16 @@ export default {
     },
     onClick(e) {
       this.$emit("click", e)
+    },
+    getIconStyle() {
+      const chromeMinSize = 12
+      // 支持小于12px
+      const retStyle = { fontSize: toRem(this.size) }
+      if (this.size < chromeMinSize) {
+        const ratio = this.size / chromeMinSize
+        retStyle.transform = `scale(${ratio})`
+      }
+      return retStyle
     }
   }
 }

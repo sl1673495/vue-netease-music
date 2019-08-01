@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations } from '@/store/helper/music'
 export default {
   props: {
     playlist: {

@@ -1,6 +1,6 @@
 
 <script>
-import { mapMutations, mapActions, mapState } from "vuex"
+import { mapMutations, mapActions, mapState } from "@/store/helper/music"
 import PlayIcon from '@/base/play-icon'
 
 export default {

@@ -1,8 +1,9 @@
 import { throttle } from './common'
 
-!(function() {
-  const calc = function() {
-    const remBase = 14
+const remBase = 14
+
+!(function () {
+  const calc = function () {
     const maxFontSize = 18
     const minFontSize = 14
     const html = document.getElementsByTagName('html')[0]
@@ -15,3 +16,7 @@ import { throttle } from './common'
   calc()
   window.addEventListener('resize', throttle(calc, 500))
 })()
+
+export function toRem(px) {
+  return `${px / remBase}rem`
+}

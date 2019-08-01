@@ -31,5 +31,5 @@ export default {
   },
   setPlayHistory(state, history) {
     state.playHistory = history
-  }
+  },
 }

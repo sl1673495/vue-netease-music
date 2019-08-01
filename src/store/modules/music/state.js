@@ -1,5 +1,5 @@
 import storage from 'good-storage'
-import { HISTORY_KEY } from '@/utils/config'
+import { PLAY_HISTORY_KEY } from '@/utils/config'
 
 export default {
   // 当前播放歌曲
@@ -17,5 +17,5 @@ export default {
   // 播放列表数据
   playlist: [],
   // 播放历史数据
-  playHistory: storage.get(HISTORY_KEY, []),
+  playHistory: storage.get(PLAY_HISTORY_KEY, []),
 }

@@ -2,16 +2,41 @@
   <div class="header">
     <div class="left">
       <div
+        class="buttons"
+        @click="onClickLogo"
+      >
+        <div class="mac-button red">
+        </div>
+        <div
+          class="mac-button yellow"
+          :class="{disabled: !isFullscreen}"
+          @click="exitFullscreen"
+        >
+          <Icon
+            type="minus"
+            :size="9"
+          />
+        </div>
+        <div
+          class="mac-button green"
+          @click="fullscreen"
+        >
+          <Icon
+            type="plus"
+            :size="9"
+          />
+        </div>
+      </div>
+      <!-- 缩起播放器 -->
+      <div
         @click="onClickDown"
         v-if="isPlayerShow"
+        class="shrink-player"
       >
         <Icon type="down" />
       </div>
-      <div
-        v-else
-        class="nav-wrap"
-      >
-        <Tabs :tabs="tabs" />
+      <div class="actions">
+
       </div>
     </div>
     <div class="right">
@@ -26,24 +51,20 @@
 <script type="text/ecmascript-6">
 import Theme from "@/components/theme"
 import Search from "@/components/search"
-import { mapState, mapMutations } from "vuex"
+import { mapState, mapMutations } from "@/store/helper/music"
+import { requestFullScreen, exitFullscreen } from '@/utils/common'
 
 export default {
   created() {
-    this.tabs = [
-      {
-        title: "个性推荐",
-        to: "/discovery"
-      },
-      {
-        title: "歌单",
-        to: "/playlists"
-      },
-      {
-        title: "最新音乐",
-        to: "/songs"
-      }
-    ]
+    document.addEventListener('fullscreenchange', this.toggleFullscreen)
+  },
+  beforeDestroy() {
+    document.removeEventListener('fullscreenchange', this.toggleFullscreen)
+  },
+  data() {
+    return {
+      isFullscreen: false
+    }
   },
   methods: {
     onClickLogo() {
@@ -51,6 +72,17 @@ export default {
     },
     onClickDown() {
       this.setPlayerShow(false)
+    },
+    fullscreen() {
+      requestFullScreen(document.documentElement)
+    },
+    exitFullscreen() {
+      if (this.isFullscreen) {
+        exitFullscreen()
+      }
+    },
+    toggleFullscreen() {
+      this.isFullscreen = !this.isFullscreen
     },
     ...mapMutations(["setPlayerShow"])
   },
@@ -64,19 +96,66 @@ export default {
 <style lang="scss" scoped>
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   height: $header-height;
   background-color: var(--header-bgcolor);
-  padding: 16px;
   padding-right: 36px;
 
   .left {
+    padding: 14px 14px 0 8px;
     display: flex;
-    align-items: center;
 
     .font-weight {
       white-space: nowrap;
+    }
+
+    .buttons {
+      display: flex;
+
+      &:hover {
+        .mac-button > i {
+          opacity: 1;
+        }
+      }
+      .mac-button {
+        @include round(12px);
+        @include flex-center;
+        margin-right: 8px;
+        cursor: pointer;
+
+        &.red {
+          background: #ed655a;
+        }
+
+        &.green {
+          background: #72be47;
+        }
+
+        &.yellow {
+          background: #e0c04c;
+        }
+
+        &.disabled * {
+          cursor: not-allowed;
+        }
+
+        i {
+          opacity: 0;
+          transition: opacity 0.3s;
+          color: $black;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+
+    .shrink-player {
+      position: relative;
+      top: -3px;
+      margin-left: 16px;
+    }
+
+    .actions {
+      margin-left: 70px;
     }
   }
 

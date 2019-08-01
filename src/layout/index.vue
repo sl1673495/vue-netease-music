@@ -1,7 +1,10 @@
 <template>
   <div class="layout">
-    <layout-header />
+    <LayoutHeader />
     <div class="layout-body">
+      <div class="layout-menu">
+        <LayoutMenu />
+      </div>
       <div
         id="page-content"
         class="content"
@@ -14,6 +17,7 @@
 
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
+import LayoutMenu from "./menu"
 import { topRoutes } from '@/router'
 
 export default {
@@ -22,6 +26,7 @@ export default {
   },
   components: {
     LayoutHeader,
+    LayoutMenu
   },
   computed: {
     routerViewCls() {
@@ -40,6 +45,11 @@ export default {
   .layout-body {
     display: flex;
     height: calc(100% - #{$header-height});
+
+    .layout-menu {
+      // 这个100%已经减去了头部height
+      height: calc(100% - #{$mini-player-height});
+    }
 
     .content {
       flex: 1;

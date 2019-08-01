@@ -87,7 +87,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapActions, mapMutations } from "vuex"
+import { mapActions, mapMutations } from "@/store/helper/music"
 import LeaveHide from "@/base/leave-hide"
 import { getSearchHot, getSearchSuggest } from "@/api/search"
 import { getAlbum } from "@/api/album"

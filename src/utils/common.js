@@ -63,18 +63,18 @@ export function genImgUrl(url, w, h) {
 export function debounce(fn, delay) {
   let timer = null
 
-  return function() {
+  return function () {
     const args = arguments
     const context = this
 
     if (timer) {
       clearTimeout(timer)
 
-      timer = setTimeout(function() {
+      timer = setTimeout(function () {
         fn.apply(context, args)
       }, delay)
     } else {
-      timer = setTimeout(function() {
+      timer = setTimeout(function () {
         fn.apply(context, args)
       }, delay)
     }
@@ -83,12 +83,16 @@ export function debounce(fn, delay) {
 
 export function throttle(action, delay) {
   let last = 0
-  return function() {
+  // 节流结束后需要执行一次校正
+  // 利用debouce即可
+  const lastTimeAction = debounce(action, delay)
+  return function () {
     const curr = +new Date()
     if (curr - last > delay) {
       action.apply(this, arguments)
       last = curr
     }
+    lastTimeAction()
   }
 }
 
@@ -114,10 +118,59 @@ export function shallowEqual(a, b, compareKey) {
   return true
 }
 
-export function notify(message) {
-  return Notification({
+export function notify(message, type) {
+  const params = {
     message,
-    title: '提示',
-    duration: 2000
-  })
+    duration: 1500
+  }
+  const fn = type ? Notification[type] : Notification
+  return fn(params)
+}
+['success', 'warning', 'info', 'error'].forEach(key => {
+  notify[key] = (message) => {
+    return notify(message, key)
+  }
+})
+
+export function requestFullScreen(element) {
+  const docElm = element;
+  if (docElm.requestFullscreen) {
+    docElm.requestFullscreen();
+  } else if (docElm.msRequestFullscreen) {
+    docElm.msRequestFullscreen();
+  } else if (docElm.mozRequestFullScreen) {
+    docElm.mozRequestFullScreen();
+  } else if (docElm.webkitRequestFullScreen) {
+    docElm.webkitRequestFullScreen();
+  }
+}
+
+export function exitFullscreen() {
+  const de = window.parent.document;
+
+  if (de.exitFullscreen) {
+    de.exitFullscreen();
+  } else if (de.mozCancelFullScreen) {
+    de.mozCancelFullScreen();
+  } else if (de.webkitCancelFullScreen) {
+    de.webkitCancelFullScreen();
+  } else if (de.msExitFullscreen) {
+    de.msExitFullscreen()
+  }
+}
+
+export function isUndef(v) {
+  return v === undefined || v === null
+}
+
+export function isDef(v) {
+  return v !== undefined && v !== null
+}
+
+export function isTrue(v) {
+  return v === true
+}
+
+export function isFalse(v) {
+  return v === false
 }

@@ -14,7 +14,7 @@ function parseLrc(lrc) {
     content: '',
   }];
   for (let i = 0; i < _lrc.length; i++) {
-    let timeReg = /^\[([0-9][0-9])\:([0-9][0-9].*)](.*)$/i;
+    let timeReg = /^\[([0-9][0-9]):([0-9][0-9].*)](.*)$/i;
     let parsed = timeReg.exec(_lrc[i]);
     if (parsed == null) {
       continue;
