@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* 简易登录功能完成 侧边栏开放 ([01a476](https://github.com/sl1673495/vue-netease-music/commit/01a476))
+* 简易登录功能完成 侧边栏开放 ([0e17c7](https://github.com/sl1673495/vue-netease-music/commit/0e17c7))
 
 ### [1.2.2](https://github.com/sl1673495/vue-netease-music/compare/v1.2.1...v1.2.2) (2019-08-01)
 

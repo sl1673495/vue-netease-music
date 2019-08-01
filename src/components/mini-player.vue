@@ -91,6 +91,7 @@
       <ProgressBar
         :percent="playedPercent"
         @percentChange="onProgressChange"
+        :disabled="!hasCurrentSong"
       />
     </div>
     <audio

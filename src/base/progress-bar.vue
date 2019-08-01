@@ -37,6 +37,10 @@ export default {
     alwaysShowBtn: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   created() {
@@ -49,12 +53,14 @@ export default {
   },
   methods: {
     progressClick(e) {
-      const rect = this.$refs.progressBar.getBoundingClientRect()
-      const offsetWidth = Math.max(0, Math.min(e.pageX - rect.left, this.$refs.progressBar.clientWidth))
-      this._offset(offsetWidth)
-      // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
-      // this._offset(e.offsetX)
-      this._triggerPercent()
+      if (!this.disabled) {
+        const rect = this.$refs.progressBar.getBoundingClientRect()
+        const offsetWidth = Math.max(0, Math.min(e.pageX - rect.left, this.$refs.progressBar.clientWidth))
+        this._offset(offsetWidth)
+        // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
+        // this._offset(e.offsetX)
+        this._triggerPercent()
+      }
     },
     setProgressOffset(percent) {
       if (percent >= 0 && !this.touch.initiated) {
