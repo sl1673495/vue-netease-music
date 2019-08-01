@@ -118,6 +118,6 @@ export function notify(message) {
   return Notification({
     message,
     title: '提示',
-    duration: 0
+    duration: 2000
   })
 }
