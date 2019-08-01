@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/sl1673495/vue-netease-music/compare/v2.0.0...v2.0.1) (2019-08-01)
+
+
+### Bug Fixes
+
+* 未播放歌曲拖动进度条 ([86910fc](https://github.com/sl1673495/vue-netease-music/commit/86910fc))
+
 ## [2.0.0](https://github.com/sl1673495/vue-netease-music/compare/v1.2.2...v2.0.0) (2019-08-01)
 
 
