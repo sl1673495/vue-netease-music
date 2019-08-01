@@ -1,35 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//at.alicdn.com/t/font_777085_kun0k5ghypf.css"
+    />
+    <title>vue-netease-muisc</title>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="renderer" content="webkit" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_777085_kun0k5ghypf.css">
-  <title>vue-netease-muisc</title>
-</head>
-
-<body>
-  <div id="app"></div>
-  <script>
-    !function () {
-      var calc = function () {
-        var remBase = 14
-        var maxFontSize = 18
-        var minFontSize = 14
-        var html = document.getElementsByTagName("html")[0]
-        var width = html.clientWidth
-        var size = remBase * (width / 1440)
-        size = Math.min(maxFontSize, size)
-        size = Math.max(minFontSize, size)
-        html.style.fontSize = size + "px";
-      }
-      calc()
-      window.addEventListener('resize', calc)
-    }()  
-  </script>
-  <!-- built files will be auto injected -->
-</body>
-
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

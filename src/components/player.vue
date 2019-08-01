@@ -153,7 +153,7 @@ import { getSimiPlaylists } from "@/api/playlist"
 import lyricParser from "@/utils/lrcparse"
 import { prefixStyle } from "@/utils/dom"
 import { createSong } from "@/utils/song"
-
+import { debounce } from "@/utils/common"
 import Comments from "@/components/comments"
 import { mapState, mapMutations, mapActions } from "vuex"
 
@@ -270,6 +270,15 @@ export default {
       this.startSong(song)
       this.addToPlaylist(song)
     },
+    resizeScroller: debounce(function() {
+      this.$refs.scroller.getScroller().refresh()
+    }, 500),
+    addListener() {
+      window.addEventListener("resize", this.resizeScroller)
+    },
+    removeListener() {
+      window.removeEventListener("resize", this.resizeScroller)
+    },
     ...mapMutations(["setPlayerShow"]),
     ...mapActions(["startSong", "addToPlaylist"])
   },
@@ -321,6 +330,9 @@ export default {
       if (show) {
         // 歌词短期内不会变化 所以只拉取相似信息
         this.updateSimi()
+        this.addListener()
+      } else {
+        this.removeListener()
       }
     },
     playing(newPlaying) {
@@ -360,6 +372,9 @@ export default {
     $route() {
       this.setPlayerShow(false)
     }
+  },
+  beforeDestroy() {
+    this.removeListener()
   },
   components: {
     Comments
@@ -423,7 +438,7 @@ $img-outer-d: 300px;
           $h: 146px;
           position: absolute;
           top: 0;
-          left: $img-left-padding + $img-outer-border-d / 2 - 5px;
+          left: $img-left-padding + $img-outer-border-d / 2 - 6px;
           width: $w;
           height: $h;
           z-index: 1;
