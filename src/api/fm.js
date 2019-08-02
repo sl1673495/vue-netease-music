@@ -1,3 +1,3 @@
-import { request } from '@/utils/axios'
+import { request } from '@/utils'
 
 export const getFm = () => request.get('/personal_fm')

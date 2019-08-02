@@ -1,4 +1,4 @@
-import { requestWithoutLoading } from '@/utils/axios'
+import { requestWithoutLoading } from '@/utils'
 
 export const getUserDetail = (uid) => requestWithoutLoading.get("/user/detail", { params: { uid } })
 

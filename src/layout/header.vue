@@ -9,7 +9,6 @@
         </div>
         <div
           class="mac-button yellow"
-          :class="{disabled: !isFullscreen}"
           @click="exitFullscreen"
         >
           <Icon
@@ -22,7 +21,7 @@
           @click="fullscreen"
         >
           <Icon
-            type="plus"
+            type="fullscreen"
             :size="9"
           />
         </div>
@@ -52,20 +51,9 @@
 import Theme from "@/components/theme"
 import Search from "@/components/search"
 import { mapState, mapMutations } from "@/store/helper/music"
-import { requestFullScreen, exitFullscreen } from '@/utils/common'
+import { requestFullScreen, exitFullscreen, isFullscreen } from '@/utils'
 
 export default {
-  created() {
-    document.addEventListener('fullscreenchange', this.toggleFullscreen)
-  },
-  beforeDestroy() {
-    document.removeEventListener('fullscreenchange', this.toggleFullscreen)
-  },
-  data() {
-    return {
-      isFullscreen: false
-    }
-  },
   methods: {
     onClickLogo() {
       this.$router.push("/discovery")
@@ -77,7 +65,7 @@ export default {
       requestFullScreen(document.documentElement)
     },
     exitFullscreen() {
-      if (this.isFullscreen) {
+      if (isFullscreen()) {
         exitFullscreen()
       }
     },
@@ -133,10 +121,6 @@ export default {
 
         &.yellow {
           background: #e0c04c;
-        }
-
-        &.disabled * {
-          cursor: not-allowed;
         }
 
         i {

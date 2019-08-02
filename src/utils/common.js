@@ -159,6 +159,12 @@ export function exitFullscreen() {
   }
 }
 
+export function isFullscreen() {
+  return document.fullScreen ||
+    document.mozFullScreen ||
+    document.webkitIsFullScreen
+}
+
 export function isUndef(v) {
   return v === undefined || v === null
 }

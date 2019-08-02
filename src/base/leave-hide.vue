@@ -5,7 +5,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { hasParent } from '@/utils/dom'
+import { hasParent } from '@/utils'
 
 export default {
   name: 'LeaveHide',

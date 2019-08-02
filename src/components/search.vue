@@ -91,8 +91,7 @@ import { mapActions, mapMutations } from "@/store/helper/music"
 import LeaveHide from "@/base/leave-hide"
 import { getSearchHot, getSearchSuggest } from "@/api/search"
 import { getAlbum } from "@/api/album"
-import { createSong, genArtistisText } from "@/utils/song"
-import { debounce } from "@/utils/common"
+import { createSong, genArtistisText, debounce } from "@/utils"
 export default {
   async created() {
     const {

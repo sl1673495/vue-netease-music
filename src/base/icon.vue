@@ -8,7 +8,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { toRem } from '@/utils/rem'
+import { toRem } from '@/utils'
 export default {
   name: "Icon",
   props: ["size", "type", "color"],

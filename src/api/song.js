@@ -1,4 +1,4 @@
-import { request, requestWithoutLoading } from '@/utils/axios'
+import { request, requestWithoutLoading } from '@/utils'
 
 // 获取音乐url
 export const getSongUrl = id => request.get(`/song/url?id=${id}`)

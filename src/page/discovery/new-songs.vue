@@ -28,7 +28,7 @@ import { mapActions, mapMutations } from "@/store/helper/music"
 import { getNewSongs } from "@/api/discovery"
 import Title from "@/base/title"
 import SongCard from "@/components/song-card"
-import { createSong } from "@/utils/song"
+import { createSong } from "@/utils"
 
 const songsLimit = 10
 export default {

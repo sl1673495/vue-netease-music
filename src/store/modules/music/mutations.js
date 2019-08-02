@@ -1,4 +1,4 @@
-import { shallowEqual } from '@/utils/common'
+import { shallowEqual } from '@/utils'
 export default {
   setCurrentSong(state, song) {
     state.currentSong = song

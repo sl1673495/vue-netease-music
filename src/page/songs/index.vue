@@ -18,7 +18,7 @@
 
 <script type="text/ecmascript-6">
 import { getTopSongs } from '@/api/song'
-import { createSong } from '@/utils/song'
+import { createSong } from '@/utils'
 import SongTable from '@/components/song-table'
 
 export default {

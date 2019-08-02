@@ -186,12 +186,11 @@ export default {
       this.updateSimi()
     },
     async updateLyric() {
-      const lrc = await getLyric(this.currentSong.id)
-      const { lyric } = lrc
-      this.nolyric = !isDef(lyric)
+      const result = await getLyric(this.currentSong.id)
+      this.nolyric = !isDef(result.lrc)
       if (!this.nolyric) {
-        const { lyric, tlyric } = lyricParser(lrc)
-        this.rawLyric = lrc.lrc.lyric
+        const { lyric, tlyric } = lyricParser(result)
+        this.rawLyric = result.lrc.lyric
         this.lyric = lyric
         this.tlyric = tlyric
       }

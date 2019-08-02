@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { prefixStyle } from "@/utils/dom"
+import { prefixStyle } from "@/utils"
 
 const transform = prefixStyle("transform")
 

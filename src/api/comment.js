@@ -1,4 +1,4 @@
-import { request, requestWithoutLoading } from '@/utils/axios'
+import { request, requestWithoutLoading } from '@/utils'
 
 // 歌曲评论
 export const getSongComment = (params) => requestWithoutLoading.get(`/comment/music`, { params })

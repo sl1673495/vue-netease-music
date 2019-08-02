@@ -1,4 +1,4 @@
-import { request, requestWithoutLoading } from '@/utils/axios'
+import { request, requestWithoutLoading } from '@/utils'
 
 // 获取歌单
 export const getPlaylists = (params) => request.get('/top/playlist', { params })

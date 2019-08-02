@@ -1,7 +1,6 @@
 import { getSongUrl } from '@/api/song'
 import storage from 'good-storage'
-import { PLAY_HISTORY_KEY } from '@/utils/config'
-import { notify } from '@/utils/common'
+import { PLAY_HISTORY_KEY, notify } from '@/utils'
 
 export default {
   // 整合歌曲信息 并且开始播放
