@@ -1,11 +1,11 @@
 <template>
   <div class="header">
     <div class="left">
-      <div
-        class="buttons"
-        @click="onClickLogo"
-      >
-        <div class="mac-button red">
+      <div class="buttons">
+        <div
+          class="mac-button red"
+          @click="onClickLogo"
+        >
         </div>
         <div
           class="mac-button yellow"
@@ -32,10 +32,17 @@
         v-if="isPlayerShow"
         class="shrink-player"
       >
-        <Icon type="down" />
+        <Icon
+          :backdrop="true"
+          type="down"
+        />
       </div>
-      <div class="actions">
-
+      <!-- 路由记录器 -->
+      <div
+        v-show="!isPlayerShow"
+        class="history"
+      >
+        <RoutesHistory />
       </div>
     </div>
     <div class="right">
@@ -50,6 +57,7 @@
 <script type="text/ecmascript-6">
 import Theme from "@/components/theme"
 import Search from "@/components/search"
+import RoutesHistory from "@/components/routes-history"
 import { mapState, mapMutations } from "@/store/helper/music"
 import { requestFullScreen, exitFullscreen, isFullscreen } from '@/utils'
 
@@ -77,7 +85,7 @@ export default {
   computed: {
     ...mapState(["isPlayerShow"])
   },
-  components: { Theme, Search }
+  components: { Theme, Search, RoutesHistory }
 }
 </script>
 
@@ -134,8 +142,12 @@ export default {
 
     .shrink-player {
       position: relative;
-      top: -3px;
+      top: -6px;
       margin-left: 16px;
+    }
+
+    .history {
+      margin-left: 65px;
     }
 
     .actions {

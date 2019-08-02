@@ -8,11 +8,10 @@ export default {
   ['--font-color-grey']: '#5C5C5C',
   ['--font-color-grey-shallow']: '#727272',
   ['--border']: '#3F3F3F',
-
   ['--scrollbar-color']: '#3a3a3a',
+  ['--round-hover-bgcolor']: '#373737',
 
   //header
-  ['--header-height']: '50px',
   ['--header-bgcolor']: '#252525',
 
   //menu

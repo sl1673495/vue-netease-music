@@ -36,7 +36,7 @@
       v-show="activeTab === SONG_IDX"
       class="table"
       :songs="filteredSongs"
-      :highLightText="searchValue"
+      :highlightText="searchValue"
     />
     <div class="comments">
       <Comments

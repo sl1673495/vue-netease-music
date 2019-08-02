@@ -1,17 +1,27 @@
-<template>
-  <i
-    @click="onClick"
-    class="iconfont icon-component"
-    :class="getIconCls()"
-    :style="getIconStyle()"
-  />
-</template>
+
 
 <script type="text/ecmascript-6">
 import { toRem } from '@/utils'
 export default {
   name: "Icon",
-  props: ["size", "type", "color"],
+  props: {
+    size: {
+      type: Number,
+      default: 16
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    color: {
+      type: String,
+      default: '',
+    },
+    backdrop: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     getIconCls() {
       let cls = `icon-${this.type}`
@@ -33,11 +43,42 @@ export default {
       }
       return retStyle
     }
+  },
+  render() {
+    const Icon = (
+      <i
+        on={{
+          click: this.onClick
+        }}
+        class={`iconfont icon-component ${this.getIconCls()}`}
+        style={this.getIconStyle()}
+      />
+    )
+    if (this.backdrop) {
+      const backDropSizeRatio = 1.56
+      const backDropSize = toRem(backDropSizeRatio * this.size)
+      return (
+        <span style={{ width: backDropSize, height: backDropSize }} class="backdrop">
+          {Icon}
+        </span>
+      )
+    }
+    return Icon
   }
 }
 </script>
 
 <style lang="scss">
+.backdrop {
+  display: inline-block;
+  @include flex-center;
+  border-radius: 50%;
+
+  &:hover {
+    background: var(--round-hover-bgcolor);
+  }
+}
+
 .icon-component {
   color: var(--font-color-white);
   cursor: pointer;

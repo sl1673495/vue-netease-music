@@ -20,6 +20,7 @@
         </div>
       </div>
       <Icon
+        :backdrop="true"
         slot="reference"
         type="skin"
       />

@@ -13,7 +13,7 @@ export default {
       type: Array,
       default: () => []
     },
-    highLightText: {
+    highlightText: {
       type: String,
       default: '',
     }
@@ -21,9 +21,8 @@ export default {
   data() {
     const commonHighLightSlotScopes = {
       default: (scope) => {
-        return (
-          <span>{this.genHighlight(scope.row[scope.column.property])}</span>
-        )
+        const text = scope.row[scope.column.property]
+        return <HighlightText text={text} highlightText={this.highlightText} />
       }
     }
     return {
@@ -105,25 +104,6 @@ export default {
       ) {
         return 'song-active'
       }
-    },
-    genHighlight(title = '') {
-      if (!this.highLightText) {
-        return title
-      }
-      const titleToMatch = title.toLowerCase()
-      const keyWord = this.highLightText.toLowerCase()
-      const matchIndex = titleToMatch.indexOf(keyWord);
-      const beforeStr = title.substr(0, matchIndex);
-      const afterStr = title.substr(matchIndex + keyWord.length);
-      const hitStr = title.substr(matchIndex, keyWord.length);
-      const titleSpan = matchIndex > -1 ? (
-        <span>
-          {beforeStr}
-          <span class="high-light-text">{hitStr}</span>
-          {afterStr}
-        </span>
-      ) : title;
-      return titleSpan;
     },
     ...mapMutations(['setPlaylist']),
     ...mapActions(["startSong"])

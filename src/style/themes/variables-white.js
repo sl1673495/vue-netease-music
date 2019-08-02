@@ -9,6 +9,9 @@ export default {
   ['--font-color-grey-shallow']: '#BEBEBE',
   ['--border']: '#f2f2f1',
   ['--scrollbar-color']: '#D0D0D0',
+  ['--round-hover-bgcolor']: '#EBEBEB',
+
+  //header
   ['--header-bgcolor']: '#F9F9F9',
 
   // menu

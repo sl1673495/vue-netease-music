@@ -37,7 +37,10 @@
                 class="item"
                 @click="normalizedSuggest.onClick(item)"
               >
-                {{normalizedSuggest.renderName ? normalizedSuggest.renderName(item) : item.name}}
+                <HighlightText
+                  :text="normalizedSuggest.renderName ? normalizedSuggest.renderName(item) : item.name"
+                  :highlightText="searchKeyword"
+                />
               </li>
             </ul>
           </div>
