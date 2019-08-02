@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/sl1673495/vue-netease-music/compare/v2.0.2...v2.1.0) (2019-08-02)
+
+
+### Features
+
+* 优化了vue、vuex、vue-router依赖外置，去除element-ui打包的全量样式，改为按需。 ([9c05ab1](https://github.com/sl1673495/vue-netease-music/commit/9c05ab1))
+
 ### [2.0.2](https://github.com/sl1673495/vue-netease-music/compare/v2.0.1...v2.0.2) (2019-08-02)
 
 
