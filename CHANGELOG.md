@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3](https://github.com/sl1673495/vue-netease-music/compare/v2.1.2...v2.1.3) (2019-08-02)
+
+
+### Features
+
+* 新增回退和前进功能、优化了icon组件的封装。 ([4302169](https://github.com/sl1673495/vue-netease-music/commit/4302169))
+
 ### [2.1.2](https://github.com/sl1673495/vue-netease-music/compare/v2.1.1...v2.1.2) (2019-08-02)
 
 
