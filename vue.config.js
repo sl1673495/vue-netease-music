@@ -9,6 +9,12 @@ module.exports = {
           secure: false
         }
       }
+    },
+    externals: {
+      "vue": "Vue",
+      'vue-router': 'VueRouter',
+      'vuex': "Vuex",
+      "axios": "axios",
     }
   },
   css: {

@@ -1,5 +1,4 @@
 export default function lyricParser(lrc) {
-  console.log('lrc: ', lrc);
   return {
     'lyric': parseLrc(lrc.lrc.lyric || ''),
     'tlyric': parseLrc(lrc.tlyric.lyric || ''),

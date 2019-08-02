@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 
 import '@/style/index.scss'
-import './style/element-variables.scss'
 import '@/utils/rem'
 import store from './store/index'
 import initAxios from './utils/axios'

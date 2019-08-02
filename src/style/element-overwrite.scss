@@ -103,3 +103,19 @@ $input-height: 24px;
     color: var(--font-color) !important;
   }
 }
+
+// button
+.el-button--primary {
+  background: $theme-color !important;
+  border-color: $theme-color !important;
+}
+
+// loading
+.el-loading-spinner {
+  circle {
+    stroke: $theme-color !important;
+  }
+  .el-loading-text {
+    color: $theme-color !important;
+  }
+}
