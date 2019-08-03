@@ -5,24 +5,35 @@
 ### [预览地址](http://47.99.213.231:8001/)
 ### [源码地址](https://github.com/sl1673495/vue-netease-music) 
 
-### 进度     
+### 进度 
 * 搜索歌曲+播放（版权歌曲无法播放)
 * 发现页
+  * banner图
+  * 最新歌曲
+  * 推荐歌单
 * 播放列表
+* 播放记录
 * 全部歌单
+* 歌单详情
+  * 音乐列表
+  * 评论区
 * 最新音乐
 * cd页
   * 歌词
   * 评论区
   * 推荐歌单
   * 推荐歌曲
+* 登录(网易云uid登录)
+  * 获取用户信息
+  * 获取收藏歌单
+
 * 主题换肤功能
 
 ### 后端接口
 https://binaryify.github.io/NeteaseCloudMusicApi
 
 ### 技术栈
-* Vue全家桶 vue-cli3 create出来的。
+* Vue全家桶 Vue-CLI3 create出来的。
 * ui库用了魔改样式的element-ui
 * 歌词滚动部分用了黄轶老大的better-scroll（贼爽）
 * 主题换肤用的css变量替换。
@@ -54,3 +65,4 @@ npm run serve
 ```
 node app.js
 ```
+
