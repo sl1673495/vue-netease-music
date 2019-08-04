@@ -20,9 +20,15 @@
 import ProgressBar from '@/base/progress-bar'
 export default {
   name: 'Volume',
+  props: {
+    volume: {
+      type: Number,
+      default: 1,
+    }
+  },
   data() {
     return {
-      volumePercent: 1
+      volumePercent: this.volume
     }
   },
   methods: {

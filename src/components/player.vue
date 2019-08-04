@@ -1,7 +1,7 @@
 <template >
   <transition name="slide">
     <div
-      v-if="isPlayerShow"
+      :class="getPlayerShowCls()"
       class="player"
     >
       <div class="content">
@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-  </transition>
+</transition>
 
 </template>
 
@@ -215,6 +215,9 @@ export default {
         return createSong({ id, name, artists, duration, img: picUrl })
       })
     },
+    getPlayerShowCls() {
+      return this.isPlayerShow ? 'show' : 'hide'
+    },
     getActiveCls(index) {
       return this.activeLyricIndex === index ? "active" : ""
     },
@@ -236,22 +239,26 @@ export default {
       scoller.on("scrollEnd", onScrollEnd.bind(null, SCROLL_TYPE))
       scoller.on("mousewheelEnd", onScrollEnd.bind(null, WHEEL_TYPE))
     },
+    scrollToActiveLyric() {
+      if (this.activeLyricIndex !== -1) {
+        const { scroller, lyric } = this.$refs
+        if (lyric && lyric[this.activeLyricIndex]) {
+          scroller.getScroller().scrollToElement(lyric[this.activeLyricIndex], 200, 0, true)
+        }
+      }
+    },
     clearTimer(type) {
       this.lyricTimer[type] && clearTimeout(this.lyricTimer[type])
     },
-    /**
-     * 计算内层Image的transform，并同步到外层容器
-     * @param wrapper
-     * @param inner
-     */
+    // 计算内层Image的transform，并同步到外层容器
     syncWrapperTransform(wrapper, inner) {
       if (!this.$refs[wrapper]) {
         return
       }
-      let imageWrapper = this.$refs[wrapper]
-      let image = this.$refs[inner]
-      let wTransform = getComputedStyle(imageWrapper)[transform]
-      let iTransform = getComputedStyle(image)[transform]
+      const imageWrapper = this.$refs[wrapper]
+      const image = this.$refs[inner]
+      const wTransform = getComputedStyle(imageWrapper)[transform]
+      const iTransform = getComputedStyle(image)[transform]
       imageWrapper.style[transform] =
         wTransform === "none" ? iTransform : iTransform.concat(" ", wTransform)
     },
@@ -328,6 +335,9 @@ export default {
         // 歌词短期内不会变化 所以只拉取相似信息
         this.updateSimi()
         this.addListener()
+        this.$nextTick(() => {
+          this.scrollToActiveLyric()
+        })
       } else {
         this.removeListener()
       }
@@ -355,15 +365,11 @@ export default {
     },
     activeLyricIndex(newIndex, oldIndex) {
       if (
-        newIndex !== -1 &&
         newIndex !== oldIndex &&
         !this.lyricScroll[WHEEL_TYPE] &&
         !this.lyricScroll[SCROLL_TYPE]
       ) {
-        const { scroller, lyric } = this.$refs
-        if (lyric && lyric[newIndex]) {
-          scroller.getScroller().scrollToElement(lyric[newIndex], 200, 0, true)
-        }
+        this.scrollToActiveLyric()
       }
     },
     $route() {
@@ -405,6 +411,15 @@ $img-outer-d: 300px;
   z-index: $song-detail-z-index;
   overflow: hidden;
   overflow-y: auto;
+  transition: all 0.5s;
+  
+  &.hide {
+    transform: translateY(100%);
+  }
+
+  &.show {
+    transform: none;
+  }
 
   .content {
     max-width: 870px;

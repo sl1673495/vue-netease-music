@@ -85,7 +85,7 @@
         />
       </el-popover>
       <!-- 音量 -->
-      <Volume @volumeChange="onVolumeChange" />
+      <Volume :volume="volume" @volumeChange="onVolumeChange" />
     </div>
     <div class="progress-bar-wrap">
       <ProgressBar
@@ -108,12 +108,18 @@
 import { mapState, mapMutations, mapGetters, mapActions } from "@/store/helper/music"
 import ProgressBar from "@/base/progress-bar"
 import Volume from '@/base/volume'
+import Storage from 'good-storage'
+import { VOLUME_KEY } from '@/utils/config'
 
 export default {
   data() {
     return {
       songReady: false,
+      volume: Storage.get(VOLUME_KEY, 1),
     }
+  },
+  mounted() {
+    this.audio.volume = this.volume
   },
   methods: {
     togglePlaying() {
@@ -157,6 +163,7 @@ export default {
     },
     onVolumeChange(percent) {
       this.audio.volume = percent
+      Storage.set(VOLUME_KEY, percent)
     },
     togglePlaylistShow() {
       this.setPlaylistShow(!this.isPlaylistShow)
