@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.5](https://github.com/sl1673495/vue-netease-music/compare/v2.1.4...v2.1.5) (2019-08-04)
+
+
+### Features
+
+* 增加音量本地存储功能，优化cd页面动画显示逻辑 ([f09a70c](https://github.com/sl1673495/vue-netease-music/commit/f09a70c))
+
 ### [2.1.4](https://github.com/sl1673495/vue-netease-music/compare/v2.1.3...v2.1.4) (2019-08-03)
 
 
