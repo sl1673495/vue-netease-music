@@ -204,7 +204,7 @@ export default {
       })
     },
     getPlayerShowCls() {
-      return this.isPlayerShow ? 'show' : 'hide'
+      return this.isPlayerShow ? "show" : "hide"
     },
     getActiveCls(index) {
       return this.activeLyricIndex === index ? "active" : ""
@@ -231,7 +231,9 @@ export default {
       if (this.activeLyricIndex !== -1) {
         const { scroller, lyric } = this.$refs
         if (lyric && lyric[this.activeLyricIndex]) {
-          scroller.getScroller().scrollToElement(lyric[this.activeLyricIndex], 200, 0, true)
+          scroller
+            .getScroller()
+            .scrollToElement(lyric[this.activeLyricIndex], 200, 0, true)
         }
       }
     },
@@ -262,7 +264,7 @@ export default {
       this.startSong(song)
       this.addToPlaylist(song)
     },
-    resizeScroller: debounce(function () {
+    resizeScroller: debounce(function() {
       this.$refs.scroller.getScroller().refresh()
     }, 500),
     addResizeListener() {
@@ -278,12 +280,12 @@ export default {
     activeLyricIndex() {
       return this.lyricWithTranslation
         ? this.lyricWithTranslation.findIndex((l, index) => {
-          const nextLyric = this.lyricWithTranslation[index + 1]
-          return (
-            this.currentTime >= l.time &&
-            (nextLyric ? this.currentTime < nextLyric.time : true)
-          )
-        })
+            const nextLyric = this.lyricWithTranslation[index + 1]
+            return (
+              this.currentTime >= l.time &&
+              (nextLyric ? this.currentTime < nextLyric.time : true)
+            )
+          })
         : -1
     },
     lyricWithTranslation() {
@@ -402,7 +404,7 @@ $img-outer-d: 300px;
   transition: transform 0.5s;
 
   &.hide {
-    transform: translateY(100%);
+    transform: translateY(105%);
   }
 
   &.show {
