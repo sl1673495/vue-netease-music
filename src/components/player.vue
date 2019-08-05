@@ -17,13 +17,13 @@
               src="@/assets/image/play-bar.png"
             />
             <div
-              ref="disc"
               class="img-outer-border"
+              ref="disc"
             >
               <div
-                ref="discRotate"
                 :class="{rotate: playing}"
                 class="img-outer"
+                ref="discRotate"
               >
                 <div class="img-wrap">
                   <img :src="$utils.genImgUrl(currentSong.img, 400)" />
@@ -32,9 +32,7 @@
             </div>
           </div>
           <div class="right">
-            <p class="name">
-              {{currentSong.name}}
-            </p>
+            <p class="name">{{currentSong.name}}</p>
             <div class="desc">
               <div class="desc-item">
                 <span class="label">歌手：</span>
@@ -44,33 +42,28 @@
             <div
               class="no-lyric"
               v-if="nolyric"
-            >
-              还没有歌词哦~
-            </div>
+            >还没有歌词哦~</div>
             <Scroller
-              v-else
-              ref="scroller"
-              class="lyric-wrap"
               :data="lyric"
-              @init="onInitScroller"
               :options="{disableTouch: true}"
+              @init="onInitScroller"
+              class="lyric-wrap"
+              ref="scroller"
+              v-else
             >
-
               <div>
                 <div
-                  :key="index"
-                  v-for="(l,index) in lyricWithTranslation"
-                  class="lyric-item"
                   :class="getActiveCls(index)"
+                  :key="index"
+                  class="lyric-item"
                   ref="lyric"
+                  v-for="(l,index) in lyricWithTranslation"
                 >
                   <p
                     :key="contentIndex"
-                    v-for="(content, contentIndex) in l.contents"
                     class="lyric-text"
-                  >
-                    {{content}}
-                  </p>
+                    v-for="(content, contentIndex) in l.contents"
+                  >{{content}}</p>
                 </div>
               </div>
             </Scroller>
@@ -79,8 +72,8 @@
         <div class="bottom">
           <div class="left">
             <Comments
-              ref="comments"
               :id="currentSong.id"
+              ref="comments"
             />
           </div>
           <div
@@ -88,30 +81,28 @@
             v-if="simiPlaylists.concat(simiSongs).length"
           >
             <Loading
-              v-if="simiLoading"
               :loading="simiLoading"
+              v-if="simiLoading"
             />
             <div v-else>
               <div
                 class="simi-playlists"
                 v-if="simiPlaylists.length"
               >
-                <p class="title">
-                  包含这首歌的歌单
-                </p>
+                <p class="title">包含这首歌的歌单</p>
                 <Card
-                  v-for="simiPlaylist in simiPlaylists"
-                  :key="simiPlaylist.id"
                   :img="simiPlaylist.coverImgUrl"
+                  :key="simiPlaylist.id"
                   :name="simiPlaylist.name"
                   @click="onClickPlaylist(simiPlaylist.id)"
+                  v-for="simiPlaylist in simiPlaylists"
                 >
                   <template v-slot:desc>
                     <div class="desc">
                       <Icon
                         :size="12"
-                        type="play"
                         color="shallow"
+                        type="play"
                       />
                       <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
                     </div>
@@ -122,16 +113,14 @@
                 class="simi-songs"
                 v-if="simiSongs.length"
               >
-                <p class="title">
-                  相似歌曲
-                </p>
+                <p class="title">相似歌曲</p>
                 <Card
-                  v-for="simiSong in simiSongs"
-                  :key="simiSong.id"
-                  :img="simiSong.img"
-                  :name="simiSong.name"
                   :desc="simiSong.artistsText"
+                  :img="simiSong.img"
+                  :key="simiSong.id"
+                  :name="simiSong.name"
                   @click="onClickSong(simiSong)"
+                  v-for="simiSong in simiSongs"
                 >
                   <template v-slot:img-mask>
                     <PlayIcon class="play-icon" />
@@ -144,7 +133,6 @@
       </div>
     </div>
   </transition>
-
 </template>
 
 <script type="text/ecmascript-6">
@@ -277,10 +265,10 @@ export default {
     resizeScroller: debounce(function () {
       this.$refs.scroller.getScroller().refresh()
     }, 500),
-    addListener() {
+    addResizeListener() {
       window.addEventListener("resize", this.resizeScroller)
     },
-    removeListener() {
+    removeResizeListener() {
       window.removeEventListener("resize", this.resizeScroller)
     },
     ...mapMutations(["setPlayerShow"]),
@@ -334,12 +322,12 @@ export default {
       if (show) {
         // 歌词短期内不会变化 所以只拉取相似信息
         this.updateSimi()
-        this.addListener()
+        this.addResizeListener()
         this.$nextTick(() => {
           this.scrollToActiveLyric()
         })
       } else {
-        this.removeListener()
+        this.removeResizeListener()
       }
     },
     playing(newPlaying) {
@@ -411,7 +399,7 @@ $img-outer-d: 300px;
   z-index: $song-detail-z-index;
   overflow: hidden;
   overflow-y: auto;
-  transition: all 0.5s;
+  transition: transform 0.5s;
 
   &.hide {
     transform: translateY(100%);

@@ -9,6 +9,9 @@ export default {
   setPlayingState(state, playing) {
     state.playing = playing
   },
+  setPlayMode(state, mode) {
+    state.playMode = mode
+  },
   setPlaylistShow(state, show) {
     state.isPlaylistShow = show
   },

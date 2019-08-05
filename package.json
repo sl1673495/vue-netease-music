@@ -31,6 +31,8 @@
     "@vue/cli-service": "^3.9.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-component": "^1.1.1",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",

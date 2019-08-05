@@ -1,65 +1,60 @@
 <template>
   <div class="search">
     <el-input
-      ref="input"
+      @focus="onFocus"
+      @input="onInput"
       placeholder="搜索"
       prefix-icon="el-icon-search"
+      ref="input"
       v-model="searchKeyword"
-      @input="onInput"
-      @focus="onFocus"
-    >
-    </el-input>
+    ></el-input>
     <LeaveHide
       :reserveDoms="reserveDoms"
-      @clickOutside="searchPanelShow = false"
       :show="searchPanelShow"
+      @clickOutside="searchPanelShow = false"
     >
       <div
-        v-show="searchPanelShow"
         class="search-panel"
+        v-show="searchPanelShow"
       >
         <div
-          v-if="suggestShow"
           class="search-suggest"
+          v-if="suggestShow"
         >
           <div
             :key="index"
-            v-for="(normalizedSuggest, index) in normalizedSuggests"
             class="suggest-item"
+            v-for="(normalizedSuggest, index) in normalizedSuggests"
           >
-            <div class="title">
-              {{normalizedSuggest.title}}
-            </div>
+            <div class="title">{{normalizedSuggest.title}}</div>
             <ul class="list">
               <li
-                v-for="item in normalizedSuggest.data"
                 :key="item.id"
-                class="item"
                 @click="normalizedSuggest.onClick(item)"
+                class="item"
+                v-for="item in normalizedSuggest.data"
               >
                 <HighlightText
-                  :text="normalizedSuggest.renderName ? normalizedSuggest.renderName(item) : item.name"
                   :highlightText="searchKeyword"
+                  :text="normalizedSuggest.renderName ? normalizedSuggest.renderName(item) : item.name"
                 />
               </li>
             </ul>
           </div>
         </div>
         <div
-          v-else
           class="search-hots"
+          v-else
         >
           <div class="block">
             <p class="title">热门搜索</p>
             <div class="tags">
               <NButton
-                class="button"
                 :key="index"
-                v-for="(hot, index) in searchHots"
                 @click="onClickHot(hot)"
-              >
-                {{hot.first}}
-              </NButton>
+                class="button"
+                v-for="(hot, index) in searchHots"
+              >{{hot.first}}</NButton>
             </div>
           </div>
           <div class="block">
@@ -69,19 +64,15 @@
               v-if="searchHistorys.length"
             >
               <NButton
-                class="button"
                 :key="index"
+                class="button"
                 v-for="(history, index) in searchHistorys"
-              >
-                {{history.first}}
-              </NButton>
+              >{{history.first}}</NButton>
             </div>
             <div
               class="empty"
               v-else
-            >
-              暂无搜索历史
-            </div>
+            >暂无搜索历史</div>
           </div>
         </div>
       </div>

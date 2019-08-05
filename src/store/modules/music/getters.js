@@ -1,25 +1,52 @@
+import { playModeMap } from '@/utils/config'
+
 export const currentIndex = (state) => {
   const { currentSong, playlist } = state
   return playlist.findIndex(({ id }) => id === currentSong.id)
 }
 
 export const nextSong = (state, getters) => {
-  const { playlist } = state
-  const index = genSequenceNextIndex()
+  const { playlist, playMode } = state
+  const nextStratMap = {
+    [playModeMap.sequence.code]: getSequenceNextIndex,
+    [playModeMap.loop.code]: getLoopNextIndex,
+    [playModeMap.random.code]: getRandomNextIndex
+  }
+  const getNextStrat = nextStratMap[playMode]
+  const index = getNextStrat()
+
   return playlist[index]
 
-  function genSequenceNextIndex() {
+  // 顺序
+  function getSequenceNextIndex() {
     let nextIndex = getters.currentIndex + 1
     if (nextIndex > playlist.length - 1) {
       nextIndex = 0
     }
     return nextIndex
   }
+
+  // 随机
+  function getRandomNextIndex() {
+    return getRandomIndex(playlist, getters.currentIndex)
+  }
+
+  // 单曲
+  function getLoopNextIndex() {
+    return getters.currentIndex
+  }
 }
 
 export const prevSong = (state, getters) => {
-  const { playlist } = state
-  const index = genSequencePrevIndex()
+  const { playlist, playMode } = state
+  const prevStratMap = {
+    [playModeMap.sequence.code]: genSequencePrevIndex,
+    [playModeMap.loop.code]: getLoopPrevIndex,
+    [playModeMap.random.code]: getRandomPrevIndex
+  }
+  const getPrevStrat = prevStratMap[playMode]
+  const index = getPrevStrat()
+
   return playlist[index]
 
   function genSequencePrevIndex() {
@@ -29,4 +56,20 @@ export const prevSong = (state, getters) => {
     }
     return prevIndex
   }
+
+  function getLoopPrevIndex() {
+    return getters.currentIndex
+  }
+
+  function getRandomPrevIndex() {
+    return getRandomIndex(playlist, getters.currentIndex)
+  }
+}
+
+function getRandomIndex(playlist, currentIndex) {
+  let index = Math.round(Math.random() * (playlist.length - 1))
+  if (index === currentIndex) {
+    index = getRandomIndex(playlist, currentIndex)
+  }
+  return index
 }

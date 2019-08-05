@@ -3,34 +3,33 @@
     <div class="left">
       <div class="buttons">
         <div
-          class="mac-button red"
           @click="onClickLogo"
-        >
-        </div>
+          class="mac-button red"
+        ></div>
         <div
-          class="mac-button yellow"
           @click="exitFullscreen"
+          class="mac-button yellow"
         >
           <Icon
-            type="minus"
             :size="9"
+            type="minus"
           />
         </div>
         <div
-          class="mac-button green"
           @click="fullscreen"
+          class="mac-button green"
         >
           <Icon
-            type="fullscreen"
             :size="9"
+            type="fullscreen"
           />
         </div>
       </div>
       <!-- 缩起播放器 -->
       <div
         @click="onClickDown"
-        v-if="isPlayerShow"
         class="shrink-player"
+        v-if="isPlayerShow"
       >
         <Icon
           :backdrop="true"
@@ -39,8 +38,8 @@
       </div>
       <!-- 路由记录器 -->
       <div
-        v-show="!isPlayerShow"
         class="history"
+        v-show="!isPlayerShow"
       >
         <RoutesHistory />
       </div>

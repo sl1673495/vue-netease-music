@@ -1,5 +1,5 @@
 import storage from 'good-storage'
-import { PLAY_HISTORY_KEY } from '@/utils'
+import { PLAY_HISTORY_KEY, playModeMap } from '@/utils'
 
 export default {
   // 当前播放歌曲
@@ -8,6 +8,8 @@ export default {
   currentTime: 0,
   // 播放状态
   playing: false,
+  // 播放模式
+  playMode: playModeMap.sequence.code,
   // 播放列表显示
   isPlaylistShow: false,
   // 播放提示显示
@@ -18,4 +20,5 @@ export default {
   playlist: [],
   // 播放历史数据
   playHistory: storage.get(PLAY_HISTORY_KEY, []),
+
 }

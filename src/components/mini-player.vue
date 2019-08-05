@@ -1,19 +1,19 @@
 <template>
   <div
-    id="mini-player"
     class="mini-player"
+    id="mini-player"
   >
     <!-- 歌曲内容 -->
     <div class="song">
       <template v-if="hasCurrentSong">
         <div
-          class="img-wrap"
           @click="togglePlayerShow"
+          class="img-wrap"
         >
           <div class="mask"></div>
           <img
-            class="blur"
             :src="$utils.genImgUrl(currentSong.img, 80)"
+            class="blur"
           />
           <div class="player-control">
             <Icon
@@ -40,66 +40,90 @@
     <!-- 控制台 -->
     <div class="control">
       <Icon
-        class="icon"
-        type="prev"
         :size="24"
         @click="prev"
+        class="icon"
+        type="prev"
       />
       <div
         @click="togglePlaying"
         class="play-icon"
       >
         <Icon
-          :type="playIcon"
           :size="24"
+          :type="playIcon"
         />
       </div>
 
       <Icon
-        class="icon"
-        type="next"
         :size="24"
         @click="next"
+        class="icon"
+        type="next"
       />
     </div>
 
     <div class="mode">
-      <Icon
-        class="icon"
-        type="github"
-        @click="goGitHub"
-      />
+      <!-- 模式 -->
       <el-popover
+        :value="isPlayModePromptShow"
         placement="top"
-        width="160"
-        :value="isPlaylistPromptShow"
         trigger="manual"
+        width="160"
+      >
+        <p>{{changePlayModeText}}</p>
+        <Icon
+          :size="20"
+          :type="modeIcon"
+          @click="onChangePlayMode"
+          class="mode-item"
+          slot="reference"
+        />
+      </el-popover>
+      <!-- 播放列表 -->
+      <el-popover
+        :value="isPlaylistPromptShow"
+        placement="top"
+        trigger="manual"
+        width="160"
       >
         <p>已更新歌单</p>
         <Icon
-          slot="reference"
-          class="icon"
-          type="playlist"
-          :size="18"
+          :size="20"
           @click="togglePlaylistShow"
+          class="mode-item"
+          slot="reference"
+          type="playlist"
         />
       </el-popover>
       <!-- 音量 -->
-      <Volume :volume="volume" @volumeChange="onVolumeChange" />
+      <div class="mode-item">
+        <Volume
+          :volume="volume"
+          @volumeChange="onVolumeChange"
+        />
+      </div>
+      <!-- github -->
+      <Icon
+        :size="20"
+        @click="goGitHub"
+        class="mode-item"
+        type="github"
+      />
     </div>
     <div class="progress-bar-wrap">
       <ProgressBar
+        :disabled="!hasCurrentSong"
         :percent="playedPercent"
         @percentChange="onProgressChange"
-        :disabled="!hasCurrentSong"
       />
     </div>
     <audio
-      ref="audio"
       :src="currentSong.url"
       @canplay="ready"
       @ended="end"
       @timeupdate="updateTime"
+      ref="audio"
     ></audio>
   </div>
 </template>
@@ -109,12 +133,13 @@ import { mapState, mapMutations, mapGetters, mapActions } from "@/store/helper/m
 import ProgressBar from "@/base/progress-bar"
 import Volume from '@/base/volume'
 import Storage from 'good-storage'
-import { VOLUME_KEY } from '@/utils/config'
+import { VOLUME_KEY, playModeMap } from '@/utils'
 
 export default {
   data() {
     return {
       songReady: false,
+      isPlayModePromptShow: false,
       volume: Storage.get(VOLUME_KEY, 1),
     }
   },
@@ -165,6 +190,24 @@ export default {
       this.audio.volume = percent
       Storage.set(VOLUME_KEY, percent)
     },
+    onChangePlayMode() {
+      const modeKeys = Object.keys(playModeMap)
+      const currentModeIndex = modeKeys.findIndex(key => playModeMap[key].code === this.playMode)
+      const nextIndex = (currentModeIndex + 1) % modeKeys.length
+      const nextModeKey = modeKeys[nextIndex]
+      const nextMode = playModeMap[nextModeKey]
+      this.setPlayMode(nextMode.code)
+      this.showPlayModePrompt()
+    },
+    showPlayModePrompt() {
+      this.isPlayModePromptShow = true
+      if (this.playModePromptTimer) {
+        clearTimeout(this.playModePromptTimer)
+      }
+      this.playModePromptTimer = setTimeout(() => {
+        this.isPlayModePromptShow = false
+      }, 1000);
+    },
     togglePlaylistShow() {
       this.setPlaylistShow(!this.isPlaylistShow)
     },
@@ -174,7 +217,7 @@ export default {
     goGitHub() {
       window.open('https://github.com/sl1673495/vue-netease-music')
     },
-    ...mapMutations(["setCurrentTime", "setPlayingState", "setPlaylistShow", "setPlayerShow"]),
+    ...mapMutations(["setCurrentTime", "setPlayingState", "setPlayMode", "setPlaylistShow", "setPlayerShow"]),
     ...mapActions(["startSong"])
   },
   watch: {
@@ -215,6 +258,15 @@ export default {
     playIcon() {
       return this.playing ? "pause" : "play"
     },
+    currentMode() {
+      return playModeMap[this.playMode]
+    },
+    modeIcon() {
+      return this.currentMode.icon
+    },
+    changePlayModeText() {
+      return `切换播放模式：${this.currentMode.name}`
+    },
     audio() {
       return this.$refs.audio
     },
@@ -226,7 +278,7 @@ export default {
     playControlIcon() {
       return this.isPlayerShow ? 'shrink' : 'open'
     },
-    ...mapState(["currentSong", "currentTime", "playing", "isPlaylistShow", "isPlaylistPromptShow", "isPlayerShow"]),
+    ...mapState(["currentSong", "currentTime", "playing", "playMode", "isPlaylistShow", "isPlaylistPromptShow", "isPlayerShow"]),
     ...mapGetters(["prevSong", "nextSong"])
   },
   components: {
@@ -355,7 +407,7 @@ export default {
     justify-content: flex-end;
     flex: 6;
 
-    .icon {
+    .mode-item {
       margin-right: 16px;
     }
   }
