@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/sl1673495/vue-netease-music/compare/v2.1.7...v2.2.0) (2019-08-05)
+
+
+### Features
+
+* 新增播放模式切换功能 ([fea7da5](https://github.com/sl1673495/vue-netease-music/commit/fea7da5))
+
 ### [2.1.7](https://github.com/sl1673495/vue-netease-music/compare/v2.1.6...v2.1.7) (2019-08-05)
 
 
