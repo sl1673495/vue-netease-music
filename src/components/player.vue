@@ -43,7 +43,7 @@
             </div>
             <div
               class="no-lyric"
-              v-if="!rawLyric || nolyric"
+              v-if="nolyric"
             >
               还没有歌词哦~
             </div>
@@ -143,7 +143,7 @@
         </div>
       </div>
     </div>
-</transition>
+  </transition>
 
 </template>
 
@@ -157,10 +157,12 @@ import { mapState, mapMutations, mapActions } from "@/store/helper/music"
 
 const WHEEL_TYPE = "wheel"
 const SCROLL_TYPE = "scroll"
+// 恢复自动滚动的定时器时间
+const AUTO_SCROLL_RECOVER_TIME = 1000
 const transform = prefixStyle("transform")
 export default {
   created() {
-    this.lyricScroll = {
+    this.lyricScrolling = {
       [WHEEL_TYPE]: false,
       [SCROLL_TYPE]: false
     }
@@ -171,7 +173,6 @@ export default {
   },
   data() {
     return {
-      rawLyric: "",
       lyric: [],
       tlyric: [],
       simiLoading: false,
@@ -187,10 +188,9 @@ export default {
     },
     async updateLyric() {
       const result = await getLyric(this.currentSong.id)
-      this.nolyric = !isDef(result.lrc)
+      this.nolyric = !isDef(result.lrc) || !result.lrc.lyric
       if (!this.nolyric) {
         const { lyric, tlyric } = lyricParser(result)
-        this.rawLyric = result.lrc.lyric
         this.lyric = lyric
         this.tlyric = tlyric
       }
@@ -224,14 +224,14 @@ export default {
     onInitScroller(scoller) {
       const onScrollStart = type => {
         this.clearTimer(type)
-        this.lyricScroll[type] = true
+        this.lyricScrolling[type] = true
       }
       const onScrollEnd = type => {
         // 滚动结束后两秒 歌词开始自动滚动
         this.clearTimer(type)
         this.lyricTimer[type] = setTimeout(() => {
-          this.lyricScroll[type] = false
-        }, 2000)
+          this.lyricScrolling[type] = false
+        }, AUTO_SCROLL_RECOVER_TIME)
       }
       scoller.on("scrollStart", onScrollStart.bind(null, SCROLL_TYPE))
       scoller.on("mousewheelStart", onScrollStart.bind(null, WHEEL_TYPE))
@@ -366,8 +366,8 @@ export default {
     activeLyricIndex(newIndex, oldIndex) {
       if (
         newIndex !== oldIndex &&
-        !this.lyricScroll[WHEEL_TYPE] &&
-        !this.lyricScroll[SCROLL_TYPE]
+        !this.lyricScrolling[WHEEL_TYPE] &&
+        !this.lyricScrolling[SCROLL_TYPE]
       ) {
         this.scrollToActiveLyric()
       }
@@ -412,7 +412,7 @@ $img-outer-d: 300px;
   overflow: hidden;
   overflow-y: auto;
   transition: all 0.5s;
-  
+
   &.hide {
     transform: translateY(100%);
   }

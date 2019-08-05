@@ -1,32 +1,30 @@
 export default function lyricParser(lrc) {
   return {
-    'lyric': parseLrc(lrc.lrc.lyric || ''),
-    'tlyric': parseLrc(lrc.tlyric.lyric || ''),
+    'lyric': parseLyric(lrc.lrc.lyric || ''),
+    'tlyric': parseLyric(lrc.tlyric.lyric || ''),
     'lyricuser': lrc.lyricUser,
     'transuser': lrc.transUser,
   }
 }
 
-function parseLrc(lrc) {
-  let _lrc = lrc.split('\n');
-  let parsedLrc = [{
-    time: 0,
-    content: '',
-  }];
-  for (let i = 0; i < _lrc.length; i++) {
-    let timeReg = /^\[([0-9][0-9]):([0-9][0-9].*)](.*)$/i;
-    let parsed = timeReg.exec(_lrc[i]);
-    if (parsed == null) {
-      continue;
+export function parseLyric(lrc) {
+  const lyrics = lrc.split('\n')
+  const lrcObj = []
+  for (let i = 0; i < lyrics.length; i++) {
+    const lyric = decodeURIComponent(lyrics[i])
+    const timeReg = /\[\d*:\d*((\.|:)\d*)*\]/g
+    const timeRegExpArr = lyric.match(timeReg)
+    if (!timeRegExpArr) continue
+    const content = lyric.replace(timeReg, '')
+    for (let k = 0, h = timeRegExpArr.length; k < h; k++) {
+      const t = timeRegExpArr[k]
+      const min = Number(String(t.match(/\[\d*/i)).slice(1))
+      const sec = Number(String(t.match(/:\d*/i)).slice(1))
+      const time = min * 60 + sec
+      if (content !== '') {
+        lrcObj.push({ time: time, content })
+      }
     }
-    let min = parseInt(parsed[1]);
-    let sec = parseFloat(parsed[2]);
-
-    parsedLrc.push({
-      'time': sec + min * 60,
-      'content': parsed[3],
-    });
   }
-
-  return parsedLrc;
+  return lrcObj
 }
