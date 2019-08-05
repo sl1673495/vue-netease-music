@@ -18,9 +18,7 @@ echoSuccess()
 git add .
 echoSuccess 'git add success'
 echo
-echoCommon "输入commit message"
-read message
-git commit -m "$message"
+git cz
 echoSuccess 'commit success'
 echo
 echoCommon "选择要发布的方式?"
