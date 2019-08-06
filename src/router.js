@@ -6,6 +6,7 @@ const Discovery = () => import('@/page/discovery')
 const PlaylistDetail = () => import('@/page/playlist-detail')
 const Playlists = () => import('@/page/playlists')
 const Songs = () => import('@/page/songs')
+const Search = () => import('@/page/search')
 
 export const topRoutes = [{
   path: '/discovery',
@@ -36,6 +37,11 @@ export default new Router({
       path: '/playlist/:id',
       name: 'playlist',
       component: PlaylistDetail
+    }, {
+      path: '/search/:keywords',
+      name: 'search',
+      component: Search,
+      props: true
     },
     ...topRoutes
   ]

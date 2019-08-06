@@ -3,6 +3,7 @@
     <el-input
       @focus="onFocus"
       @input="onInput"
+      @keypress.native="onKeyPress"
       placeholder="搜索"
       prefix-icon="el-icon-search"
       ref="input"
@@ -84,8 +85,7 @@
 import { mapActions, mapMutations } from "@/store/helper/music"
 import LeaveHide from "@/base/leave-hide"
 import { getSearchHot, getSearchSuggest } from "@/api/search"
-import { getAlbum } from "@/api/album"
-import { createSong, genArtistisText, debounce } from "@/utils"
+import { createSongWithImg, genArtistisText, debounce } from "@/utils"
 export default {
   async created() {
     const {
@@ -124,7 +124,19 @@ export default {
     onClickHot(hot) {
       const { first } = hot
       this.searchKeyword = first
-      this.onInput(first)
+      this.goSearch(first)
+    },
+    onKeyPress(e) {
+      if (this.searchKeyword) {
+        const ENTER_CODE = 13
+        if (e.keyCode === ENTER_CODE) {
+          this.goSearch(this.searchKeyword)
+          this.searchPanelShow = false
+        }
+      }
+    },
+    goSearch(keywords) {
+      this.$router.push(`/search/${keywords}`)
     },
     async onClickSong(item) {
       const {
@@ -132,18 +144,15 @@ export default {
         name,
         artists,
         duration,
-        album: { id: albumId }
+        album: { id: albumId, name: albumName }
       } = item
-      const { songs } = await getAlbum(albumId)
-      const {
-        al: { picUrl }
-      } = songs.find(({ id: songId }) => songId === id) || {}
-      const song = createSong({
+      const song = await createSongWithImg({
         id,
         name,
         artists,
         duration,
-        img: picUrl
+        albumId,
+        albumName
       })
       this.startSong(song)
       this.addToPlaylist(song)

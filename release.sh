@@ -15,6 +15,8 @@ echoSuccess()
   echo -e "\033[32m $1 \033[0m"
 }
 
+git pull
+echoSuccess 'git pull success'
 git add .
 echoSuccess 'git add success'
 echo

@@ -5,11 +5,7 @@ import { PLAY_HISTORY_KEY, notify } from '@/utils'
 export default {
   // 整合歌曲信息 并且开始播放
   async startSong({ commit, state, dispatch, getters }, song) {
-    commit('setCurrentSong', {
-      ...song,
-      url: genSongPlayUrl(song.id)
-    })
-
+    commit('setCurrentSong', song)
     // 历史记录
     const { playHistory } = state
     const playHistoryCopy = playHistory.slice()

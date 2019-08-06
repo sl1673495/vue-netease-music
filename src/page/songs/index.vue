@@ -2,16 +2,16 @@
   <div class="songs">
     <div class="tabs">
       <Tabs
-        type="small"
         :tabs="tabs"
-        align="right"
-        v-model="activeTabIndex"
         @tabChange="getSongs"
+        align="right"
+        type="small"
+        v-model="activeTabIndex"
       />
     </div>
     <SongTable
-      header-row-class-name="header-row"
       :songs="songs"
+      header-row-class-name="header-row"
     />
   </div>
 </template>

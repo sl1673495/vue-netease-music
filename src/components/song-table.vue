@@ -97,13 +97,25 @@ export default {
     isActiveSong(song) {
       return song.id === this.currentSong.id
     },
-    tableCellClassName({ row, columnIndex }) {
+    tableCellClassName(args) {
+      const { row, columnIndex } = args
+      const cellClassNameProp = this.$attrs['cell-class-name']
+
+      let retCls = []
+      // 执行外部传入的方法
+      if (cellClassNameProp) {
+        const propRet = cellClassNameProp(args)
+        if (propRet) {
+          retCls.push(propRet)
+        }
+      }
       if (
         this.isActiveSong(row) &&
         columnIndex === this.showColumns.findIndex(({ prop }) => prop === 'name')
       ) {
-        return 'song-active'
+        retCls.push('song-active')
       }
+      return retCls.join(' ')
     },
     ...mapMutations(['setPlaylist']),
     ...mapActions(["startSong"])
@@ -117,7 +129,7 @@ export default {
         hideColumns.push('img')
       }
       return this.columns.filter(column => {
-        return !this.hideColumns.find((prop) => prop === column.prop)
+        return !hideColumns.find((hideColumn) => hideColumn === column.prop)
       })
     },
     ...mapState(['currentSong'])
@@ -143,7 +155,7 @@ export default {
         {this.showColumns.map((column, index) => {
           const { scopedSlots, ...columnProps } = column
           return (
-            <el-table-column key={index} {...{ props: columnProps }} scopedSlots={scopedSlots} >
+            <el-table-column key={index} props={columnProps} scopedSlots={scopedSlots} >
             </el-table-column>
           )
         })}
@@ -156,6 +168,10 @@ export default {
 <style lang="scss">
 .song-table-title-td {
   color: var(--font-color-white);
+}
+
+.song-table-padding-space {
+  padding-left: 24px;
 }
 
 .song-active {
