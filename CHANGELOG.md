@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.2](https://github.com/sl1673495/vue-netease-music/compare/v2.2.0...v2.2.2) (2019-08-06)
+
+
+### Bug Fixes
+
+* 增大cd页下滑的高度，修复未播放状态显示异常,优化图标大小 ([e8d2711](https://github.com/sl1673495/vue-netease-music/commit/e8d2711))
+
+
+### Features
+
+* 优化了间距、图标大小等细节。 ([77015f5](https://github.com/sl1673495/vue-netease-music/commit/77015f5))
+
 ### [2.2.1](https://github.com/sl1673495/vue-netease-music/compare/v2.2.0...v2.2.1) (2019-08-05)
 
 
