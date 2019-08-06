@@ -43,16 +43,16 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 
 ### Screenshots
 
-![歌曲页面](https://user-gold-cdn.xitu.io/2019/7/27/16c3287ffe42afbe?w=2358&h=1342&f=png&s=465847)
+![首页](http://pvgju1g4v.bkt.clouddn.com/3.png)
 
 
-![首页](https://user-gold-cdn.xitu.io/2019/7/27/16c3288547b6510b?w=2358&h=1342&f=png&s=2264171)
+![歌单列表](http://pvgju1g4v.bkt.clouddn.com/4.png)
 
 
-![歌单](https://user-gold-cdn.xitu.io/2019/7/27/16c328893b837809?w=2358&h=1342&f=png&s=2071408)
+![歌单详情](http://pvgju1g4v.bkt.clouddn.com/1.png)
 
 
-![歌单详情](https://user-gold-cdn.xitu.io/2019/7/27/16c3288c0c80d40c?w=2358&h=1440&f=png&s=718362)
+![音乐播放](http://pvgju1g4v.bkt.clouddn.com/2.png)
 
 ### 安装与使用 
 前端项目
