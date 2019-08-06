@@ -4,46 +4,48 @@
     v-if="playlist.id"
   >
     <DetailHeader
-      :songs="songs"
       :playlist="playlist"
+      :songs="songs"
     />
     <div class="tabs-wrap">
       <Tabs
-        v-model="activeTab"
-        type="theme"
         :tabs="tabs"
+        type="theme"
+        v-model="activeTab"
       />
       <el-input
-        v-show="activeTab === SONG_IDX"
-        prefix-icon="el-icon-search"
-        class="input"
         :class="getInputCls()"
-        @focus="onInputFocus"
         @blur="onInputBlur"
+        @focus="onInputFocus"
+        class="input"
         placeholder="搜索歌单音乐"
+        prefix-icon="el-icon-search"
         v-model="searchValue"
+        v-show="activeTab === SONG_IDX"
       ></el-input>
     </div>
     <div
-      v-if="searchValue && !filteredSongs.length"
       class="empty"
+      v-if="searchValue && !filteredSongs.length"
     >
       未能找到和
       <span class="keyword">“{{searchValue}}”</span>
       相关的任何音乐
     </div>
     <SongTable
-      v-show="activeTab === SONG_IDX"
-      class="table"
-      :songs="filteredSongs"
       :highlightText="searchValue"
+      :songs="filteredSongs"
+      class="table"
+      v-show="activeTab === SONG_IDX"
     />
-    <div class="comments">
+    <div
+      class="comments"
+      v-show="activeTab === COMMENT_IDX"
+    >
       <Comments
-        v-show="activeTab === COMMENT_IDX"
-        type="playlist"
         :id="id"
         @update="onCommentsUpdate"
+        type="playlist"
       />
     </div>
   </div>
@@ -153,10 +155,6 @@ export default {
     .keyword {
       color: $blue;
     }
-  }
-
-  .table {
-    padding-bottom: 36px;
   }
 
   .comments {

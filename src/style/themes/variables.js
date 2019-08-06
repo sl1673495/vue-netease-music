@@ -38,6 +38,8 @@ export default {
   ['--tab-item-active-color']: '#fff',
   //modal
   ['--modal-bg-color']: '#202020',
+  // prompt
+  ['--prompt-bg-color']: '#363636',
   //song-detail
   ['--song-shallow-grey-bg']: '#2A2A2A',
 }

@@ -550,6 +550,7 @@ $img-outer-d: 300px;
     .bottom {
       display: flex;
       margin-top: 48px;
+      margin-bottom: 36px;
 
       .left {
         flex: 1;

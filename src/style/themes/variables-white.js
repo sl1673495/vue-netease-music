@@ -40,7 +40,8 @@ export default {
 
   //modal
   ['--modal-bg-color']: '#F9F9F9',
-
+  // prompt
+  ['--prompt-bg-color']: '#fff',
   //song-detail
   ['--song-shallow-grey-bg']: '#E6E5E6',
 }

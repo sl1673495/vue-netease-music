@@ -8,13 +8,11 @@
         class="block"
         v-if="hotComments.length && currentPage === 1"
       >
-        <p class="title">
-          精彩评论
-        </p>
+        <p class="title">精彩评论</p>
         <Comment
-          :key="comment.id"
-          :comment="comment"
           :border="!$utils.isLast(index, hotComments)"
+          :comment="comment"
+          :key="comment.id"
           v-for="(comment, index) in hotComments"
         />
       </div>
@@ -26,25 +24,26 @@
           class="title"
           ref="commentTitle"
         >
-          最新评论 <span class="count">({{total}})</span>
+          最新评论
+          <span class="count">({{total}})</span>
         </p>
         <Comment
-          :key="comment.id"
-          :comment="comment"
           :border="!$utils.isLast(index, comments)"
+          :comment="comment"
+          :key="comment.id"
           v-for="(comment,index) in comments"
         />
       </div>
       <div
-        v-if="comments.length"
         class="pagination"
+        v-if="comments.length"
       >
         <el-pagination
-          layout="prev, pager, next"
+          :current-page.sync="currentPage"
           :page-size="PAGE_SIZE"
           :total="total"
-          :current-page.sync="currentPage"
           @current-change="onPageChange"
+          layout="prev, pager, next"
         />
       </div>
     </template>
@@ -151,6 +150,5 @@ export default {
 
 .pagination {
   text-align: right;
-  margin-bottom: 36px;
 }
 </style>

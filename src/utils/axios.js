@@ -36,7 +36,7 @@ export default {
 
       loading ||
         (loading = Loading.service({
-          target: '#page-content',
+          target: 'body',
           background: 'transparent',
           text: '载入中'
         }))

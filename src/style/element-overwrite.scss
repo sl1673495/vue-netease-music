@@ -52,11 +52,11 @@
 @each $direction in "bottom" "top" "left" "right" {
   .el-popper[x-placement^="#{$direction}"] .popper__arrow,
   .el-popper[x-placement^="#{$direction}"] .popper__arrow::after {
-    border-#{$direction}-color: var(--playlist-bgcolor) !important;
+    border-#{$direction}-color: var(--prompt-bg-color) !important;
   }
 }
 .el-popover {
-  background: var(--playlist-bgcolor) !important;
+  background: var(--prompt-bg-color) !important;
   border: none !important;
   @include box-shadow;
 }

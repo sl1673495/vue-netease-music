@@ -61,8 +61,10 @@ npm i
 npm run serve
 ```
 
-后端项目
+后端项目 [地址](https://github.com/Binaryify/NeteaseCloudMusicApi)
+clone下来之后执行
 ```
 node app.js
 ```
+默认启动在3000端口，之后就可以访问到接口了。
 

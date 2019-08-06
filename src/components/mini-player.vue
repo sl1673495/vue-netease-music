@@ -54,7 +54,6 @@
           :type="playIcon"
         />
       </div>
-
       <Icon
         :size="24"
         @click="next"
@@ -66,12 +65,11 @@
     <div class="mode">
       <!-- 模式 -->
       <el-popover
-        :value="isPlayModePromptShow"
         placement="top"
-        trigger="manual"
+        trigger="hover"
         width="160"
       >
-        <p>{{changePlayModeText}}</p>
+        <p>{{playModeText}}</p>
         <Icon
           :size="20"
           :type="modeIcon"
@@ -139,7 +137,6 @@ export default {
   data() {
     return {
       songReady: false,
-      isPlayModePromptShow: false,
       volume: Storage.get(VOLUME_KEY, 1),
     }
   },
@@ -197,16 +194,6 @@ export default {
       const nextModeKey = modeKeys[nextIndex]
       const nextMode = playModeMap[nextModeKey]
       this.setPlayMode(nextMode.code)
-      this.showPlayModePrompt()
-    },
-    showPlayModePrompt() {
-      this.isPlayModePromptShow = true
-      if (this.playModePromptTimer) {
-        clearTimeout(this.playModePromptTimer)
-      }
-      this.playModePromptTimer = setTimeout(() => {
-        this.isPlayModePromptShow = false
-      }, 1000);
     },
     togglePlaylistShow() {
       this.setPlaylistShow(!this.isPlaylistShow)
@@ -264,8 +251,8 @@ export default {
     modeIcon() {
       return this.currentMode.icon
     },
-    changePlayModeText() {
-      return `切换播放模式：${this.currentMode.name}`
+    playModeText() {
+      return this.currentMode.name
     },
     audio() {
       return this.$refs.audio
