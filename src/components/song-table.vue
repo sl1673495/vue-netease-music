@@ -69,7 +69,6 @@ export default {
       }, {
         prop: 'name',
         label: '音乐标题',
-        minWidth: '300',
         labelClassName: "title-th",
         className: "title-td",
         scopedSlots: this.renderNameDesc ? {
@@ -84,18 +83,16 @@ export default {
         } : commonHighLightSlotScopes
       }, {
         prop: 'artistsText',
-        minWidth: '100',
         label: '歌手',
         scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'albumName',
         label: '专辑',
-        minWidth: '150',
         scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'durationSecond',
         label: '时长',
-        minWidth: '100',
+        width: '100',
         scopedSlots: {
           default: (scope) => {
             return (
