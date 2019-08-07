@@ -66,6 +66,7 @@
             >
               <NButton
                 :key="index"
+                @click="onClickHot(history)"
                 class="button"
                 v-for="(history, index) in searchHistorys"
               >{{history.first}}</NButton>
