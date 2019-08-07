@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/sl1673495/vue-netease-music/compare/v2.4.0...v2.4.1) (2019-08-07)
+
+
+### Bug Fixes
+
+* 优化了pagination组件，修复了一些体验问题 ([e0148b1](https://github.com/sl1673495/vue-netease-music/commit/e0148b1))
+
 ## [2.4.0](https://github.com/sl1673495/vue-netease-music/compare/v2.3.0...v2.4.0) (2019-08-07)
 
 
