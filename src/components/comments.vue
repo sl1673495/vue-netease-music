@@ -46,12 +46,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getSongComment, getPlaylistComment, getHotComment } from '@/api/comment'
-import { getPageOffset } from '@/utils'
-import Comment from './comment'
+import {
+  getSongComment,
+  getPlaylistComment,
+  getHotComment
+} from "@/api/comment"
+import { getPageOffset } from "@/utils"
+import Comment from "./comment"
 
-const SONG_TYPE = 'song'
-const PLAYLIST_TYPE = 'playlist'
+const SONG_TYPE = "song"
+const PLAYLIST_TYPE = "playlist"
 const PAGE_SIZE = 20
 export default {
   props: {
@@ -73,7 +77,7 @@ export default {
       hotComments: [],
       comments: [],
       total: 0,
-      currentPage: 1,
+      currentPage: 1
     }
   },
   methods: {
@@ -84,15 +88,13 @@ export default {
         [SONG_TYPE]: getSongComment
       }
       const commentRequest = commentRequestMap[this.type]
-      const { hotComments = [], comments = [], total } = await commentRequest(
-        {
-          id: this.id,
-          pageSize: PAGE_SIZE,
-          offset: getPageOffset(this.currentPage, PAGE_SIZE),
-        })
-        .finally(() => {
-          this.loading = false
-        })
+      const { hotComments = [], comments = [], total } = await commentRequest({
+        id: this.id,
+        pageSize: PAGE_SIZE,
+        offset: getPageOffset(this.currentPage, PAGE_SIZE)
+      }).finally(() => {
+        this.loading = false
+      })
       // 歌单的热评需要重新获取
       if (this.type === PLAYLIST_TYPE && this.currentPage === 1) {
         const { hotComments: exactHotComments = [] } = await getHotComment({
@@ -105,7 +107,7 @@ export default {
       }
       this.comments = comments
       this.total = total
-      this.$emit('update', { comments, hotComments, total })
+      this.$emit("update", { comments, hotComments, total })
     },
     async onPageChange() {
       await this.getComment()
@@ -118,6 +120,7 @@ export default {
     id: {
       handler(newId) {
         if (newId) {
+          this.currentPage = 1
           this.getComment()
         }
       },
