@@ -180,3 +180,7 @@ export function isTrue(v) {
 export function isFalse(v) {
   return v === false
 }
+
+export function getPageOffset(page, limit) {
+  return (page - 1) * limit
+}

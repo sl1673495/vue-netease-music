@@ -1,11 +1,17 @@
 import { getSongUrl } from '@/api/song'
 import storage from 'good-storage'
-import { PLAY_HISTORY_KEY, notify } from '@/utils'
+import { PLAY_HISTORY_KEY, notify, getSongImg } from '@/utils'
 
 export default {
   // 整合歌曲信息 并且开始播放
-  async startSong({ commit, state, dispatch, getters }, song) {
-    commit('setCurrentSong', song)
+  async startSong({ commit, state, dispatch }, song) {
+    if (!song.img) {
+      if (song.albumId) {
+        song.img = await getSongImg(song.id, song.albumId)
+      }
+    }
+    // 单曲循环为了触发watch 改变引用
+    commit('setCurrentSong', Object.assign({}, song))
     // 历史记录
     const { playHistory } = state
     const playHistoryCopy = playHistory.slice()
@@ -21,19 +27,9 @@ export default {
     // 检查是否能播放
     const canPlay = await checkCanPlay(song.id)
     if (!canPlay) {
-      if (
-        state.playlist.length &&
-        state.playlist.length !== 1
-      ) {
-        notify(`${song.name}播放失败，自动开始下一首`)
-        dispatch('startSong', getters.nextSong)
-      } else {
-        // 只有一首的情况下不自动播放下首
-        notify(`${song.name}播放失败`)
-        // 清空播放列表
-        dispatch('clearCurrentSong')
-        commit('setPlaylist', [])
-      }
+      notify(`${song.name}播放失败`)
+      // 清空当前歌曲
+      dispatch('clearCurrentSong')
     }
   },
   clearCurrentSong({ commit }) {
@@ -58,10 +54,6 @@ export default {
       commit('setPlaylist', copy)
     }
   }
-}
-
-function genSongPlayUrl(id) {
-  return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 }
 
 async function checkCanPlay(id) {

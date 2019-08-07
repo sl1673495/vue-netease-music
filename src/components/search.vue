@@ -1,13 +1,13 @@
 <template>
   <div class="search">
     <el-input
-      @focus="onFocus"
+      @click.native="onClickInput"
       @input="onInput"
       @keypress.native="onKeyPress"
       placeholder="搜索"
       prefix-icon="el-icon-search"
       ref="input"
-      v-model="searchKeyword"
+      v-model.trim="searchKeyword"
     ></el-input>
     <LeaveHide
       :reserveDoms="reserveDoms"
@@ -82,10 +82,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+import storage from 'good-storage'
 import { mapActions, mapMutations } from "@/store/helper/music"
 import LeaveHide from "@/base/leave-hide"
 import { getSearchHot, getSearchSuggest } from "@/api/search"
-import { createSongWithImg, genArtistisText, debounce } from "@/utils"
+import { createSong, genArtistisText, debounce } from "@/utils"
+
+const SEARCH_HISTORY_KEY = '__search_history__'
 export default {
   async created() {
     const {
@@ -101,12 +104,18 @@ export default {
       searchPanelShow: false,
       searchKeyword: "",
       searchHots: [],
-      searchHistorys: [],
+      searchHistorys: storage.get(SEARCH_HISTORY_KEY, []),
       suggest: {},
       reserveDoms: []
     }
   },
   methods: {
+    onClickInput() {
+      this.searchPanelShow = true
+    },
+    onBlur() {
+      this.searchPanelShow = false
+    },
     onInput: debounce(function (value) {
       if (!value.trim()) {
         return
@@ -115,15 +124,8 @@ export default {
         this.suggest = result
       })
     }, 500),
-    onFocus() {
-      this.searchPanelShow = true
-    },
-    onBlur() {
-      this.searchPanelShow = false
-    },
     onClickHot(hot) {
       const { first } = hot
-      this.searchKeyword = first
       this.goSearch(first)
     },
     onKeyPress(e) {
@@ -131,12 +133,14 @@ export default {
         const ENTER_CODE = 13
         if (e.keyCode === ENTER_CODE) {
           this.goSearch(this.searchKeyword)
-          this.searchPanelShow = false
         }
       }
     },
     goSearch(keywords) {
+      this.searchHistorys.push({ first: keywords })
+      storage.set(SEARCH_HISTORY_KEY, this.searchHistorys)
       this.$router.push(`/search/${keywords}`)
+      this.searchPanelShow = false
     },
     async onClickSong(item) {
       const {
@@ -146,7 +150,7 @@ export default {
         duration,
         album: { id: albumId, name: albumName }
       } = item
-      const song = await createSongWithImg({
+      const song = createSong({
         id,
         name,
         artists,
@@ -209,7 +213,7 @@ export default {
     bottom: $mini-player-height;
     right: 0;
     width: 350px;
-    background: var(--playlist-bgcolor);
+    background: var(--search-bgcolor);
     z-index: $search-panel-z-index;
     font-size: $font-size-sm;
     @include box-shadow;

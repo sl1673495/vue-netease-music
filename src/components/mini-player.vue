@@ -216,13 +216,11 @@ export default {
         return
       }
       // 单曲循环
-      if (oldSong) {
-        if (newSong.id === oldSong.id) {
-          this.setCurrentTime(0)
-          this.audio.currentTime = 0
-          this.play()
-          return
-        }
+      if (oldSong && newSong.id === oldSong.id) {
+        this.setCurrentTime(0)
+        this.audio.currentTime = 0
+        this.play()
+        return
       }
       this.songReady = false
       if (this.timer) {

@@ -1,4 +1,5 @@
 import { getAlbum } from '@/api/album'
+import { isDef } from './common';
 
 export function createSong(song) {
   const { id, name, img, artists, duration, albumId, albumName, ...rest } = song
@@ -19,17 +20,15 @@ export function createSong(song) {
   }
 }
 
-export async function createSongWithImg(song) {
-  const basicSong = createSong(song)
-  const { id, albumId } = song
+export async function getSongImg(id, albumId) {
+  if (!isDef(albumId)) {
+    throw new Error('need albumId')
+  }
   const { songs } = await getAlbum(albumId)
   const {
     al: { picUrl }
   } = songs.find(({ id: songId }) => songId === id) || {}
-  return {
-    ...basicSong,
-    img: picUrl
-  }
+  return picUrl
 }
 
 export function genArtistisText(artists) {

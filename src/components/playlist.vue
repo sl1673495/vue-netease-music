@@ -1,25 +1,25 @@
 <template>
   <LeaveHide
-    @clickOutside="setPlaylistShow(false)"
-    :show="isPlaylistShow"
     :reserveDoms="reserveDoms"
+    :show="isPlaylistShow"
+    @clickOutside="setPlaylistShow(false)"
   >
     <div
+      class="playlist"
       ref="playlist"
       v-show="isPlaylistShow"
-      class="playlist"
     >
       <Tabs
-        v-model="activeTab"
         :tabs="tabs"
         align="center"
+        v-model="activeTab"
       />
       <div class="header">
         <p class="total">总共{{dataSource.length}}首</p>
         <div
+          @click="clear"
           class="remove"
           v-if="dataSource.length"
-          @click="clear"
         >
           <Icon type="remove" />
           <span class="text">清空</span>
@@ -27,24 +27,21 @@
       </div>
       <template>
         <div
-          v-if="dataSource.length"
           class="song-table-wrap"
+          v-if="dataSource.length"
         >
           <SongTable
-            :songs="dataSource"
             :hideColumns="['index', 'img', 'albumName']"
+            :songs="dataSource"
           />
         </div>
         <div
           class="empty"
           v-else
-        >
-          你还没有添加任何歌曲
-        </div>
+        >你还没有添加任何歌曲</div>
       </template>
     </div>
   </LeaveHide>
-
 </template>
 
 <script type="text/ecmascript-6">

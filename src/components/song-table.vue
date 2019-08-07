@@ -1,5 +1,6 @@
 
 <script>
+import ElTable from 'element-ui/lib/table'
 import { mapMutations, mapActions, mapState } from "@/store/helper/music"
 import PlayIcon from '@/base/play-icon'
 
@@ -16,6 +17,10 @@ export default {
     highlightText: {
       type: String,
       default: '',
+    },
+    // 名字下面渲染的额外内容
+    renderNameDesc: {
+      type: Function,
     }
   },
   data() {
@@ -54,9 +59,9 @@ export default {
         scopedSlots: {
           default: (scope) => {
             return (
-              <div class="song-table-img-wrap">
+              <div class="img-wrap">
                 <img src={this.$utils.genImgUrl(scope.row.img, 120)} />
-                <PlayIcon class="song-table-play-icon" />
+                <PlayIcon class="play-icon" />
               </div>
             )
           }
@@ -64,21 +69,33 @@ export default {
       }, {
         prop: 'name',
         label: '音乐标题',
-        labelClassName: "song-table-title-th",
-        className: "song-table-title-td",
-        scopedSlots: commonHighLightSlotScopes
+        minWidth: '300',
+        labelClassName: "title-th",
+        className: "title-td",
+        scopedSlots: this.renderNameDesc ? {
+          default: (scope) => {
+            return (
+              <div class="cell">
+                {commonHighLightSlotScopes.default(scope)}
+                {this.renderNameDesc(scope)}
+              </div>
+            )
+          }
+        } : commonHighLightSlotScopes
       }, {
         prop: 'artistsText',
+        minWidth: '100',
         label: '歌手',
         scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'albumName',
         label: '专辑',
+        minWidth: '150',
         scopedSlots: commonHighLightSlotScopes
       }, {
         prop: 'durationSecond',
         label: '时长',
-        width: '100',
+        minWidth: '100',
         scopedSlots: {
           default: (scope) => {
             return (
@@ -99,7 +116,7 @@ export default {
     },
     tableCellClassName(args) {
       const { row, columnIndex } = args
-      const cellClassNameProp = this.$attrs['cell-class-name']
+      const cellClassNameProp = this.$attrs.cellClassName
 
       let retCls = []
       // 执行外部传入的方法
@@ -136,20 +153,25 @@ export default {
   },
   components: { PlayIcon },
   render() {
+    const elTableProps = ElTable.props
+    // 从$attrs里提取作为prop的值
+    const { props, attrs } = genPropsAndAttrs(this.$attrs, elTableProps)
     const tableAttrs = {
-      attrs: this.$attrs,
+      attrs,
       on: {
         ...this.$listeners,
-        ['row-click']: this.onRowClick
+        ['row-click']: this.onRowClick,
       },
       props: {
-        ['cell-class-name']: this.tableCellClassName,
-        data: this.songs
+        ...props,
+        cellClassName: this.tableCellClassName,
+        data: this.songs,
       },
       style: { width: '99.9%' }
     }
     return this.songs.length ? (
       <el-table
+        class="song-table"
         {...tableAttrs}
       >
         {this.showColumns.map((column, index) => {
@@ -163,34 +185,58 @@ export default {
     ) : null
   }
 }
+
+function genPropsAndAttrs(rawAttrs, componentProps) {
+  const props = {}
+  const attrs = {}
+  Object.keys(rawAttrs).forEach(key => {
+    const value = rawAttrs[key]
+    if (componentProps.hasOwnProperty(key)) {
+      props[key] = value
+    } else {
+      attrs[key] = value
+    }
+  })
+  return { props, attrs }
+}
 </script>
 
 <style lang="scss">
-.song-table-title-td {
-  color: var(--font-color-white);
-}
-
-.song-table-padding-space {
-  padding-left: 24px;
-}
-
-.song-active {
-  color: $theme-color;
-}
-
-.song-table-img-wrap {
-  position: relative;
-  @include img-wrap(60px);
-
-  img {
-    border-radius: 4px;
+.song-table {
+  .title-td {
+    color: var(--font-color-white);
   }
-  .song-table-play-icon {
-    @include abs-center;
-  }
-}
 
-.high-light-text {
-  color: $blue;
+  .padding-space {
+    padding-left: 24px;
+  }
+
+  .song-active {
+    color: $theme-color;
+
+    .high-light-text {
+      color: $theme-color;
+    }
+  }
+
+  .img-wrap {
+    position: relative;
+    @include img-wrap(60px);
+
+    img {
+      border-radius: 4px;
+    }
+    .play-icon {
+      @include abs-center;
+    }
+  }
+
+  .high-light-text {
+    color: $blue;
+  }
+
+  .cell {
+    @include text-ellipsis;
+  }
 }
 </style>

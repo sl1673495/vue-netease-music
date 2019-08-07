@@ -24,23 +24,33 @@
 
 // 表格单元格的通用样式
 @mixin el-td-style($color) {
-  background-color: $color !important;
-  border-bottom: none !important;
-  transition: background-color 0s !important;
+  td,
+  th {
+    background-color: $color !important;
+    transition: background-color 0s !important;
+    border-bottom: none !important;
 
-  .cell {
-    white-space: nowrap !important;
+    .cell {
+      white-space: nowrap !important;
+    }
   }
 }
-.el-table td,
-.el-table th {
+.el-table,
+.el-table {
   @include el-td-style(var(--body-bgcolor));
+
+  tr.el-table__row--striped {
+    @include el-td-style(var(--stripe-bg));
+  }
 }
 // 允许外部在某个类下面覆写table样式
-@mixin el-table-theme($color) {
-  /deep/.el-table td,
-  /deep/.el-table th {
+@mixin el-table-theme($color, $stripe-color: var(--stripe-bg)) {
+  /deep/.el-table {
     @include el-td-style($color);
+
+    tr.el-table__row--striped {
+      @include el-td-style(#{$stripe-color});
+    }
   }
 }
 // carosel

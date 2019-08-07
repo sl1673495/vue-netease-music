@@ -12,5 +12,5 @@ export default new Vuex.Store({
     music: musicModule,
     user: userModule
   },
-  // plugins: debug ? [createLogger()] : []
+  plugins: debug ? [createLogger()] : []
 })

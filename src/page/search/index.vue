@@ -2,13 +2,29 @@
   <div class="search-detail">
     <div class="header">
       <span class="keywords">{{keywords}}</span>
-      <span class="found">找到333首单曲</span>
+      <span class="found">找到{{songCount}}首单曲</span>
     </div>
     <div class="table">
       <SongTable
-        :cell-class-name="getCellClassName"
+        :cellClassName="getCellClassName"
+        :headerCellClassName="getCellClassName"
+        :hideColumns="['index']"
         :highlightText="keywords"
+        :renderNameDesc="renderNameDesc"
         :songs="songs"
+        :stripe="true"
+      />
+    </div>
+    <div
+      class="pagination"
+      v-if="songCount > LIMIT"
+    >
+      <el-pagination
+        :current-page.sync="currentPage"
+        :page-size="LIMIT"
+        :total="songCount"
+        @current-change="getSearch"
+        layout="prev, pager, next"
       />
     </div>
   </div>
@@ -17,36 +33,55 @@
 <script type="text/ecmascript-6">
 import { getSearch } from '@/api/search'
 import SongTable from '@/components/song-table'
-import { createSong } from '@/utils'
+import { createSong, getPageOffset } from '@/utils'
 
+const LIMIT = 30
 export default {
   props: ['keywords'],
   created() {
+    this.LIMIT = LIMIT
     this.getSearch()
   },
   data() {
     return {
-      songs: []
+      songs: [],
+      songCount: 0,
+      currentPage: 1
     }
   },
   methods: {
     async getSearch() {
-      const { result: { songs } } = await getSearch(this.keywords)
+      const { result: { songs, songCount } } = await getSearch({
+        keywords: this.keywords,
+        limit: LIMIT,
+        offset: getPageOffset(this.currentPage, LIMIT)
+      })
       this.songs = songs.map((song => {
-        const { id, name, artists, duration, album } = song
+        const { id, name, alias, artists, duration, album } = song
         return createSong({
           id,
           name,
+          alias,
           artists,
           duration,
-          albumName: album.name
+          albumName: album.name,
+          albumId: album.id
         })
       }))
+      this.songCount = songCount
     },
     getCellClassName({ columnIndex }) {
       if (columnIndex === 0) {
         return 'table-space'
       }
+    },
+    renderNameDesc(scope) {
+      const { alias } = scope.row
+      return alias.map(desc => (
+        <p class="name-desc">
+          {desc}
+        </p>
+      ))
     }
   },
   watch: {
@@ -81,6 +116,17 @@ export default {
     /deep/.table-space {
       padding-left: 24px !important;
     }
+
+    .name-desc {
+      margin-top: 8px;
+      color: var(--font-color-grey-shallow);
+      @include text-ellipsis;
+    }
+  }
+
+  .pagination {
+    margin-top: 16px;
+    text-align: right;
   }
 }
 </style>

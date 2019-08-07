@@ -10,6 +10,7 @@ export default {
   ['--border']: '#3F3F3F',
   ['--scrollbar-color']: '#3a3a3a',
   ['--round-hover-bgcolor']: '#373737',
+  ['--stripe-bg']: '#323232',
 
   //header
   ['--header-bgcolor']: '#252525',
@@ -22,6 +23,9 @@ export default {
   //playlist
   ['--playlist-bgcolor']: '#363636',
   ['--playlist-hover-bgcolor']: '#2e2e2e',
+
+  //search
+  ['--search-bgcolor']: '#363636',
 
   //progress
   ['--progress-bgcolor']: '#232323',
