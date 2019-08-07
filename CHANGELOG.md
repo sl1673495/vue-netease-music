@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/sl1673495/vue-netease-music/compare/v2.4.1...v2.4.2) (2019-08-07)
+
+
+### Bug Fixes
+
+* 修复dialog组件右上角按钮主题色 ([1e9f45f](https://github.com/sl1673495/vue-netease-music/commit/1e9f45f))
+
 ### [2.4.1](https://github.com/sl1673495/vue-netease-music/compare/v2.4.0...v2.4.1) (2019-08-07)
 
 
