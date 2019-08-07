@@ -66,7 +66,6 @@ export default {
   async created() {
     this.SONG_IDX = SONG_IDX
     this.COMMENT_IDX = COMMENT_IDX
-    this.$watch('id', this.init, { immediate: true })
   },
   data() {
     return {
@@ -119,6 +118,15 @@ export default {
     filteredSongs() {
       return this.songs.filter(({ name, artistsText, albumName }) => `${name}${artistsText}${albumName}`.toLowerCase().includes(this.searchValue.toLowerCase()))
     }
+  },
+  watch: {
+    id: {
+      handler() {
+        this.searchValue = ''
+        this.init()
+      },
+      immediate: true
+    },
   },
   components: { DetailHeader, SongTable, Comments }
 }
