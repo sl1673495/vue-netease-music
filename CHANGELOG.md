@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.6](https://github.com/sl1673495/vue-netease-music/compare/v2.4.5...v2.4.6) (2019-08-07)
+
+
+### Bug Fixes
+
+* cd页面换歌后评论区未恢复到第一页 ([7e06072](https://github.com/sl1673495/vue-netease-music/commit/7e06072))
+
 ### [2.4.5](https://github.com/sl1673495/vue-netease-music/compare/v2.4.4...v2.4.5) (2019-08-07)
 
 
