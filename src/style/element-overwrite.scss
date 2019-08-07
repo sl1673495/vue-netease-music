@@ -112,6 +112,12 @@ $input-height: 24px;
   .el-dialog__body {
     color: var(--font-color) !important;
   }
+
+  // 右上角图标
+  .el-dialog__headerbtn:focus .el-dialog__close,
+  .el-dialog__headerbtn:hover .el-dialog__close {
+    color: $theme-color;
+  }
 }
 
 // button
