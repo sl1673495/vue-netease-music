@@ -34,24 +34,20 @@
           v-for="(comment,index) in comments"
         />
       </div>
-      <div
+      <Pagination
+        :current-page.sync="currentPage"
+        :page-size="PAGE_SIZE"
+        :total="total"
+        @current-change="onPageChange"
         class="pagination"
-        v-if="comments.length"
-      >
-        <el-pagination
-          :current-page.sync="currentPage"
-          :page-size="PAGE_SIZE"
-          :total="total"
-          @current-change="onPageChange"
-          layout="prev, pager, next"
-        />
-      </div>
+      />
     </template>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import { getSongComment, getPlaylistComment, getHotComment } from '@/api/comment'
+import { getPageOffset } from '@/utils'
 import Comment from './comment'
 
 const SONG_TYPE = 'song'
@@ -83,15 +79,16 @@ export default {
   methods: {
     async getComment() {
       this.loading = true
-      const commentReuqest = ({
+      const commentRequestMap = {
         [PLAYLIST_TYPE]: getPlaylistComment,
         [SONG_TYPE]: getSongComment
-      })[this.type]
-      const { hotComments = [], comments = [], total } = await commentReuqest(
+      }
+      const commentRequest = commentRequestMap[this.type]
+      const { hotComments = [], comments = [], total } = await commentRequest(
         {
           id: this.id,
           pageSize: PAGE_SIZE,
-          offset: (this.currentPage - 1) * PAGE_SIZE
+          offset: getPageOffset(this.currentPage, PAGE_SIZE),
         })
         .finally(() => {
           this.loading = false

@@ -4,45 +4,42 @@
     v-if="playlists.length"
   >
     <div
-      v-if="topPlaylist.id"
       class="top-play-list-card"
+      v-if="topPlaylist.id"
     >
       <TopPlaylistCard
-        :id="topPlaylist.id"
-        :name="topPlaylist.name"
-        :img="topPlaylist.coverImgUrl"
         :desc="topPlaylist.description"
+        :id="topPlaylist.id"
+        :img="topPlaylist.coverImgUrl"
+        :name="topPlaylist.name"
       />
     </div>
     <div class="tabs">
       <Tabs
-        v-model="activeTabIndex"
         :tabs="tabs"
-        type="small"
-        align="right"
         @tabChange="onTabChange"
+        align="right"
+        type="small"
+        v-model="activeTabIndex"
       />
     </div>
     <div class="playlist-cards">
       <PlaylistCard
-        v-for="item in playlists"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :img="item.coverImgUrl"
         :desc="`播放量：${$utils.formatNumber(item.playCount)}`"
+        :id="item.id"
+        :img="item.coverImgUrl"
+        :key="item.id"
+        :name="item.name"
+        v-for="item in playlists"
       />
     </div>
-    <div class="pagination">
-      <el-pagination
-        layout="prev, pager, next"
-        :page-size="PAGE_SIZE"
-        :total="total"
-        :current-page.sync="currentPage"
-        @current-change="onPageChange"
-      >
-      </el-pagination>
-    </div>
+    <Pagination
+      :current-page.sync="currentPage"
+      :page-size="PAGE_SIZE"
+      :total="total"
+      @current-change="onPageChange"
+      class="pagination"
+    ></Pagination>
   </div>
 </template>
 
@@ -50,6 +47,7 @@
 import { getPlaylists, getTopPlaylists } from '@/api/playlist'
 import PlaylistCard from '@/components/playlist-card'
 import TopPlaylistCard from '@/components/top-playlist-card'
+import { getPageOffset } from '@/utils'
 
 const PAGE_SIZE = 50
 export default {
@@ -82,7 +80,7 @@ export default {
       this.playlists = []
       this.getPlaylists({
         limit: PAGE_SIZE,
-        offset: (page - 1) * PAGE_SIZE,
+        offset: getPageOffset(page, PAGE_SIZE),
         cat: this.tabs[this.activeTabIndex]
       })
       this.getTopPlaylists({

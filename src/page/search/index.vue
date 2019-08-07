@@ -1,6 +1,9 @@
 <template>
   <div class="search-detail">
-    <div class="header">
+    <div
+      class="header"
+      ref="header"
+    >
       <span class="keywords">{{keywords}}</span>
       <span class="found">找到{{songCount}}首单曲</span>
     </div>
@@ -15,18 +18,13 @@
         :stripe="true"
       />
     </div>
-    <div
+    <Pagination
+      :current-page.sync="currentPage"
+      :page-size="LIMIT"
+      :total="songCount"
+      @current-change="getSearch"
       class="pagination"
-      v-if="songCount > LIMIT"
-    >
-      <el-pagination
-        :current-page.sync="currentPage"
-        :page-size="LIMIT"
-        :total="songCount"
-        @current-change="getSearch"
-        layout="prev, pager, next"
-      />
-    </div>
+    />
   </div>
 </template>
 
@@ -69,6 +67,9 @@ export default {
         })
       }))
       this.songCount = songCount
+      this.$nextTick(() => {
+        this.$refs.header.scrollIntoView({ behavior: "smooth" })
+      })
     },
     getCellClassName({ columnIndex }) {
       if (columnIndex === 0) {
