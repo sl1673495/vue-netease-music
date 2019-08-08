@@ -3,7 +3,7 @@
     <el-input
       @click.native="onClickInput"
       @input="onInput"
-      @keypress.native="onKeyPress"
+      @keypress.native.enter="onEnterPress"
       placeholder="搜索"
       prefix-icon="el-icon-search"
       ref="input"
@@ -129,12 +129,9 @@ export default {
       const { first } = hot
       this.goSearch(first)
     },
-    onKeyPress(e) {
+    onEnterPress() {
       if (this.searchKeyword) {
-        const ENTER_CODE = 13
-        if (e.keyCode === ENTER_CODE) {
-          this.goSearch(this.searchKeyword)
-        }
+        this.goSearch(this.searchKeyword)
       }
     },
     goSearch(keywords) {
@@ -217,6 +214,7 @@ export default {
     background: var(--search-bgcolor);
     z-index: $search-panel-z-index;
     font-size: $font-size-sm;
+    overflow-y: auto;
     @include box-shadow;
 
     .block {
