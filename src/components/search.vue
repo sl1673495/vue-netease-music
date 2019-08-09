@@ -26,7 +26,13 @@
             class="suggest-item"
             v-for="(normalizedSuggest, index) in normalizedSuggests"
           >
-            <div class="title">{{normalizedSuggest.title}}</div>
+            <div class="title">
+              <Icon
+                :size="12"
+                :type="normalizedSuggest.icon"
+              />
+              {{normalizedSuggest.title}}
+            </div>
             <ul class="list">
               <li
                 :key="item.id"
@@ -175,6 +181,7 @@ export default {
       return [
         {
           title: "单曲",
+          icon: 'music',
           data: this.suggest.songs,
           renderName(song) {
             return `${song.name} - ${genArtistisText(song.artists)}`
@@ -183,6 +190,7 @@ export default {
         },
         {
           title: "歌单",
+          icon: 'playlist',
           data: this.suggest.playlists,
           onClick: this.onClickPlaylist.bind(this)
         }

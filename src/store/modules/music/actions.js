@@ -4,14 +4,17 @@ import { PLAY_HISTORY_KEY, notify, getSongImg } from '@/utils'
 
 export default {
   // 整合歌曲信息 并且开始播放
-  async startSong({ commit, state, dispatch }, song) {
+  async startSong({ commit, state, dispatch }, rawSong) {
+    // 浅拷贝一份 改变引用
+    // 1.不污染元数据
+    // 2.单曲循环为了触发watch
+    const song = Object.assign({}, rawSong)
     if (!song.img) {
       if (song.albumId) {
         song.img = await getSongImg(song.id, song.albumId)
       }
     }
-    // 单曲循环为了触发watch 改变引用
-    commit('setCurrentSong', Object.assign({}, song))
+    commit('setCurrentSong', song)
     // 历史记录
     const { playHistory } = state
     const playHistoryCopy = playHistory.slice()

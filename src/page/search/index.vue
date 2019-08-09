@@ -83,7 +83,10 @@ export default {
     }
   },
   watch: {
-    keywords: 'getSearch'
+    keywords() {
+      this.currentPage = 1
+      this.getSearch()
+    },
   },
   components: {
     SongTable

@@ -12,13 +12,11 @@
       </div>
       <div class="creator-wrap">
         <img
-          class="avatar"
           :src="playlist.creator.avatarUrl"
+          class="avatar"
         />
         <p class="creator">{{playlist.creator.nickname}}</p>
-        <p class="create-time">
-          {{playlist.createTime}}创建
-        </p>
+        <p class="create-time">{{playlist.createTime}}创建</p>
       </div>
       <div class="action-wrap">
         <NButton
@@ -27,8 +25,8 @@
         >
           <Icon
             class="icon middle"
-            type="play-round"
             color="white"
+            type="play-round"
           />
           <span class="middle">播放全部</span>
         </NButton>
@@ -38,17 +36,13 @@
           class="desc"
           v-if="tagsText"
         >
-          <span>
-            标签：{{tagsText}}
-          </span>
+          <span>标签：{{tagsText}}</span>
         </p>
         <p
           class="desc"
           v-if="playlist.description"
         >
-          <span class="value">
-            简介：{{playlist.description}}
-          </span>
+          <span class="value">简介：{{playlist.description}}</span>
         </p>
       </div>
     </div>

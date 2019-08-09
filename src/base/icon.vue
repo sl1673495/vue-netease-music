@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .backdrop {
   display: inline-block;
   @include flex-center;
@@ -80,19 +80,20 @@ export default {
 }
 
 .icon-component {
-  color: var(--font-color-white);
   cursor: pointer;
 }
 
-.icon-color-theme {
-  color: $theme-color;
-}
-
-.icon-color-white {
-  color: $white;
-}
-
-.icon-color-shallow {
-  color: var(--font-color-shallow-grey);
+.icon-color {
+  // 通过prop传入这几个字段
+  // 可以使用默认的几个颜色
+  &-theme {
+    color: $theme-color;
+  }
+  &-white {
+    color: $white;
+  }
+  &-shallow {
+    color: var(--font-color-shallow-grey);
+  }
 }
 </style>
