@@ -3,37 +3,33 @@
     <user />
     <div class="menu-wrap">
       <div
+        :key="index"
         class="menu-block"
         v-for="(menu, index) in menusWithPlaylist"
-        :key="index"
       >
         <p
           class="menu-block-title"
           v-if="menu.title"
-        >
-          {{menu.title}}
-        </p>
+        >{{menu.title}}</p>
         <ul class="menu-list">
-
           <router-link
-            class="menu-item"
-            active-class="menu-item-active"
-            v-for="(item, index) in menu.children"
-            tag="li"
             :key="index"
             :to="item.to"
+            active-class="menu-item-active"
+            class="menu-item"
+            tag="li"
+            v-for="(item, index) in menu.children"
           >
             <Icon
-              class="iconfont"
-              :type="item.icon"
               :size="16"
+              :type="item.icon"
+              class="iconfont"
             />
             <span class="menu-title">{{item.title}}</span>
           </router-link>
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -93,7 +89,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  width: 200px;
+  width: 220px;
   height: 100%;
   display: flex;
   flex-direction: column;

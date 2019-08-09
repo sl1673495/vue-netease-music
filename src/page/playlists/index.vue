@@ -1,7 +1,7 @@
 <template>
   <div
     class="playlists"
-    v-if="playlists.length"
+    ref="playlists"
   >
     <div
       class="top-play-list-card"
@@ -47,14 +47,14 @@
 import { getPlaylists, getTopPlaylists } from '@/api/playlist'
 import PlaylistCard from '@/components/playlist-card'
 import TopPlaylistCard from '@/components/top-playlist-card'
-import { getPageOffset } from '@/utils'
+import { getPageOffset, scrollInto } from '@/utils'
 
 const PAGE_SIZE = 50
 export default {
   async created() {
     this.PAGE_SIZE = PAGE_SIZE
     this.tabs = ['全部', '欧美', '华语', '流行', '说唱', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG', '怀旧', '治愈', '旅行']
-    this.onPageChange(1)
+    this.initData()
   },
   data() {
     return {
@@ -66,30 +66,35 @@ export default {
     }
   },
   methods: {
-    async getPlaylists(params) {
-      const { playlists, total } = await getPlaylists(params)
+    // 获取歌单和精品歌单
+    async initData() {
+      this.getPlaylists()
+      this.getTopPlaylists()
+    },
+    async getPlaylists() {
+      const { playlists, total } = await getPlaylists({
+        limit: PAGE_SIZE,
+        offset: getPageOffset(this.currentPage, PAGE_SIZE),
+        cat: this.tabs[this.activeTabIndex]
+      })
       this.playlists = playlists
       this.total = total
     },
-    async getTopPlaylists(params) {
-      const { playlists } = await getTopPlaylists(params)
-      this.topPlaylist = playlists[0] || {}
-    },
-    onPageChange(page) {
-      this.currentPage = page
-      this.playlists = []
-      this.getPlaylists({
-        limit: PAGE_SIZE,
-        offset: getPageOffset(page, PAGE_SIZE),
-        cat: this.tabs[this.activeTabIndex]
-      })
-      this.getTopPlaylists({
+    async getTopPlaylists() {
+      const { playlists } = await getTopPlaylists({
         limit: 1,
         cat: this.tabs[this.activeTabIndex]
       })
+      this.topPlaylist = playlists[0] || {}
+    },
+    // 分页只重新获取歌单
+    async onPageChange(page) {
+      this.currentPage = page
+      this.getPlaylists()
+      scrollInto(this.$refs.playlists)
     },
     onTabChange() {
-      this.onPageChange(1)
+      this.initData()
     }
   },
   components: {
