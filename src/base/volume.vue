@@ -2,22 +2,21 @@
   <div class="volume">
     <Icon
       :size="20"
-      class="icon"
       :type="getIconType()"
       @click="toggleSilence"
+      class="icon"
     />
     <div class="progress-wrap">
       <ProgressBar
-        alwaysShowBtn
         :percent="volumePercent"
         @percentChange="onProgressChange"
+        alwaysShowBtn
       />
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import ProgressBar from '@/base/progress-bar'
 export default {
   name: 'Volume',
   props: {
@@ -61,9 +60,6 @@ export default {
       }
     }
   },
-  components: {
-    ProgressBar
-  }
 }
 </script>
 

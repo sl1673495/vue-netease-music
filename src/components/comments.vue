@@ -51,7 +51,7 @@ import {
   getPlaylistComment,
   getHotComment
 } from "@/api/comment"
-import { getPageOffset } from "@/utils"
+import { getPageOffset, scrollInto } from "@/utils"
 import Comment from "./comment"
 
 const SONG_TYPE = "song"
@@ -112,7 +112,7 @@ export default {
     async onPageChange() {
       await this.getComment()
       this.$nextTick(() => {
-        this.$refs.commentTitle.scrollIntoView({ behavior: "smooth" })
+        scrollInto(this.$refs.commentTitle)
       })
     }
   },

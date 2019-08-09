@@ -1,25 +1,20 @@
 <template>
   <el-dialog
+    :modal="false"
     :visible.sync="visible"
     :width="$utils.toRem(320)"
-    :modal="false"
   >
-    <div slot="title">
-      提示
-    </div>
-    <div class="login-body">
-      {{text}}
-    </div>
+    <div slot="title">提示</div>
+    <div class="login-body">{{text}}</div>
     <span
-      slot="footer"
       class="dialog-footer"
+      slot="footer"
     >
       <el-button
-        type="primary"
         @click="confirmAndClose"
         class="confirm-btn"
-      >确认
-      </el-button>
+        type="primary"
+      >确认</el-button>
     </span>
   </el-dialog>
 </template>
@@ -40,7 +35,7 @@ const Confirm = {
 export default Confirm
 
 // 命令式调用
-export const confim = function (text, onConfirm = () => { }) {
+export const confirm = function (text, onConfirm = () => { }) {
   const ConfirmCtor = Vue.extend(Confirm)
 
   // 单例减少开销

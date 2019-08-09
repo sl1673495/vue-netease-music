@@ -2,8 +2,8 @@
   <div class="user">
     <!-- 登录前 -->
     <div
-      class="login-trigger"
       @click="onOpenModal"
+      class="login-trigger"
       v-if="!isLogin"
     >
       <i class="user-icon iconfont icon-yonghu" />
@@ -11,38 +11,36 @@
     </div>
     <!-- 登录后 -->
     <div
-      v-else
-      class="logined-user"
       @click="onLogout"
+      class="logined-user"
+      v-else
     >
       <img
-        class="avatar"
         :src="$utils.genImgUrl(user.avatarUrl, 80)"
+        class="avatar"
       />
       <p class="user-name">{{user.nickname}}</p>
     </div>
 
     <!-- 登录框 -->
     <el-dialog
+      :modal="false"
       :visible.sync="visible"
       :width="$utils.toRem(320)"
-      :modal="false"
     >
-      <p slot="title">
-        登录
-      </p>
+      <p slot="title">登录</p>
       <div class="login-body">
         <el-input
           class="input"
-          v-model="uid"
           placeholder="请输入您的网易云uid"
+          v-model="uid"
         />
         <div class="login-help">
           <p class="help">
             1、请
             <a
-              target="_blank"
               href="http://music.163.com"
+              target="_blank"
             >点我(http://music.163.com)</a>打开网易云音乐官网
           </p>
           <p class="help">2、点击页面右上角的“登录”</p>
@@ -51,16 +49,15 @@
         </div>
       </div>
       <span
-        slot="footer"
         class="dialog-footer"
+        slot="footer"
       >
         <el-button
           :loading="loading"
+          @click="onLogin(uid)"
           class="login-btn"
           type="primary"
-          @click="onLogin(uid)"
-        >登 录
-        </el-button>
+        >登 录</el-button>
       </span>
     </el-dialog>
   </div>
@@ -69,7 +66,7 @@
 <script type="text/ecmascript-6">
 import storage from 'good-storage'
 import { UID_KEY, isDef } from '@/utils'
-import { confim } from '@/base/confirm'
+import { confirm } from '@/base/confirm'
 import { mapActions as mapUserActions, mapState as mapUserState, mapGetters as mapUserGetters } from '@/store/helper/user'
 
 export default {
@@ -105,7 +102,7 @@ export default {
       }
     },
     onLogout() {
-      confim('确定要注销吗？', () => {
+      confirm('确定要注销吗？', () => {
         this.logout()
       })
     },

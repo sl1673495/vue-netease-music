@@ -9,10 +9,9 @@
       ref="input"
       v-model.trim="searchKeyword"
     ></el-input>
-    <LeaveHide
-      :reserveDoms="reserveDoms"
-      :show="searchPanelShow"
-      @clickOutside="searchPanelShow = false"
+    <Toggle
+      :reserveDoms="$refs.input && $refs.input.$el"
+      :show.sync="searchPanelShow"
     >
       <div
         class="search-panel"
@@ -78,14 +77,13 @@
           </div>
         </div>
       </div>
-    </LeaveHide>
+    </Toggle>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import storage from 'good-storage'
 import { mapActions, mapMutations } from "@/store/helper/music"
-import LeaveHide from "@/base/leave-hide"
 import { getSearchHot, getSearchSuggest } from "@/api/search"
 import { createSong, genArtistisText, debounce } from "@/utils"
 
@@ -96,9 +94,6 @@ export default {
       result: { hots }
     } = await getSearchHot()
     this.searchHots = hots
-  },
-  mounted() {
-    this.reserveDoms = [this.$refs.input.$el]
   },
   data() {
     return {
@@ -194,9 +189,6 @@ export default {
       ].filter(item => item.data && item.data.length)
     }
   },
-  components: {
-    LeaveHide
-  }
 }
 </script>
 

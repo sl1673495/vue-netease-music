@@ -6,8 +6,8 @@
     <div class="img-wrap">
       <img :src="$utils.genImgUrl(img, 300)" />
       <div
-        v-if="desc"
         class="desc-wrap"
+        v-if="desc"
       >
         <span class="desc">{{desc}}</span>
       </div>
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import PlayIcon from '@/base/play-icon'
-
 export default {
   props: ["id", "img", "name", "desc"],
   methods: {
@@ -30,7 +28,6 @@ export default {
       this.$router.push(`/playlist/${this.id}`)
     }
   },
-  components: { PlayIcon }
 }
 </script>
 

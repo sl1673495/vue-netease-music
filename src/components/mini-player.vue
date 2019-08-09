@@ -128,8 +128,6 @@
 
 <script type="text/ecmascript-6">
 import { mapState, mapMutations, mapGetters, mapActions } from "@/store/helper/music"
-import ProgressBar from "@/base/progress-bar"
-import Volume from '@/base/volume'
 import Storage from 'good-storage'
 import { VOLUME_KEY, playModeMap } from '@/utils'
 
@@ -266,9 +264,6 @@ export default {
     ...mapState(["currentSong", "currentTime", "playing", "playMode", "isPlaylistShow", "isPlaylistPromptShow", "isPlayerShow"]),
     ...mapGetters(["prevSong", "nextSong"])
   },
-  components: {
-    ProgressBar, Volume
-  }
 }
 </script>
 

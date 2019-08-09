@@ -1,8 +1,8 @@
 <template>
-  <LeaveHide
+  <Toggle
     :reserveDoms="reserveDoms"
     :show="isPlaylistShow"
-    @clickOutside="setPlaylistShow(false)"
+    @update:show="setPlaylistShow(false)"
   >
     <div
       class="playlist"
@@ -41,12 +41,11 @@
         >你还没有添加任何歌曲</div>
       </template>
     </div>
-  </LeaveHide>
+  </Toggle>
 </template>
 
 <script type="text/ecmascript-6">
 import { mapState, mapMutations, mapActions } from '@/store/helper/music'
-import LeaveHide from '@/base/leave-hide'
 import SongTable from './song-table'
 export default {
   mounted() {
@@ -91,7 +90,6 @@ export default {
   },
   components: {
     SongTable,
-    LeaveHide,
   }
 }
 </script>

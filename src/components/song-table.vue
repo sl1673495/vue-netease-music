@@ -2,7 +2,6 @@
 <script>
 import ElTable from 'element-ui/lib/table'
 import { mapMutations, mapActions, mapState } from "@/store/helper/music"
-import PlayIcon from '@/base/play-icon'
 
 export default {
   props: {
@@ -148,7 +147,6 @@ export default {
     },
     ...mapState(['currentSong'])
   },
-  components: { PlayIcon },
   render() {
     const elTableProps = ElTable.props
     // 从$attrs里提取作为prop的值

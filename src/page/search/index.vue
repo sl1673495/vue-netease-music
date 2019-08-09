@@ -20,6 +20,7 @@
     </div>
     <Pagination
       :current-page.sync="currentPage"
+      :data="data"
       :page-size="LIMIT"
       :total="songCount"
       @current-change="getSearch"
@@ -31,14 +32,14 @@
 <script type="text/ecmascript-6">
 import { getSearch } from '@/api/search'
 import SongTable from '@/components/song-table'
-import { createSong, getPageOffset } from '@/utils'
+import { createSong, getPageOffset, scrollInto } from '@/utils'
 
 const LIMIT = 30
 export default {
   props: ['keywords'],
   created() {
-    this.LIMIT = LIMIT
     this.getSearch()
+    this.LIMIT = LIMIT
   },
   data() {
     return {
@@ -67,9 +68,7 @@ export default {
         })
       }))
       this.songCount = songCount
-      this.$nextTick(() => {
-        this.$refs.header.scrollIntoView({ behavior: "smooth" })
-      })
+      scrollInto(this.$refs.header)
     },
     getCellClassName({ columnIndex }) {
       if (columnIndex === 0) {
@@ -79,9 +78,7 @@ export default {
     renderNameDesc(scope) {
       const { alias } = scope.row
       return alias.map(desc => (
-        <p class="name-desc">
-          {desc}
-        </p>
+        <HighlightText class="name-desc" text={desc} highlightText={this.keywords} />
       ))
     }
   },
@@ -119,6 +116,7 @@ export default {
     }
 
     .name-desc {
+      display: block;
       margin-top: 8px;
       color: var(--font-color-grey-shallow);
       @include text-ellipsis;

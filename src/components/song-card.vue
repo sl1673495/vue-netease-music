@@ -15,10 +15,8 @@
 </template>
 
 <script>
-import PlayIcon from '@/base/play-icon'
 export default {
   props: ["order", "name", "img", "artistsText"],
-  components: { PlayIcon }
 }
 </script>
 

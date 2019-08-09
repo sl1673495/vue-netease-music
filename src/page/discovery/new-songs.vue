@@ -6,17 +6,17 @@
     <Title>最新音乐</Title>
     <div class="list-wrap">
       <div
-        class="list"
         :key="listIndex"
+        class="list"
         v-for="(list, listIndex) in thunkedList"
       >
         <SongCard
-          class="song-card"
-          v-for="(item,index) in list"
-          v-bind="nomalizeSong(item)"
-          :order="getSongOrder(listIndex, index)"
           :key="item.id"
+          :order="getSongOrder(listIndex, index)"
           @click.native="onClickSong(item)"
+          class="song-card"
+          v-bind="nomalizeSong(item)"
+          v-for="(item,index) in list"
         />
       </div>
     </div>
@@ -26,7 +26,6 @@
 <script>
 import { mapActions, mapMutations } from "@/store/helper/music"
 import { getNewSongs } from "@/api/discovery"
-import Title from "@/base/title"
 import SongCard from "@/components/song-card"
 import { createSong } from "@/utils"
 
@@ -77,7 +76,7 @@ export default {
       return this.list.map(song => this.nomalizeSong(song))
     }
   },
-  components: { Title, SongCard }
+  components: { SongCard }
 }
 </script>
 

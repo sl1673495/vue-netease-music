@@ -1,7 +1,7 @@
 <template>
   <div
-    ref="scroller"
     class="scroller"
+    ref="scroller"
   >
     <slot></slot>
   </div>
@@ -25,9 +25,6 @@ export default {
       type: Object,
       default: () => ({})
     }
-  },
-  mounted() {
-
   },
   data() {
     return {};
@@ -55,7 +52,6 @@ export default {
       immediate: true
     },
   },
-  components: {}
 };
 </script>
 
