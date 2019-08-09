@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.9](https://github.com/sl1673495/vue-netease-music/compare/v2.4.8...v2.4.9) (2019-08-09)
+
+
+### Bug Fixes
+
+* 歌单推荐分页后的滚动交互和其他分页保持一致 ([2e7c708](https://github.com/sl1673495/vue-netease-music/commit/2e7c708))
+
 ### [2.4.8](https://github.com/sl1673495/vue-netease-music/compare/v2.4.7...v2.4.8) (2019-08-09)
 
 
