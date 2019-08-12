@@ -39,7 +39,7 @@
 
 <script type="text/ecmascript-6">
 export default {
-  props: ['comment', 'border']
+  props: ["comment", "border"]
 }
 </script>
 
@@ -89,6 +89,10 @@ export default {
       margin-top: 8px;
 
       .date {
+        color: var(--font-color-grey-shallow);
+      }
+
+      .actions {
         color: var(--font-color-grey-shallow);
       }
     }
