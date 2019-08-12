@@ -12,10 +12,8 @@
 import Banner from "./banner"
 import NewPlaylists from "./new-playlists"
 import NewSongs from "./new-songs"
+
 export default {
-  data() {
-    return {}
-  },
   components: { Banner, NewPlaylists, NewSongs }
 }
 </script>

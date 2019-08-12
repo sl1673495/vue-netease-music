@@ -21,7 +21,7 @@
               ref="disc"
             >
               <div
-                :class="{rotate: playing}"
+                :class="{paused: !playing}"
                 class="img-outer"
                 ref="discRotate"
               >
@@ -209,6 +209,9 @@ export default {
     getActiveCls(index) {
       return this.activeLyricIndex === index ? "active" : ""
     },
+    getDiscRotateCls() {
+      return this.playing ? 'rotate' : 'pause'
+    },
     onInitScroller(scoller) {
       const onScrollStart = type => {
         this.clearTimer(type)
@@ -240,18 +243,6 @@ export default {
     clearTimer(type) {
       this.lyricTimer[type] && clearTimeout(this.lyricTimer[type])
     },
-    // 计算内层Image的transform，并同步到外层容器
-    syncWrapperTransform(wrapper, inner) {
-      if (!this.$refs[wrapper]) {
-        return
-      }
-      const imageWrapper = this.$refs[wrapper]
-      const image = this.$refs[inner]
-      const wTransform = getComputedStyle(imageWrapper)[transform]
-      const iTransform = getComputedStyle(image)[transform]
-      imageWrapper.style[transform] =
-        wTransform === "none" ? iTransform : iTransform.concat(" ", wTransform)
-    },
     onClickPlaylist(id) {
       // 点击的歌单和当前打开的个单页是同一个 直接关闭player
       if (id === Number(this.$route.params.id)) {
@@ -264,7 +255,7 @@ export default {
       this.startSong(song)
       this.addToPlaylist(song)
     },
-    resizeScroller: debounce(function() {
+    resizeScroller: debounce(function () {
       this.$refs.scroller.getScroller().refresh()
     }, 500),
     addResizeListener() {
@@ -280,12 +271,12 @@ export default {
     activeLyricIndex() {
       return this.lyricWithTranslation
         ? this.lyricWithTranslation.findIndex((l, index) => {
-            const nextLyric = this.lyricWithTranslation[index + 1]
-            return (
-              this.currentTime >= l.time &&
-              (nextLyric ? this.currentTime < nextLyric.time : true)
-            )
-          })
+          const nextLyric = this.lyricWithTranslation[index + 1]
+          return (
+            this.currentTime >= l.time &&
+            (nextLyric ? this.currentTime < nextLyric.time : true)
+          )
+        })
         : -1
     },
     lyricWithTranslation() {
@@ -330,11 +321,6 @@ export default {
         })
       } else {
         this.removeResizeListener()
-      }
-    },
-    playing(newPlaying) {
-      if (!newPlaying) {
-        this.syncWrapperTransform("disc", "discRotate")
       }
     },
     currentSong(newSong, oldSong) {
@@ -463,9 +449,12 @@ $img-outer-d: 300px;
             @include flex-center;
             background: $black;
             background: linear-gradient(-45deg, #333540, #070708, #333540);
-            &.rotate {
-              animation: rotate 20s linear infinite;
+            animation: rotate 20s linear infinite;
+            
+            &.paused {
+              animation-play-state: paused;
             }
+
             .img-wrap {
               @include img-wrap(200px);
 

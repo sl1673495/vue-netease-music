@@ -34,7 +34,6 @@ const Confirm = {
 
 export default Confirm
 
-
 // 单例减少开销
 let instanceCache
 // 命令式调用
