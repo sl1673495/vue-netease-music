@@ -34,12 +34,13 @@ const Confirm = {
 
 export default Confirm
 
+
+// 单例减少开销
+let instanceCache
 // 命令式调用
 export const confirm = function (text, onConfirm = () => { }) {
   const ConfirmCtor = Vue.extend(Confirm)
 
-  // 单例减少开销
-  let instanceCache
   const getInstance = () => {
     if (!instanceCache) {
       instanceCache = new ConfirmCtor({
