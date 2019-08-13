@@ -139,7 +139,7 @@
 import { getLyric, getSimiSongs } from "@/api/song"
 import { getSimiPlaylists } from "@/api/playlist"
 import lyricParser from "@/utils/lrcparse"
-import { debounce, isDef, createSong, prefixStyle } from "@/utils"
+import { debounce, isDef, createSong } from "@/utils"
 import Comments from "@/components/comments"
 import { mapState, mapMutations, mapActions } from "@/store/helper/music"
 
@@ -147,7 +147,6 @@ const WHEEL_TYPE = "wheel"
 const SCROLL_TYPE = "scroll"
 // 恢复自动滚动的定时器时间
 const AUTO_SCROLL_RECOVER_TIME = 1000
-const transform = prefixStyle("transform")
 export default {
   created() {
     this.lyricScrolling = {
@@ -450,7 +449,7 @@ $img-outer-d: 300px;
             background: $black;
             background: linear-gradient(-45deg, #333540, #070708, #333540);
             animation: rotate 20s linear infinite;
-            
+
             &.paused {
               animation-play-state: paused;
             }
