@@ -9,9 +9,6 @@
     </div>
     <div class="table">
       <SongTable
-        :cellClassName="getCellClassName"
-        :headerCellClassName="getCellClassName"
-        :hideColumns="['index']"
         :highlightText="keywords"
         :renderNameDesc="renderNameDesc"
         :songs="songs"
@@ -30,13 +27,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getSearch } from '@/api/search'
-import SongTable from '@/components/song-table'
-import { createSong, getPageOffset, scrollInto } from '@/utils'
+import { getSearch } from "@/api/search"
+import SongTable from "@/components/song-table"
+import { createSong, getPageOffset, scrollInto } from "@/utils"
 
 const LIMIT = 30
 export default {
-  props: ['keywords'],
+  props: ["keywords"],
   created() {
     this.getSearch()
     this.LIMIT = LIMIT
@@ -50,12 +47,14 @@ export default {
   },
   methods: {
     async getSearch() {
-      const { result: { songs, songCount } } = await getSearch({
+      const {
+        result: { songs, songCount }
+      } = await getSearch({
         keywords: this.keywords,
         limit: LIMIT,
         offset: getPageOffset(this.currentPage, LIMIT)
       })
-      this.songs = songs.map((song => {
+      this.songs = songs.map(song => {
         const { id, name, alias, artists, duration, album } = song
         return createSong({
           id,
@@ -66,19 +65,18 @@ export default {
           albumName: album.name,
           albumId: album.id
         })
-      }))
+      })
       this.songCount = songCount
       scrollInto(this.$refs.header)
-    },
-    getCellClassName({ columnIndex }) {
-      if (columnIndex === 0) {
-        return 'table-space'
-      }
     },
     renderNameDesc(scope) {
       const { alias } = scope.row
       return alias.map(desc => (
-        <HighlightText class="name-desc" text={desc} highlightText={this.keywords} />
+        <HighlightText
+          class="name-desc"
+          text={desc}
+          highlightText={this.keywords}
+        />
       ))
     }
   },
@@ -86,7 +84,7 @@ export default {
     keywords() {
       this.currentPage = 1
       this.getSearch()
-    },
+    }
   },
   components: {
     SongTable
@@ -114,10 +112,6 @@ export default {
   }
 
   .table {
-    /deep/.table-space {
-      padding-left: 24px !important;
-    }
-
     .name-desc {
       display: block;
       margin-top: 8px;

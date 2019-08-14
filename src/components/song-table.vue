@@ -1,7 +1,8 @@
 
 <script>
-import ElTable from 'element-ui/lib/table'
+import ElTable from "element-ui/lib/table"
 import { mapMutations, mapActions, mapState } from "@/store/helper/music"
+import { pad } from "@/utils"
 
 export default {
   props: {
@@ -15,91 +16,97 @@ export default {
     },
     highlightText: {
       type: String,
-      default: '',
+      default: ""
     },
     // 名字下面渲染的额外内容
     renderNameDesc: {
-      type: Function,
+      type: Function
     }
   },
   data() {
     const commonHighLightSlotScopes = {
-      default: (scope) => {
+      default: scope => {
         const text = scope.row[scope.column.property]
         return <HighlightText text={text} highlightText={this.highlightText} />
       }
     }
     return {
-      columns: [{
-        prop: 'index',
-        label: '',
-        width: '50',
-        scopedSlots: {
-          default: (scope) => {
-            return (
-              <div>
-                {this.isActiveSong(scope.row) ? (
-                  <Icon
-                    class="horn"
-                    type="horn"
-                    color="theme"
-                  />
-                ) : (
-                    <span>{scope.$index + 1}</span>
+      columns: [
+        {
+          prop: "index",
+          label: "",
+          width: "70",
+          scopedSlots: {
+            default: scope => {
+              return (
+                <div class="index-wrap">
+                  {this.isActiveSong(scope.row) ? (
+                    <Icon class="horn" type="horn" color="theme" />
+                  ) : (
+                    // 补上左边的0
+                    <span>{pad(scope.$index + 1)}</span>
                   )}
-              </div>
-            )
+                </div>
+              )
+            }
+          }
+        },
+        {
+          prop: "img",
+          label: " ",
+          width: "100",
+          scopedSlots: {
+            default: scope => {
+              return (
+                <div class="img-wrap">
+                  <img src={this.$utils.genImgUrl(scope.row.img, 120)} />
+                  <PlayIcon class="play-icon" />
+                </div>
+              )
+            }
+          }
+        },
+        {
+          prop: "name",
+          label: "音乐标题",
+          labelClassName: "title-th",
+          className: "title-td",
+          scopedSlots: this.renderNameDesc
+            ? {
+                default: scope => {
+                  return (
+                    <div class="song-table-cell">
+                      {commonHighLightSlotScopes.default(scope)}
+                      {this.renderNameDesc(scope)}
+                    </div>
+                  )
+                }
+              }
+            : commonHighLightSlotScopes
+        },
+        {
+          prop: "artistsText",
+          label: "歌手",
+          scopedSlots: commonHighLightSlotScopes
+        },
+        {
+          prop: "albumName",
+          label: "专辑",
+          scopedSlots: commonHighLightSlotScopes
+        },
+        {
+          prop: "durationSecond",
+          label: "时长",
+          width: "100",
+          scopedSlots: {
+            default: scope => {
+              return (
+                <span>{this.$utils.formatTime(scope.row.durationSecond)}</span>
+              )
+            }
           }
         }
-      }, {
-        prop: 'img',
-        label: ' ',
-        width: '100',
-        scopedSlots: {
-          default: (scope) => {
-            return (
-              <div class="img-wrap">
-                <img src={this.$utils.genImgUrl(scope.row.img, 120)} />
-                <PlayIcon class="play-icon" />
-              </div>
-            )
-          }
-        }
-      }, {
-        prop: 'name',
-        label: '音乐标题',
-        labelClassName: "title-th",
-        className: "title-td",
-        scopedSlots: this.renderNameDesc ? {
-          default: (scope) => {
-            return (
-              <div class="cell">
-                {commonHighLightSlotScopes.default(scope)}
-                {this.renderNameDesc(scope)}
-              </div>
-            )
-          }
-        } : commonHighLightSlotScopes
-      }, {
-        prop: 'artistsText',
-        label: '歌手',
-        scopedSlots: commonHighLightSlotScopes
-      }, {
-        prop: 'albumName',
-        label: '专辑',
-        scopedSlots: commonHighLightSlotScopes
-      }, {
-        prop: 'durationSecond',
-        label: '时长',
-        width: '100',
-        scopedSlots: {
-          default: (scope) => {
-            return (
-              <span>{this.$utils.formatTime(scope.row.durationSecond)}</span>
-            )
-          }
-        }
-      }]
+      ]
     }
   },
   methods: {
@@ -124,13 +131,14 @@ export default {
       }
       if (
         this.isActiveSong(row) &&
-        columnIndex === this.showColumns.findIndex(({ prop }) => prop === 'name')
+        columnIndex ===
+          this.showColumns.findIndex(({ prop }) => prop === "name")
       ) {
-        retCls.push('song-active')
+        retCls.push("song-active")
       }
-      return retCls.join(' ')
+      return retCls.join(" ")
     },
-    ...mapMutations(['setPlaylist']),
+    ...mapMutations(["setPlaylist"]),
     ...mapActions(["startSong"])
   },
   computed: {
@@ -139,13 +147,13 @@ export default {
       const reference = this.songs[0]
       const { img } = reference
       if (!img) {
-        hideColumns.push('img')
+        hideColumns.push("img")
       }
       return this.columns.filter(column => {
-        return !hideColumns.find((hideColumn) => hideColumn === column.prop)
+        return !hideColumns.find(hideColumn => hideColumn === column.prop)
       })
     },
-    ...mapState(['currentSong'])
+    ...mapState(["currentSong"])
   },
   render() {
     const elTableProps = ElTable.props
@@ -155,25 +163,25 @@ export default {
       attrs,
       on: {
         ...this.$listeners,
-        ['row-click']: this.onRowClick,
+        ["row-click"]: this.onRowClick
       },
       props: {
         ...props,
         cellClassName: this.tableCellClassName,
-        data: this.songs,
+        data: this.songs
       },
-      style: { width: '99.9%' }
+      style: { width: "99.9%" }
     }
     return this.songs.length ? (
-      <el-table
-        class="song-table"
-        {...tableAttrs}
-      >
+      <el-table class="song-table" {...tableAttrs}>
         {this.showColumns.map((column, index) => {
           const { scopedSlots, ...columnProps } = column
           return (
-            <el-table-column key={index} props={columnProps} scopedSlots={scopedSlots} >
-            </el-table-column>
+            <el-table-column
+              key={index}
+              props={columnProps}
+              scopedSlots={scopedSlots}
+            ></el-table-column>
           )
         })}
       </el-table>
@@ -214,6 +222,11 @@ function genPropsAndAttrs(rawAttrs, componentProps) {
     }
   }
 
+  .index-wrap {
+    text-align: center;
+    color: var(--font-color-grey-shallow);
+  }
+
   .img-wrap {
     position: relative;
     @include img-wrap(60px);
@@ -225,12 +238,11 @@ function genPropsAndAttrs(rawAttrs, componentProps) {
       @include abs-center;
     }
   }
-
   .high-light-text {
     color: $blue;
   }
 
-  .cell {
+  .song-table-cell {
     @include text-ellipsis;
   }
 }
