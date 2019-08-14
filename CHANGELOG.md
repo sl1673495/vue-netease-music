@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.12](https://github.com/sl1673495/vue-netease-music/compare/v2.4.9...v2.4.12) (2019-08-14)
+
+
+### Bug Fixes
+
+* 优化了song-table组件的样式，搜索结果页面加入了歌曲序号的显示。 ([35fc42e](https://github.com/sl1673495/vue-netease-music/commit/35fc42e))
+* 更换js库依赖的cdn源 ([d663c77](https://github.com/sl1673495/vue-netease-music/commit/d663c77))
+* 评论组件的点赞样式和底部其他部分保持一致 ([2bbf063](https://github.com/sl1673495/vue-netease-music/commit/2bbf063))
+
 ### [2.4.11](https://github.com/sl1673495/vue-netease-music/compare/v2.4.10...v2.4.11) (2019-08-13)
 
 
