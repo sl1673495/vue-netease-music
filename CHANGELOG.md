@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.13](https://github.com/sl1673495/vue-netease-music/compare/v2.4.12...v2.4.13) (2019-08-15)
+
+
+### Bug Fixes
+
+* 登录接口报错的时候未能正确提示 ([278145d](https://github.com/sl1673495/vue-netease-music/commit/278145d))
+
 ### [2.4.12](https://github.com/sl1673495/vue-netease-music/compare/v2.4.9...v2.4.12) (2019-08-14)
 
 
