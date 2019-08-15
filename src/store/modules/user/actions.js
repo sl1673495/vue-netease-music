@@ -18,7 +18,7 @@ export default {
       const { profile } = user
       commit('setUser', profile)
       storage.set(UID_KEY, profile.userId)
-    } catch (error) {
+    } catch (e) {
       return error()
     }
 
