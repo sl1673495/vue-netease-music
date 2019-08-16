@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.16](https://github.com/sl1673495/vue-netease-music/compare/v2.4.15...v2.4.16) (2019-08-16)
+
+
+### Features
+
+* 加入empty组件 在评论为空的时候显示empty文案 ([f31bc3b](https://github.com/sl1673495/vue-netease-music/commit/f31bc3b))
+
 ### [2.4.15](https://github.com/sl1673495/vue-netease-music/compare/v2.4.14...v2.4.15) (2019-08-16)
 
 
