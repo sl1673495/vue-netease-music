@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'StripedList',
+  name: "StripedList",
   props: {
     source: {
       type: Array,
@@ -44,6 +44,7 @@ export default {
 .stripe-row:hover {
   background: #2e2e2e;
 }
+
 .stripe-shallow {
   background: #2e2e2e;
 }

@@ -4,64 +4,72 @@ import { Loading } from 'element-ui'
 const BASE_URL = '/netease-api'
 let loading
 let loadingCount = 0
-export let request
-export let requestWithoutLoading
 
-const handleError = (e) => {
+// 不带全局loading的请求实例
+export const requestWithoutLoading = createBaseInstance()
+// 带全局loading的请求实例
+// 传入函数是因为需要在处理请求结果handleResponse之前处理loading
+// 所以要在内部插入loading拦截器的处理逻辑
+export const request = createBaseInstance(mixinLoading)
+
+// 通用的axios实例
+function createBaseInstance(addBeforeIntercetors) {
+  const instance = axios.create({
+    baseURL: BASE_URL,
+  })
+
+  addBeforeIntercetors && addBeforeIntercetors(instance.interceptors)
+  instance.interceptors.response.use(handleResponse, handleError)
+  return instance
+}
+
+function handleError(e) {
   throw new Error(e)
 }
-const handleResponse = (response) => {
+
+function handleResponse(response) {
   if (response.status === 200) {
     return response.data
-  }
-  else {
-    handleError()
+  } else {
+    handleError(response.statusText)
   }
 }
-export default {
-  install(Vue) {
-    // 没有全局loading
-    requestWithoutLoading = axios.create({
-      baseURL: BASE_URL
-    })
 
-    requestWithoutLoading.interceptors.response.use(handleResponse, handleError)
+function mixinLoading(interceptors) {
+  interceptors.request.use(loadingRequestInterceptor)
+  interceptors.response.use(
+    loadingResponseInterceptor,
+    loadingResponseErrorInterceptor
+  )
 
-    // 全局loading
-    request = axios.create({
-      baseURL: BASE_URL
-    })
+  function loadingRequestInterceptor(config) {
+    loading ||
+      (loading = Loading.service({
+        target: 'body',
+        background: 'transparent',
+        text: '载入中',
+      }))
+    loadingCount++
 
-    request.interceptors.request.use(config => {
+    return config
+  }
 
-      loading ||
-        (loading = Loading.service({
-          target: 'body',
-          background: 'transparent',
-          text: '载入中'
-        }))
-      loadingCount++
-
-      return config
-    })
-
-    const handleLoading = () => {
-      loadingCount--
-      if (loadingCount === 0) {
-        loading.close()
-        loading = null
-      }
+  function handleResponseLoading() {
+    loadingCount--
+    if (loadingCount === 0) {
+      loading.close()
+      loading = null
     }
+  }
 
+  function loadingResponseInterceptor(response) {
+    handleResponseLoading()
+    return response
+  }
 
-    request.interceptors.response.use(response => {
-      handleLoading()
-      return handleResponse(response)
-    }, (e) => {
-      handleLoading()
-      handleError(e)
-    })
-
-    Vue.prototype.$request = request
+  function loadingResponseErrorInterceptor(e) {
+    handleResponseLoading()
+    // 这里要把错误的response传递下去
+    return e.response
   }
 }

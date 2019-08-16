@@ -54,7 +54,7 @@
 <script>
 import DetailHeader from "./header"
 import SongTable from "@/components/song-table"
-import Comments from '@/components/comments'
+import Comments from "@/components/comments"
 import { createSong } from "@/utils"
 import { getListDetail } from "@/api/song-list"
 import { getSongDetail } from "@/api/song"
@@ -63,18 +63,23 @@ const MAX = 500
 const SONG_IDX = 0
 const COMMENT_IDX = 1
 export default {
+  metaInfo() {
+    return {
+      title: this.playlist.name
+    }
+  },
   async created() {
     this.SONG_IDX = SONG_IDX
     this.COMMENT_IDX = COMMENT_IDX
   },
   data() {
     return {
-      tabs: ['歌曲列表', '评论'],
+      tabs: ["歌曲列表", "评论"],
       activeTab: SONG_IDX,
       playlist: {},
       songs: [],
-      searchValue: '',
-      inputFocus: false,
+      searchValue: "",
+      inputFocus: false
     }
   },
   methods: {
@@ -108,7 +113,7 @@ export default {
       this.inputFocus = false
     },
     getInputCls() {
-      return !this.inputFocus ? 'inactive' : ''
+      return !this.inputFocus ? "inactive" : ""
     }
   },
   computed: {
@@ -116,17 +121,21 @@ export default {
       return Number(this.$route.params.id)
     },
     filteredSongs() {
-      return this.songs.filter(({ name, artistsText, albumName }) => `${name}${artistsText}${albumName}`.toLowerCase().includes(this.searchValue.toLowerCase()))
+      return this.songs.filter(({ name, artistsText, albumName }) =>
+        `${name}${artistsText}${albumName}`
+          .toLowerCase()
+          .includes(this.searchValue.toLowerCase())
+      )
     }
   },
   watch: {
     id: {
       handler() {
-        this.searchValue = ''
+        this.searchValue = ""
         this.init()
       },
       immediate: true
-    },
+    }
   },
   components: { DetailHeader, SongTable, Comments }
 }

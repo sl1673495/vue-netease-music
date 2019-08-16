@@ -11,9 +11,14 @@
 import Layout from "@/layout"
 import MiniPlayer from "@/components/mini-player"
 import Playlist from "@/components/playlist"
-import Player from '@/components/player'
+import Player from "@/components/player"
 
 export default {
+  metaInfo() {
+    return {
+      title: "欢迎来到sshPlayer"
+    }
+  },
   components: { Layout, MiniPlayer, Playlist, Player }
 }
 </script>

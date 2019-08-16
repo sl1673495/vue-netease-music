@@ -22,6 +22,7 @@
     "element-ui": "^2.10.1",
     "good-storage": "^1.1.0",
     "vue": "^2.6.10",
+    "vue-meta": "^2.2.1",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },
