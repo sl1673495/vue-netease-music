@@ -6,7 +6,7 @@
     <template v-else>
       <div
         class="block"
-        v-if="hotComments.length && currentPage === 1"
+        v-if="shouldHotCommentShow"
       >
         <p class="title">精彩评论</p>
         <Comment
@@ -18,7 +18,7 @@
       </div>
       <div
         class="block"
-        v-if="comments.length"
+        v-if="shouldCommentShow"
       >
         <p
           class="title"
@@ -42,6 +42,7 @@
         class="pagination"
       />
     </template>
+    <empty v-if="!shouldHotCommentShow && !shouldCommentShow">还没有评论哦~</empty>
   </div>
 </template>
 
@@ -125,6 +126,14 @@ export default {
         }
       },
       immediate: true
+    }
+  },
+  computed: {
+    shouldHotCommentShow() {
+      return this.hotComments.length > 0 && this.currentPage === 1
+    },
+    shouldCommentShow() {
+      return this.comments.length > 0
     }
   },
   components: {

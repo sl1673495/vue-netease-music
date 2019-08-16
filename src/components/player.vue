@@ -39,10 +39,7 @@
                 <div class="value">{{currentSong.artistsText}}</div>
               </div>
             </div>
-            <div
-              class="no-lyric"
-              v-if="nolyric"
-            >还没有歌词哦~</div>
+            <empty v-if="nolyric">还没有歌词哦~</empty>
             <Scroller
               :data="lyric"
               :options="{disableTouch: true}"
@@ -209,7 +206,7 @@ export default {
       return this.activeLyricIndex === index ? "active" : ""
     },
     getDiscRotateCls() {
-      return this.playing ? 'rotate' : 'pause'
+      return this.playing ? "rotate" : "pause"
     },
     onInitScroller(scoller) {
       const onScrollStart = type => {
@@ -254,7 +251,7 @@ export default {
       this.startSong(song)
       this.addToPlaylist(song)
     },
-    resizeScroller: debounce(function () {
+    resizeScroller: debounce(function() {
       this.$refs.scroller.getScroller().refresh()
     }, 500),
     addResizeListener() {
@@ -270,12 +267,12 @@ export default {
     activeLyricIndex() {
       return this.lyricWithTranslation
         ? this.lyricWithTranslation.findIndex((l, index) => {
-          const nextLyric = this.lyricWithTranslation[index + 1]
-          return (
-            this.currentTime >= l.time &&
-            (nextLyric ? this.currentTime < nextLyric.time : true)
-          )
-        })
+            const nextLyric = this.lyricWithTranslation[index + 1]
+            return (
+              this.currentTime >= l.time &&
+              (nextLyric ? this.currentTime < nextLyric.time : true)
+            )
+          })
         : -1
     },
     lyricWithTranslation() {
@@ -496,12 +493,6 @@ $img-outer-d: 300px;
               color: $blue;
             }
           }
-        }
-
-        .no-lyric {
-          text-align: center;
-          margin-top: 100px;
-          color: var(--font-color);
         }
 
         .lyric-wrap {
