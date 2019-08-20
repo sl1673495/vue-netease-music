@@ -1,4 +1,4 @@
-import { getAlbum } from '@/api/album'
+import { getAlbum } from "@/api"
 import { isDef } from './common';
 
 export function createSong(song) {

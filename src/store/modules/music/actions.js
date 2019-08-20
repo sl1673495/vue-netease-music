@@ -1,4 +1,4 @@
-import { getSongUrl } from '@/api/song'
+import { getSongUrl } from "@/api"
 import storage from 'good-storage'
 import { PLAY_HISTORY_KEY, notify, getSongImg } from '@/utils'
 

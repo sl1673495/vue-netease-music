@@ -56,8 +56,8 @@ import DetailHeader from "./header"
 import SongTable from "@/components/song-table"
 import Comments from "@/components/comments"
 import { createSong } from "@/utils"
-import { getListDetail } from "@/api/song-list"
-import { getSongDetail } from "@/api/song"
+import { getListDetail } from "@/api"
+import { getSongDetail } from "@/api"
 
 const MAX = 500
 const SONG_IDX = 0

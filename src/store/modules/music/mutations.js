@@ -29,10 +29,13 @@ export default {
       state.isPlaylistPromptShow = true
       setTimeout(() => {
         state.isPlaylistPromptShow = false
-      }, 2000);
+      }, 2000)
     }
   },
   setPlayHistory(state, history) {
     state.playHistory = history
+  },
+  setMenuShow(state, show) {
+    state.isMenuShow = show
   },
 }

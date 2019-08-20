@@ -2,12 +2,15 @@
   <div class="layout">
     <LayoutHeader />
     <div class="layout-body">
-      <div class="layout-menu">
+      <div
+        class="layout-menu"
+        v-show="isMenuShow"
+      >
         <LayoutMenu />
       </div>
       <div
-        id="page-content"
         class="content"
+        id="page-content"
       >
         <router-view :class="routerViewCls" />
       </div>
@@ -18,7 +21,8 @@
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
 import LayoutMenu from "./menu"
-import { topRoutes } from '@/router'
+import { topRoutes } from "@/router"
+import { mapState } from "@/store/helper/music"
 
 export default {
   data() {
@@ -31,9 +35,10 @@ export default {
   computed: {
     routerViewCls() {
       return topRoutes.find(({ path }) => path === this.$route.path)
-        ? 'router-view-center'
-        : ''
-    }
+        ? "router-view-center"
+        : ""
+    },
+    ...mapState(["isMenuShow"])
   }
 }
 </script>
@@ -54,6 +59,7 @@ export default {
     .content {
       flex: 1;
       overflow-y: auto;
+      min-width: 1000px;
       margin-bottom: $mini-player-height;
       padding-bottom: 32px;
 

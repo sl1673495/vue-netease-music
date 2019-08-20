@@ -6,16 +6,17 @@ module.exports = {
           target: 'http://localhost:3000',
           pathRewrite: { '^/netease-api': '' },
           changeOrigin: true,
-          secure: false
-        }
-      }
+          secure: false,
+        },
+      },
+      port: 8888,
     },
     externals: {
-      "vue": "Vue",
+      vue: 'Vue',
       'vue-router': 'VueRouter',
-      'vuex': "Vuex",
-      "axios": "axios",
-    }
+      vuex: 'Vuex',
+      axios: 'axios',
+    },
   },
   css: {
     loaderOptions: {
@@ -23,8 +24,8 @@ module.exports = {
         data: `
           @import "~@/style/variables.scss";
           @import "~@/style/mixin.scss";
-        `
-      }
-    }
-  }
+        `,
+      },
+    },
+  },
 }

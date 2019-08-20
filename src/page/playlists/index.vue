@@ -44,7 +44,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getPlaylists, getTopPlaylists } from '@/api/playlist'
+import { getPlaylists, getTopPlaylists } from "@/api"
 import PlaylistCard from '@/components/playlist-card'
 import TopPlaylistCard from '@/components/top-playlist-card'
 import { getPageOffset, scrollInto } from '@/utils'

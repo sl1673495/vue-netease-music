@@ -20,5 +20,6 @@ export default {
   playlist: [],
   // 播放历史数据
   playHistory: storage.get(PLAY_HISTORY_KEY, []),
-
+  // 菜单显示
+  isMenuShow: true,
 }

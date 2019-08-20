@@ -87,42 +87,50 @@
                 v-if="simiPlaylists.length"
               >
                 <p class="title">包含这首歌的歌单</p>
-                <Card
-                  :img="simiPlaylist.coverImgUrl"
+                <div
                   :key="simiPlaylist.id"
-                  :name="simiPlaylist.name"
-                  @click="onClickPlaylist(simiPlaylist.id)"
+                  class="simi-item"
                   v-for="simiPlaylist in simiPlaylists"
                 >
-                  <template v-slot:desc>
-                    <div class="desc">
-                      <Icon
-                        :size="12"
-                        color="shallow"
-                        type="play"
-                      />
-                      <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
-                    </div>
-                  </template>
-                </Card>
+                  <Card
+                    :img="simiPlaylist.coverImgUrl"
+                    :name="simiPlaylist.name"
+                    @click="onClickPlaylist(simiPlaylist.id)"
+                  >
+                    <template v-slot:desc>
+                      <div class="desc">
+                        <Icon
+                          :size="12"
+                          color="shallow"
+                          type="play"
+                        />
+                        <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
+                      </div>
+                    </template>
+                  </Card>
+                </div>
               </div>
               <div
                 class="simi-songs"
                 v-if="simiSongs.length"
               >
                 <p class="title">相似歌曲</p>
-                <Card
-                  :desc="simiSong.artistsText"
-                  :img="simiSong.img"
+                <div
                   :key="simiSong.id"
-                  :name="simiSong.name"
-                  @click="onClickSong(simiSong)"
+                  class="simi-item"
                   v-for="simiSong in simiSongs"
                 >
-                  <template v-slot:img-mask>
-                    <PlayIcon class="play-icon" />
-                  </template>
-                </Card>
+                  <Card
+                    :desc="simiSong.artistsText"
+                    :img="simiSong.img"
+                    :name="simiSong.name"
+                    @click="onClickSong(simiSong)"
+                  >
+                    <template v-slot:img-mask>
+                      <PlayIcon class="play-icon" />
+                    </template>
+                  </Card>
+                </div>
               </div>
             </div>
           </div>
@@ -133,8 +141,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getLyric, getSimiSongs } from "@/api/song"
-import { getSimiPlaylists } from "@/api/playlist"
+import { getLyric, getSimiSongs } from "@/api"
+import { getSimiPlaylists } from "@/api"
 import lyricParser from "@/utils/lrcparse"
 import { debounce, isDef, createSong } from "@/utils"
 import Comments from "@/components/comments"
@@ -548,6 +556,10 @@ $img-outer-d: 300px;
           .play-icon {
             @include abs-center;
           }
+        }
+
+        .simi-item {
+          margin-bottom: 6px;
         }
 
         .title {

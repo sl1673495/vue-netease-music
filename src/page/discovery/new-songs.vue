@@ -25,7 +25,7 @@
 
 <script>
 import { mapActions, mapMutations } from "@/store/helper/music"
-import { getNewSongs } from "@/api/discovery"
+import { getNewSongs } from "@/api"
 import SongCard from "@/components/song-card"
 import { createSong } from "@/utils"
 
@@ -81,11 +81,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.list-wrap {
-  display: flex;
+.new-songs {
+  margin-bottom: 36px;
+  .list-wrap {
+    display: flex;
 
-  .list {
-    flex: 1;
+    .list {
+      flex: 1;
+    }
   }
 }
 </style>

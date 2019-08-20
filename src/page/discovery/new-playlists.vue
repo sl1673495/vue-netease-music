@@ -19,7 +19,7 @@
 
 <script>
 import PlaylistCard from "@/components/playlist-card"
-import { getPersonalized } from "@/api/discovery"
+import { getPersonalized } from "@/api"
 
 export default {
   async created() {

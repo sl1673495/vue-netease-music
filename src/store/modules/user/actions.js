@@ -1,7 +1,7 @@
 import storage from 'good-storage'
 import { UID_KEY } from '@/utils'
 import { notify, isDef } from '@/utils'
-import { getUserDetail, getUserPlaylist } from '@/api/user'
+import { getUserDetail, getUserPlaylist } from "@/api"
 
 export default {
   async login({ commit }, uid) {

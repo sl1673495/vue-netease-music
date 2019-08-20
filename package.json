@@ -24,7 +24,8 @@
     "vue": "^2.6.10",
     "vue-meta": "^2.2.1",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xgplayer": "^2.1.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

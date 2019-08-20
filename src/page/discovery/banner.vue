@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { getBanner } from "@/api/discovery"
+import { getBanner } from "@/api"
 export default {
   async created() {
     const { banners } = await getBanner()

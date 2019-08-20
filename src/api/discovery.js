@@ -6,3 +6,5 @@ export const getNewSongs = () => request.get('/personalized/newsong')
 
 export const getPersonalized = params =>
   request.get(`/personalized`, { params })
+
+export const getFirstMv = limit => request.get(`/mv/first?limit=${limit}`)

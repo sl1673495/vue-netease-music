@@ -27,7 +27,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getSearch } from "@/api/search"
+import { getSearch } from "@/api"
 import SongTable from "@/components/song-table"
 import { createSong, getPageOffset, scrollInto } from "@/utils"
 

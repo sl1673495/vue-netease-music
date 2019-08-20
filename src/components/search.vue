@@ -90,7 +90,7 @@
 <script type="text/ecmascript-6">
 import storage from 'good-storage'
 import { mapActions, mapMutations } from "@/store/helper/music"
-import { getSearchHot, getSearchSuggest } from "@/api/search"
+import { getSearchHot, getSearchSuggest } from "@/api"
 import { createSong, genArtistisText, debounce } from "@/utils"
 
 const SEARCH_HISTORY_KEY = '__search_history__'

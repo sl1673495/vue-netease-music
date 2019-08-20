@@ -1,7 +1,7 @@
 <template>
   <div class="song-card">
     <div class="order-wrap">
-      <span class="order">0{{order}}</span>
+      <span class="order">{{$utils.pad(order)}}</span>
     </div>
     <div class="img-wrap">
       <img :src="$utils.genImgUrl(img, 120)" />
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  props: ["order", "name", "img", "artistsText"],
+  props: ["order", "name", "img", "artistsText"]
 }
 </script>
 
@@ -26,6 +26,10 @@ export default {
   padding: 8px;
   font-size: $font-size-sm;
   cursor: pointer;
+
+  div {
+    flex-shrink: 0;
+  }
 
   &:hover {
     background: var(--light-bgcolor);

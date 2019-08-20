@@ -42,7 +42,7 @@
         class="pagination"
       />
     </template>
-    <empty v-if="!shouldHotCommentShow && !shouldCommentShow">还没有评论哦~</empty>
+    <empty v-if="!loading && !shouldHotCommentShow && !shouldCommentShow">还没有评论哦~</empty>
   </div>
 </template>
 
@@ -50,13 +50,16 @@
 import {
   getSongComment,
   getPlaylistComment,
-  getHotComment
-} from "@/api/comment"
+  getHotComment,
+  getMvComment
+} from "@/api"
 import { getPageOffset, scrollInto } from "@/utils"
 import Comment from "./comment"
 
 const SONG_TYPE = "song"
 const PLAYLIST_TYPE = "playlist"
+const MV_TYPE = "mv"
+
 const PAGE_SIZE = 20
 export default {
   props: {
@@ -65,6 +68,7 @@ export default {
       required: true
     },
     type: {
+      // SONG_TYPE, PLAYLIST_TYPE, MV_TYPE 之一
       type: String,
       default: SONG_TYPE
     }
@@ -86,7 +90,8 @@ export default {
       this.loading = true
       const commentRequestMap = {
         [PLAYLIST_TYPE]: getPlaylistComment,
-        [SONG_TYPE]: getSongComment
+        [SONG_TYPE]: getSongComment,
+        [MV_TYPE]: getMvComment
       }
       const commentRequest = commentRequestMap[this.type]
       const { hotComments = [], comments = [], total } = await commentRequest({

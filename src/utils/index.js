@@ -9,3 +9,5 @@ export * from './dom'
 export * from './song'
 
 export * from './axios'
+
+export * from './mixin'
