@@ -2,7 +2,8 @@
 <script>
 import ElTable from "element-ui/lib/table"
 import { mapMutations, mapActions, mapState } from "@/store/helper/music"
-import { pad } from "@/utils"
+import { pad, notify, goMvWithCheck } from "@/utils"
+import { getMvDetail } from "@/api"
 
 export default {
   props: {
@@ -71,18 +72,35 @@ export default {
           label: "音乐标题",
           labelClassName: "title-th",
           className: "title-td",
-          scopedSlots: this.renderNameDesc
-            ? {
-                default: scope => {
-                  return (
-                    <div class="song-table-cell">
-                      {commonHighLightSlotScopes.default(scope)}
-                      {this.renderNameDesc(scope)}
-                    </div>
-                  )
-                }
+          scopedSlots: {
+            default: scope => {
+              const {
+                row: { mvId }
+              } = scope
+
+              const onGoMv = async e => {
+                e.stopPropagation()
+                goMvWithCheck(mvId)
               }
-            : commonHighLightSlotScopes
+
+              return (
+                <div class="song-table-cell">
+                  {commonHighLightSlotScopes.default(scope)}
+
+                  {mvId ? (
+                    <Icon
+                      class="mv-icon"
+                      onClick={onGoMv}
+                      type="mv"
+                      color="theme"
+                    />
+                  ) : null}
+
+                  {this.renderNameDesc ? this.renderNameDesc(scope) : null}
+                </div>
+              )
+            }
+          }
         },
         {
           prop: "artistsText",
@@ -244,6 +262,12 @@ function genPropsAndAttrs(rawAttrs, componentProps) {
 
   .song-table-cell {
     @include text-ellipsis;
+    display: flex;
+    align-items: center;
+
+    .mv-icon {
+      margin-left: 4px;
+    }
   }
 }
 </style>

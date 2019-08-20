@@ -91,12 +91,13 @@ export default {
     async genSonglist(playlist) {
       const trackIds = playlist.trackIds.map(({ id }) => id)
       const songDetails = await getSongDetail(trackIds.slice(0, MAX))
-      const songs = songDetails.songs.map(({ id, name, al, ar, dt }) =>
+      const songs = songDetails.songs.map(({ id, name, al, ar, mv, dt }) =>
         createSong({
           id,
           name,
           artists: ar,
           duration: dt,
+          mvId: mv,
           albumName: al.name,
           img: al.picUrl
         })

@@ -41,7 +41,7 @@
           :desc="`by ${simiMv.artistName}`"
           :key="simiMv.id"
           :name="simiMv.name"
-          @click="goMv(simiMv.id)"
+          @click="$utils.goMv(simiMv.id)"
           v-for="simiMv in simiMvs"
         >
           <template #img-wrap>
@@ -67,8 +67,6 @@ export default {
   mixins: [hideMenuMixin],
   props: ["id"],
   created() {
-    // 停止播放歌曲
-    this.setPlayingState(false)
     this.init()
   },
   data() {
@@ -101,10 +99,12 @@ export default {
 
       // 加载高清源
       this.$nextTick(() => {
-        this.$refs.video.player.emit(
-          "resourceReady",
-          genResource(this.mvDetail.brs)
-        )
+        const player = this.$refs.video.player
+        player.emit("resourceReady", genResource(this.mvDetail.brs))
+        player.on("play", () => {
+          // 停止播放歌曲
+          this.setPlayingState(false)
+        })
       })
     },
     goMv(id) {

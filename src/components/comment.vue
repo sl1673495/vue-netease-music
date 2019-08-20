@@ -75,6 +75,8 @@ export default {
 
     .comment-text {
       .username {
+        display: inline-block;
+        margin-right: 4px;
         color: $blue;
       }
 

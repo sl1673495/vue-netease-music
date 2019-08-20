@@ -32,7 +32,14 @@
             </div>
           </div>
           <div class="right">
-            <p class="name">{{currentSong.name}}</p>
+            <div class="name-wrap">
+              <p class="name">{{currentSong.name}}</p>
+              <span
+                @click="onGoMv"
+                class="mv-tag"
+                v-if="currentSong.mvId"
+              >MV</span>
+            </div>
             <div class="desc">
               <div class="desc-item">
                 <span class="label">歌手：</span>
@@ -141,10 +148,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getLyric, getSimiSongs } from "@/api"
-import { getSimiPlaylists } from "@/api"
+import { getLyric, getSimiSongs, getSimiPlaylists } from "@/api"
 import lyricParser from "@/utils/lrcparse"
-import { debounce, isDef, createSong } from "@/utils"
+import { debounce, isDef, createSong, goMvWithCheck } from "@/utils"
 import Comments from "@/components/comments"
 import { mapState, mapMutations, mapActions } from "@/store/helper/music"
 
@@ -201,10 +207,18 @@ export default {
           id,
           name,
           artists,
+          mvid,
           album: { picUrl },
           duration
         } = song
-        return createSong({ id, name, artists, duration, img: picUrl })
+        return createSong({
+          id,
+          name,
+          artists,
+          duration,
+          img: picUrl,
+          mvId: mvid
+        })
       })
     },
     getPlayerShowCls() {
@@ -258,6 +272,10 @@ export default {
     onClickSong(song) {
       this.startSong(song)
       this.addToPlaylist(song)
+    },
+    onGoMv() {
+      this.setPlayerShow(false)
+      goMvWithCheck(this.currentSong.mvId)
     },
     resizeScroller: debounce(function() {
       this.$refs.scroller.getScroller().refresh()
@@ -473,11 +491,25 @@ $img-outer-d: 300px;
       .right {
         flex: 1;
         padding-top: 45px;
-
-        .name {
-          font-size: $font-size-title-lg;
-          color: var(--font-color-white);
+        .name-wrap {
+          display: flex;
+          align-items: center;
           margin-bottom: 16px;
+
+          .name {
+            font-size: $font-size-title-lg;
+            color: var(--font-color-white);
+          }
+
+          .mv-tag {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px;
+            border: 1px solid currentColor;
+            border-radius: 2px;
+            color: $theme-color;
+            cursor: pointer;
+          }
         }
 
         .artists {
