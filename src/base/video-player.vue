@@ -22,7 +22,8 @@ export default {
         url: this.url,
         videoInit: true,
         lang: "zh-cn",
-        width: "100%"
+        width: "100%",
+        playbackRate: [0.5, 0.75, 1, 1.5, 2]
       })
     }
   },

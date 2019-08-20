@@ -50,12 +50,20 @@ export default {
         id,
         name,
         song: {
+          mvid,
           artists,
           album: { blurPicUrl },
           duration
         }
       } = song
-      return createSong({ id, name, img: blurPicUrl, artists, duration })
+      return createSong({
+        id,
+        name,
+        img: blurPicUrl,
+        artists,
+        duration,
+        mvId: mvid
+      })
     },
     onClickSong(song) {
       const nomalizedSong = this.nomalizeSong(song)

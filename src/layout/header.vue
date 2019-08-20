@@ -5,7 +5,12 @@
         <div
           @click="onClickLogo"
           class="mac-button red"
-        ></div>
+        >
+          <Icon
+            :size="9"
+            type="home"
+          />
+        </div>
         <div
           @click="exitFullscreen"
           class="mac-button yellow"
@@ -58,7 +63,7 @@ import Theme from "@/components/theme"
 import Search from "@/components/search"
 import RoutesHistory from "@/components/routes-history"
 import { mapState, mapMutations } from "@/store/helper/music"
-import { requestFullScreen, exitFullscreen, isFullscreen } from '@/utils'
+import { requestFullScreen, exitFullscreen, isFullscreen } from "@/utils"
 
 export default {
   methods: {

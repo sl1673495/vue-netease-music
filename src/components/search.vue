@@ -88,12 +88,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import storage from 'good-storage'
+import storage from "good-storage"
 import { mapActions, mapMutations } from "@/store/helper/music"
 import { getSearchHot, getSearchSuggest } from "@/api"
 import { createSong, genArtistisText, debounce } from "@/utils"
 
-const SEARCH_HISTORY_KEY = '__search_history__'
+const SEARCH_HISTORY_KEY = "__search_history__"
 export default {
   async created() {
     const {
@@ -118,7 +118,7 @@ export default {
     onBlur() {
       this.searchPanelShow = false
     },
-    onInput: debounce(function (value) {
+    onInput: debounce(function(value) {
       if (!value.trim()) {
         return
       }
@@ -147,6 +147,7 @@ export default {
         name,
         artists,
         duration,
+        mvid,
         album: { id: albumId, name: albumName }
       } = item
       const song = createSong({
@@ -155,7 +156,8 @@ export default {
         artists,
         duration,
         albumId,
-        albumName
+        albumName,
+        mvId: mvid
       })
       this.startSong(song)
       this.addToPlaylist(song)
@@ -165,8 +167,12 @@ export default {
       this.$router.push(`/playlist/${id}`)
       this.searchPanelShow = false
     },
+    onClickMv(mv) {
+      const { id } = mv
+      this.$router.push(`/mv/${id}`)
+    },
     ...mapMutations(["setPlaylist"]),
-    ...mapActions(["startSong", 'addToPlaylist'])
+    ...mapActions(["startSong", "addToPlaylist"])
   },
   computed: {
     suggestShow() {
@@ -181,7 +187,7 @@ export default {
       return [
         {
           title: "单曲",
-          icon: 'music',
+          icon: "music",
           data: this.suggest.songs,
           renderName(song) {
             return `${song.name} - ${genArtistisText(song.artists)}`
@@ -190,13 +196,22 @@ export default {
         },
         {
           title: "歌单",
-          icon: 'playlist',
+          icon: "playlist",
           data: this.suggest.playlists,
           onClick: this.onClickPlaylist.bind(this)
+        },
+        {
+          title: "mv",
+          icon: "mv",
+          data: this.suggest.mvs,
+          renderName(mv) {
+            return `${mv.name} - ${genArtistisText(mv.artists)}`
+          },
+          onClick: this.onClickMv.bind(this)
         }
       ].filter(item => item.data && item.data.length)
     }
-  },
+  }
 }
 </script>
 

@@ -55,13 +55,14 @@ export default {
         offset: getPageOffset(this.currentPage, LIMIT)
       })
       this.songs = songs.map(song => {
-        const { id, name, alias, artists, duration, album } = song
+        const { id, mvid, name, alias, artists, duration, album } = song
         return createSong({
           id,
           name,
           alias,
           artists,
           duration,
+          mvId: mvid,
           albumName: album.name,
           albumId: album.id
         })
