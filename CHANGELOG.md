@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/sl1673495/vue-netease-music/compare/v3.0.1...v3.0.2) (2019-08-20)
+
+
+### Features
+
+* 完善了一些mv入口。 ([0673e21](https://github.com/sl1673495/vue-netease-music/commit/0673e21))
+
 ### [3.0.1](https://github.com/sl1673495/vue-netease-music/compare/v3.0.0...v3.0.1) (2019-08-20)
 
 
