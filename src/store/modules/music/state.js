@@ -1,5 +1,6 @@
 import storage from 'good-storage'
-import { PLAY_HISTORY_KEY, playModeMap } from '@/utils'
+import { PLAY_HISTORY_KEY } from '@/utils'
+import { playModeMap } from '@/utils/config'
 
 export default {
   // 当前播放歌曲

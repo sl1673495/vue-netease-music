@@ -1,5 +1,8 @@
 <template>
-  <div class="new-mvs">
+  <div
+    class="new-mvs"
+    v-if="mvs.length"
+  >
     <Title>独家放送</Title>
     <ul class="mv-cards">
       <li
