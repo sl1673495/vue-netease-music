@@ -1,8 +1,8 @@
 <template>
   <div
+    @click="progressClick"
     class="progress-bar"
     ref="progressBar"
-    @click="progressClick"
   >
     <div class="bar-inner">
       <div
@@ -14,8 +14,8 @@
         ref="progressBtn"
       >
         <div
-          class="progress-btn"
           :class="{show: alwaysShowBtn}"
+          class="progress-btn"
         ></div>
       </div>
     </div>
@@ -23,12 +23,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { prefixStyle } from "@/utils"
+import { prefixStyle, toRem } from "@/utils"
 
 const transform = prefixStyle("transform")
 
 export default {
-  name: 'ProgressBar',
+  name: "ProgressBar",
   props: {
     percent: {
       type: Number,
@@ -55,7 +55,10 @@ export default {
     progressClick(e) {
       if (!this.disabled) {
         const rect = this.$refs.progressBar.getBoundingClientRect()
-        const offsetWidth = Math.max(0, Math.min(e.pageX - rect.left, this.$refs.progressBar.clientWidth))
+        const offsetWidth = Math.max(
+          0,
+          Math.min(e.pageX - rect.left, this.$refs.progressBar.clientWidth)
+        )
         this._offset(offsetWidth)
         // 这里当我们点击 progressBtn 的时候，e.offsetX 获取不对
         // this._offset(e.offsetX)
@@ -73,10 +76,9 @@ export default {
       this.$emit("percentChange", this._getPercent())
     },
     _offset(offsetWidth) {
-      this.$refs.progress.style.width = `${offsetWidth}px`
-      this.$refs.progressBtn.style[
-        transform
-      ] = `translate3d(${offsetWidth}px,0,0)`
+      const offsetRem = toRem(offsetWidth)
+      this.$refs.progress.style.width = `${offsetRem}`
+      this.$refs.progressBtn.style[transform] = `translate3d(${offsetRem},0,0)`
     },
     _getPercent() {
       const barWidth = this.$refs.progressBar.clientWidth

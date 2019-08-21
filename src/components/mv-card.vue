@@ -108,6 +108,7 @@ export default {
   }
 
   .name {
+    margin-bottom: 4px;
     @include text-ellipsis;
     font-size: $font-size-sm;
   }

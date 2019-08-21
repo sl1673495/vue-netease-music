@@ -3,7 +3,7 @@
     class="new-mvs"
     v-if="mvs.length"
   >
-    <Title>独家放送</Title>
+    <Title>推荐MV</Title>
     <ul class="mv-cards">
       <li
         :key="mv.id"
@@ -11,6 +11,7 @@
         v-for="mv in mvs"
       >
         <MvCard
+          :author="mv.artistName"
           :id="mv.id"
           :img="mv.cover"
           :name="mv.name"

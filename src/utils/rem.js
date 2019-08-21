@@ -1,6 +1,7 @@
 import { throttle } from './common'
 
 const remBase = 14
+let htmlRootFontSize = remBase
 
 !(function () {
   const calc = function () {
@@ -12,11 +13,13 @@ const remBase = 14
     size = Math.min(maxFontSize, size)
     size = Math.max(minFontSize, size)
     html.style.fontSize = size + 'px'
+    htmlRootFontSize = size
   }
   calc()
   window.addEventListener('resize', throttle(calc, 500))
 })()
 
+// 根据当前的html根字体大小计算
 export function toRem(px) {
-  return `${px / remBase}rem`
+  return `${px / htmlRootFontSize}rem`
 }
