@@ -67,6 +67,10 @@ export const prevSong = (state, getters) => {
 }
 
 function getRandomIndex(playlist, currentIndex) {
+  // 防止无限循环
+  if (playlist.length === 1) {
+    return currentIndex
+  }
   let index = Math.round(Math.random() * (playlist.length - 1))
   if (index === currentIndex) {
     index = getRandomIndex(playlist, currentIndex)

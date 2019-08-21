@@ -1,4 +1,5 @@
 <script type="text/ecmascript-6">
+// 用于读取url中的分享信息
 import { isDef, createSong } from "@/utils"
 import { getSearch } from "@/api"
 import { mapActions, mapMutations } from "@/store/helper/music"
@@ -29,13 +30,14 @@ export default {
           })
 
           await this.startSong(createdSong)
+          this.setPlaylist([createdSong])
           this.setPlayerShow(true)
         }
       }
     })
   },
   methods: {
-    ...mapMutations(["setPlayerShow"]),
+    ...mapMutations(["setPlayerShow", "setPlaylist"]),
     ...mapActions(["startSong"])
   }
 }

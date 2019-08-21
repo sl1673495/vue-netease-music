@@ -74,6 +74,24 @@
     </div>
 
     <div class="mode">
+      <!-- 分享 -->
+      <el-popover
+        placement="top"
+        trigger="hover"
+        width="180"
+      >
+        <p>点击后生成链接到剪贴板</p>
+        <Icon
+          :data-clipboard-text="shareUrl"
+          :size="20"
+          class="mode-item"
+          ref="shareIcon"
+          slot="reference"
+          type="share"
+          v-show="hasCurrentSong"
+        />
+      </el-popover>
+
       <!-- 模式 -->
       <el-popover
         placement="top"
@@ -145,19 +163,21 @@ import {
   mapActions
 } from "@/store/helper/music"
 import Storage from "good-storage"
-import { VOLUME_KEY, playModeMap } from "@/utils"
+import Clipboard from "clipboard"
+import { VOLUME_KEY, playModeMap, isDef } from "@/utils"
 
 const DEFAULT_VOLUME = 0.75
 export default {
   data() {
     return {
-      isPlayErrorPromptShow: false,
       songReady: false,
+      isPlayErrorPromptShow: false,
       volume: Storage.get(VOLUME_KEY, DEFAULT_VOLUME)
     }
   },
   mounted() {
     this.audio.volume = this.volume
+    this.initShareIcon()
   },
   methods: {
     togglePlaying() {
@@ -229,6 +249,9 @@ export default {
     goGitHub() {
       window.open("https://github.com/sl1673495/vue-netease-music")
     },
+    initShareIcon() {
+      new Clipboard(this.$refs.shareIcon.$el)
+    },
     ...mapMutations([
       "setCurrentTime",
       "setPlayingState",
@@ -269,7 +292,7 @@ export default {
   },
   computed: {
     hasCurrentSong() {
-      return !!this.currentSong.id
+      return isDef(this.currentSong.id)
     },
     playIcon() {
       return this.playing ? "pause" : "play"
@@ -293,6 +316,9 @@ export default {
     },
     playControlIcon() {
       return this.isPlayerShow ? "shrink" : "open"
+    },
+    shareUrl() {
+      return `${window.location.origin}?shareMusicId=${this.currentSong.id}`
     },
     ...mapState([
       "currentSong",
