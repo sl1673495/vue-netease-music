@@ -39,6 +39,7 @@
       <div class="right">
         <p class="title">相关推荐</p>
         <Card
+          class="simi-mv-card"
           :desc="`by ${simiMv.artistName}`"
           :key="simiMv.id"
           :name="simiMv.name"
@@ -47,7 +48,6 @@
         >
           <template #img-wrap>
             <MvCard
-              class="simi-mv"
               :duration="simiMv.duration"
               :img="simiMv.cover"
               :playCount="simiMv.playCount"
@@ -207,10 +207,8 @@ function genResource(brs) {
       width: 36%;
       padding-left: 32px;
 
-      .simi-mv {
-        /deep/.mv-card {
-          margin-bottom: 0
-        }
+      .simi-mv-card {
+        margin-bottom: 16px;
       }
     }
   }

@@ -53,13 +53,11 @@ export default {
 .mv-card {
   min-width: 140px;
   padding: 0 12px;
-  margin-bottom: 36px;
   cursor: pointer;
 
   .img-wrap {
     position: relative;
     padding-top: 56%;
-    margin-bottom: 8px;
 
     img {
       @include abs-stretch();
@@ -110,12 +108,13 @@ export default {
   }
 
   .name {
-    margin-bottom: 4px;
+    margin-top: 8px;
     @include text-ellipsis;
     font-size: $font-size-sm;
   }
 
   .author {
+    margin-top: 4px;
     @include text-ellipsis;
     font-size: $font-size-sm;
     color: var(--font-color-grey-shallow);
