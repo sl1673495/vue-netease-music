@@ -14,7 +14,7 @@
         <ul class="menu-list">
           <router-link
             :key="index"
-            :to="item.to"
+            :to="item.path"
             active-class="menu-item-active"
             class="menu-item"
             tag="li"
@@ -22,10 +22,10 @@
           >
             <Icon
               :size="16"
-              :type="item.icon"
+              :type="item.meta.icon"
               class="iconfont"
             />
-            <span class="menu-title">{{item.title}}</span>
+            <span class="menu-title">{{item.meta.title}}</span>
           </router-link>
         </ul>
       </div>
@@ -35,51 +35,32 @@
 
 <script type="text/ecmascript-6">
 import User from "@/components/user"
-import { mapState as mapUserState, mapGetters as mapUserGetters } from '@/store/helper/user'
+import {
+  mapState as mapUserState,
+  mapGetters as mapUserGetters
+} from "@/store/helper/user"
+import { menuRoutes } from "@/router"
 
 export default {
   data() {
     return {
       menus: [
         {
-          type: 'root',
-          children: [{
-            title: "发现音乐",
-            icon: "music",
-            to: "/discovery"
-          },
-          {
-            title: "推荐歌单",
-            to: "/playlists",
-            icon: 'playlist-menu'
-          },
-          {
-            title: "最新音乐",
-            to: "/songs",
-            icon: 'yinyue'
-          }
-          ]
-        },
+          type: "root",
+          children: menuRoutes
+        }
       ]
     }
   },
   computed: {
     // 组合登录后的歌单
     menusWithPlaylist() {
-      return this.isLogin && this.userPlaylist.length
-        ? this.menus.concat({
-          type: 'playlist',
-          title: '收藏的歌单',
-          children: this.userPlaylist.map(({ id, name }) => ({
-            title: name,
-            to: `/playlist/${id}`,
-            icon: 'playlist-menu'
-          }))
-        })
+      return this.isLogin && this.userMenus.length
+        ? this.menus.concat(this.userMenus)
         : this.menus
     },
-    ...mapUserState(['userPlaylist']),
-    ...mapUserGetters(['isLogin'])
+    ...mapUserState(["userPlaylist"]),
+    ...mapUserGetters(["isLogin", "userMenus"])
   },
   components: {
     User
@@ -89,7 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  width: 220px;
+  width: 300px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -105,6 +86,7 @@ export default {
 
       .menu-block-title {
         font-size: $font-size-sm;
+        color: var(--font-color-grey2);
         padding-left: 16px;
         margin-bottom: 8px;
       }

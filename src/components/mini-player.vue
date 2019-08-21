@@ -1,3 +1,4 @@
+// 底部播放栏组件
 <template>
   <div
     class="mini-player"
@@ -45,15 +46,25 @@
         class="icon"
         type="prev"
       />
-      <div
-        @click="togglePlaying"
-        class="play-icon"
+      <el-popover
+        :value="isPlayErrorPromptShow"
+        placement="top"
+        trigger="manual"
+        width="160"
       >
-        <Icon
-          :size="24"
-          :type="playIcon"
-        />
-      </div>
+        <p>请点击开始播放。</p>
+        <div
+          @click="togglePlaying"
+          class="play-icon"
+          slot="reference"
+        >
+          <Icon
+            :size="24"
+            :type="playIcon"
+          />
+        </div>
+      </el-popover>
+
       <Icon
         :size="24"
         @click="next"
@@ -127,15 +138,22 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mapState, mapMutations, mapGetters, mapActions } from "@/store/helper/music"
-import Storage from 'good-storage'
-import { VOLUME_KEY, playModeMap } from '@/utils'
+import {
+  mapState,
+  mapMutations,
+  mapGetters,
+  mapActions
+} from "@/store/helper/music"
+import Storage from "good-storage"
+import { VOLUME_KEY, playModeMap } from "@/utils"
 
+const DEFAULT_VOLUME = 0.75
 export default {
   data() {
     return {
+      isPlayErrorPromptShow: false,
       songReady: false,
-      volume: Storage.get(VOLUME_KEY, 1),
+      volume: Storage.get(VOLUME_KEY, DEFAULT_VOLUME)
     }
   },
   mounted() {
@@ -151,11 +169,18 @@ export default {
     ready() {
       this.songReady = true
     },
-    play() {
+    async play() {
       if (this.songReady) {
-        this.audio.play().catch(() => {
+        try {
+          await this.audio.play()
+          if (this.isPlayErrorPromptShow) {
+            this.isPlayErrorPromptShow = false
+          }
+        } catch (error) {
+          // 提示用户手动播放
+          this.isPlayErrorPromptShow = true
           this.setPlayingState(false)
-        })
+        }
       }
     },
     pause() {
@@ -187,7 +212,9 @@ export default {
     },
     onChangePlayMode() {
       const modeKeys = Object.keys(playModeMap)
-      const currentModeIndex = modeKeys.findIndex(key => playModeMap[key].code === this.playMode)
+      const currentModeIndex = modeKeys.findIndex(
+        key => playModeMap[key].code === this.playMode
+      )
       const nextIndex = (currentModeIndex + 1) % modeKeys.length
       const nextModeKey = modeKeys[nextIndex]
       const nextMode = playModeMap[nextModeKey]
@@ -200,9 +227,15 @@ export default {
       this.setPlayerShow(!this.isPlayerShow)
     },
     goGitHub() {
-      window.open('https://github.com/sl1673495/vue-netease-music')
+      window.open("https://github.com/sl1673495/vue-netease-music")
     },
-    ...mapMutations(["setCurrentTime", "setPlayingState", "setPlayMode", "setPlaylistShow", "setPlayerShow"]),
+    ...mapMutations([
+      "setCurrentTime",
+      "setPlayingState",
+      "setPlayMode",
+      "setPlaylistShow",
+      "setPlayerShow"
+    ]),
     ...mapActions(["startSong"])
   },
   watch: {
@@ -259,11 +292,19 @@ export default {
       return Math.min(this.currentTime / durationSecond, 1) || 0
     },
     playControlIcon() {
-      return this.isPlayerShow ? 'shrink' : 'open'
+      return this.isPlayerShow ? "shrink" : "open"
     },
-    ...mapState(["currentSong", "currentTime", "playing", "playMode", "isPlaylistShow", "isPlaylistPromptShow", "isPlayerShow"]),
+    ...mapState([
+      "currentSong",
+      "currentTime",
+      "playing",
+      "playMode",
+      "isPlaylistShow",
+      "isPlaylistPromptShow",
+      "isPlayerShow"
+    ]),
     ...mapGetters(["prevSong", "nextSong"])
-  },
+  }
 }
 </script>
 
@@ -361,6 +402,7 @@ export default {
 
     .play-icon {
       @include flex-center();
+      position: relative;
       width: 45px;
       height: 45px;
       margin: 0 16px;

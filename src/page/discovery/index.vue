@@ -1,3 +1,4 @@
+// 发现音乐页面
 <template>
   <div class="discovery">
     <div class="discovery-content">

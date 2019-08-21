@@ -21,7 +21,7 @@
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
 import LayoutMenu from "./menu"
-import { topRoutes } from "@/router"
+import { layoutCenterPaths } from "@/router"
 import { mapState } from "@/store/helper/music"
 
 export default {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     routerViewCls() {
-      return topRoutes.find(({ path }) => path === this.$route.path)
+      return layoutCenterPaths.find(path => path === this.$route.path)
         ? "router-view-center"
         : ""
     },

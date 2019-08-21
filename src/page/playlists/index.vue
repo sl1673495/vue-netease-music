@@ -1,3 +1,4 @@
+// 推荐歌单页面
 <template>
   <div
     class="playlists"
@@ -45,15 +46,30 @@
 
 <script type="text/ecmascript-6">
 import { getPlaylists, getTopPlaylists } from "@/api"
-import PlaylistCard from '@/components/playlist-card'
-import TopPlaylistCard from '@/components/top-playlist-card'
-import { getPageOffset, scrollInto } from '@/utils'
+import PlaylistCard from "@/components/playlist-card"
+import TopPlaylistCard from "@/components/top-playlist-card"
+import { getPageOffset, scrollInto } from "@/utils"
 
 const PAGE_SIZE = 50
 export default {
   async created() {
     this.PAGE_SIZE = PAGE_SIZE
-    this.tabs = ['全部', '欧美', '华语', '流行', '说唱', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG', '怀旧', '治愈', '旅行']
+    this.tabs = [
+      "全部",
+      "欧美",
+      "华语",
+      "流行",
+      "说唱",
+      "摇滚",
+      "民谣",
+      "电子",
+      "轻音乐",
+      "影视原声",
+      "ACG",
+      "怀旧",
+      "治愈",
+      "旅行"
+    ]
     this.initData()
   },
   data() {
@@ -62,7 +78,7 @@ export default {
       playlists: [],
       currentPage: 0,
       total: 0,
-      topPlaylist: {},
+      topPlaylist: {}
     }
   },
   methods: {
@@ -98,7 +114,8 @@ export default {
     }
   },
   components: {
-    TopPlaylistCard, PlaylistCard
+    TopPlaylistCard,
+    PlaylistCard
   }
 }
 </script>

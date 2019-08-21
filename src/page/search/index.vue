@@ -1,3 +1,4 @@
+// 搜索详情页面
 <template>
   <div class="search-detail">
     <div

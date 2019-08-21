@@ -15,6 +15,7 @@ export default {
       }
     }
     commit('setCurrentSong', song)
+    commit('setPlayingState', true)
     // 历史记录
     const { playHistory } = state
     const playHistoryCopy = playHistory.slice()
@@ -25,7 +26,6 @@ export default {
     }
     playHistoryCopy.unshift(song)
     commit('setPlayHistory', playHistoryCopy)
-    commit('setPlayingState', true)
     storage.set(PLAY_HISTORY_KEY, playHistoryCopy)
     // 检查是否能播放
     const canPlay = await checkCanPlay(song.id)

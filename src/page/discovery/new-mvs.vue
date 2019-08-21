@@ -13,7 +13,7 @@
         <MvCard
           :author="mv.artistName"
           :id="mv.id"
-          :img="mv.cover"
+          :img="mv.picUrl"
           :name="mv.name"
           :playCount="mv.playCount"
         />
@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getFirstMv } from "@/api"
+import { getPersonalizedMv } from "@/api"
 import MvCard from "@/components/mv-card"
 export default {
   created() {
@@ -36,8 +36,8 @@ export default {
   },
   methods: {
     async getMvs() {
-      const { data } = await getFirstMv(8)
-      this.mvs = data
+      const { result } = await getPersonalizedMv()
+      this.mvs = result
     }
   },
   components: { MvCard }

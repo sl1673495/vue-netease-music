@@ -2,8 +2,7 @@
 <script>
 import ElTable from "element-ui/lib/table"
 import { mapMutations, mapActions, mapState } from "@/store/helper/music"
-import { pad, notify, goMvWithCheck } from "@/utils"
-import { getMvDetail } from "@/api"
+import { pad, goMvWithCheck } from "@/utils"
 
 export default {
   props: {
@@ -93,6 +92,7 @@ export default {
                       onClick={onGoMv}
                       type="mv"
                       color="theme"
+                      size={24}
                     />
                   ) : null}
 

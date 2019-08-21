@@ -6,6 +6,7 @@ export default {
   ['--font-color-shallow']: '#404040',
   ['--font-color-white']: '#333333',
   ['--font-color-grey']: '#5c5c5c',
+  ['--font-color-grey2']: '#909090',
   ['--font-color-grey-shallow']: '#BEBEBE',
   ['--border']: '#f2f2f1',
   ['--scrollbar-color']: '#D0D0D0',

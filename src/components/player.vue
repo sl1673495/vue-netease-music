@@ -374,9 +374,6 @@ export default {
       this.setPlayerShow(false)
     }
   },
-  beforeDestroy() {
-    this.removeListener()
-  },
   components: {
     Comments
   }
