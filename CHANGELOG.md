@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.3](https://github.com/sl1673495/vue-netease-music/compare/v3.0.0...v3.0.3) (2019-08-21)
+
+
+### Bug Fixes
+
+* 修复了pxToRem计算方式，修复progress-bar组件在窗口大小改变后大小错误。 ([c0503d8](https://github.com/sl1673495/vue-netease-music/commit/c0503d8))
+* 切换config引入方式，否则打包后读取失败。 ([af40fd5](https://github.com/sl1673495/vue-netease-music/commit/af40fd5))
+
+
+### Features
+
+* 完善了一些mv入口。 ([2720e4c](https://github.com/sl1673495/vue-netease-music/commit/2720e4c))
+
 ### [3.0.2](https://github.com/sl1673495/vue-netease-music/compare/v3.0.1...v3.0.2) (2019-08-20)
 
 
