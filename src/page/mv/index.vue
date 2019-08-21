@@ -47,6 +47,7 @@
         >
           <template #img-wrap>
             <MvCard
+              class="simi-mv"
               :duration="simiMv.duration"
               :img="simiMv.cover"
               :playCount="simiMv.playCount"
@@ -205,6 +206,12 @@ function genResource(brs) {
     .right {
       width: 36%;
       padding-left: 32px;
+
+      .simi-mv {
+        /deep/.mv-card {
+          margin-bottom: 0
+        }
+      }
     }
   }
 }
