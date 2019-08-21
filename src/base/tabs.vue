@@ -1,21 +1,19 @@
 <template>
-  <div
-    class="tab-wrap"
+  <ul
     :class="{[align]: true}"
+    class="tab-wrap"
   >
-    <div
-      v-for="(tab, index) in normalizedTabs"
-      :key="index"
-      class="tab-item"
+    <li
       :class="getItemCls(tab, index)"
-      @click="onChangeTab(tab, index)"
+      :key="index"
       :style="getItemStyle(tab, index)"
+      @click="onChangeTab(tab, index)"
+      class="tab-item"
+      v-for="(tab, index) in normalizedTabs"
     >
-      <span class="title">
-        {{tab.title}}
-      </span>
-    </div>
-  </div>
+      <span class="title">{{tab.title}}</span>
+    </li>
+  </ul>
 </template>
 
 <script type="text/ecmascript-6">
@@ -24,9 +22,6 @@ const ACTIVE_CHANGE = "tabChange"
 
 export default {
   name: "Tabs",
-  created() {
-    this.ACTIVE_PROP = ACTIVE_PROP
-  },
   props: {
     [ACTIVE_PROP]: {
       type: Number,
@@ -49,12 +44,10 @@ export default {
       default: () => ({})
     },
     itemClass: {
-      type: String,
-      default: '',
+      type: String
     },
     activeItemClass: {
-      type: String,
-      default: '',
+      type: String
     },
     type: {
       type: String
@@ -84,24 +77,28 @@ export default {
       return false
     },
     getItemCls(tab, index) {
-      let base = this.itemClass
+      let base = []
+
+      if (this.itemClass) {
+        base.push(this.itemClass)
+      }
       if (this.type) {
-        base += ` ${this.type}`
+        base.push(this.type)
       }
       if (this.isActive(tab, index)) {
-        base += `${this.activeItemClass} active`
+        if (this.activeItemClass) {
+          base.push(this.activeItemClass)
+        }
+        base.push("active")
       }
-      return base;
+      return base.join(" ")
     },
     getItemStyle(tab, index) {
       return Object.assign(
         {},
         this.itemStyle,
         this.isActive(tab, index)
-          ? Object.assign(
-            {},
-            this.activeItemStyle
-          )
+          ? Object.assign({}, this.activeItemStyle)
           : null
       )
     }
@@ -121,7 +118,6 @@ export default {
 
 <style lang="scss" scoped>
 .tab-wrap {
-  // padding: 12px;
   display: flex;
 
   &.center {
@@ -148,7 +144,7 @@ export default {
       }
     }
 
-    // 对应prop的type
+    // 对应prop中的type字段
     &.small {
       font-size: $font-size-sm;
 

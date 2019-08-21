@@ -101,7 +101,8 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-      // 歌单的热评需要重新获取
+
+      // 歌单的热评需要单独请求接口获取
       if (this.type === PLAYLIST_TYPE && this.currentPage === 1) {
         const { hotComments: exactHotComments = [] } = await getHotComment({
           id: this.id,
@@ -111,6 +112,7 @@ export default {
       } else {
         this.hotComments = hotComments
       }
+
       this.comments = comments
       this.total = total
       this.$emit("update", { comments, hotComments, total })

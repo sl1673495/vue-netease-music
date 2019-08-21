@@ -1,12 +1,10 @@
 <template>
-  <div
-    class="mvs"
-    ref="page"
-  >
+  <div class="search-mvs">
     <WithPagination
-      :getData="getAllMvs"
+      :getData="getSearch"
+      :getDataParams="searchParams"
       :limit="40"
-      :scrollTarget="this.$refs && this.$refs.page"
+      :scrollTarget="searchRoot.$refs && searchRoot.$refs.header"
       :total="mvCount"
       @getDataSuccess="onGetMvs"
     >
@@ -31,12 +29,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getAllMvs } from "@/api"
+import { getSearch } from "@/api"
 import MvCard from "@/components/mv-card"
 import WithPagination from "@/components/with-pagination"
+const SEARCH_TYPE_MV = 1004
 export default {
+  inject: ["searchRoot"],
   created() {
-    this.getAllMvs = getAllMvs
+    this.getSearch = getSearch
   },
   data() {
     return {
@@ -45,11 +45,15 @@ export default {
     }
   },
   methods: {
-    onGetMvs({ data, count }) {
-      this.mvs = data
-      if (count) {
-        this.mvCount = count
-      }
+    onGetMvs({ result: { mvs, mvCount } }) {
+      this.mvs = mvs
+      this.mvCount = mvCount
+      this.$emit("updateCount", mvCount)
+    }
+  },
+  computed: {
+    searchParams() {
+      return { keywords: this.searchRoot.keywords, type: SEARCH_TYPE_MV }
     }
   },
   components: {
@@ -60,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mvs {
+.search-mvs {
   max-width: 1000px;
   padding: 16px 0;
   margin: auto;

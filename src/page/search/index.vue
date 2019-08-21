@@ -6,90 +6,81 @@
       ref="header"
     >
       <span class="keywords">{{keywords}}</span>
-      <span class="found">找到{{songCount}}首单曲</span>
+      <span class="found">找到{{count}}个{{searchTypeTitle}}</span>
     </div>
-    <div class="table">
-      <SongTable
-        :highlightText="keywords"
-        :renderNameDesc="renderNameDesc"
-        :songs="songs"
-        :stripe="true"
+    <div class="tabs-wrap">
+      <Tabs
+        :tabs="tabs"
+        itemClass="search-tab-item"
+        v-model="activeTabIndex"
       />
     </div>
-    <Pagination
-      :current-page.sync="currentPage"
-      :data="data"
-      :page-size="LIMIT"
-      :total="songCount"
-      @current-change="getSearch"
-      class="pagination"
+    <component
+      :is="searchComponent"
+      @updateCount="onUpdateCount"
     />
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import { getSearch } from "@/api"
-import SongTable from "@/components/song-table"
-import { createSong, getPageOffset, scrollInto } from "@/utils"
+import SearchSongs from "./songs"
+import SearchPlaylists from "./playlists"
+import SearchMvs from "./mvs"
 
-const LIMIT = 30
+const tabs = [
+  {
+    title: "歌曲",
+    key: "songs",
+    component: "SearchSongs"
+  },
+  {
+    title: "歌单",
+    key: "playlists",
+    component: "SearchPlaylists"
+  },
+  {
+    title: "MV",
+    key: "mvs",
+    component: "SearchMvs"
+  }
+]
 export default {
   props: ["keywords"],
   created() {
-    this.getSearch()
-    this.LIMIT = LIMIT
+    this.tabs = tabs
+  },
+  provide() {
+    return {
+      searchRoot: this
+    }
   },
   data() {
     return {
-      songs: [],
-      songCount: 0,
-      currentPage: 1
+      count: 0,
+      activeTabIndex: 0
     }
   },
   methods: {
-    async getSearch() {
-      const {
-        result: { songs, songCount }
-      } = await getSearch({
-        keywords: this.keywords,
-        limit: LIMIT,
-        offset: getPageOffset(this.currentPage, LIMIT)
-      })
-      this.songs = songs.map(song => {
-        const { id, mvid, name, alias, artists, duration, album } = song
-        return createSong({
-          id,
-          name,
-          alias,
-          artists,
-          duration,
-          mvId: mvid,
-          albumName: album.name,
-          albumId: album.id
-        })
-      })
-      this.songCount = songCount
-      scrollInto(this.$refs.header)
-    },
-    renderNameDesc(scope) {
-      const { alias } = scope.row
-      return alias.map(desc => (
-        <HighlightText
-          class="name-desc"
-          text={desc}
-          highlightText={this.keywords}
-        />
-      ))
+    onUpdateCount(count) {
+      this.count = count
     }
   },
-  watch: {
-    keywords() {
-      this.currentPage = 1
-      this.getSearch()
+
+  computed: {
+    currentTab() {
+      return tabs[this.activeTabIndex]
+    },
+    searchComponent() {
+      return this.currentTab.component
+    },
+    searchTypeTitle() {
+      return this.currentTab.title
     }
   },
   components: {
-    SongTable
+    SearchSongs,
+    SearchPlaylists,
+    SearchMvs
   }
 }
 </script>
@@ -113,18 +104,13 @@ export default {
     }
   }
 
-  .table {
-    .name-desc {
-      display: block;
-      margin-top: 8px;
-      color: var(--font-color-grey-shallow);
-      @include text-ellipsis;
-    }
-  }
+  .tabs-wrap {
+    padding: 0 28px;
+    border-bottom: 1px solid var(--border);
 
-  .pagination {
-    margin-top: 16px;
-    text-align: right;
+    /deep/.search-tab-item {
+      font-size: $font-size;
+    }
   }
 }
 </style>

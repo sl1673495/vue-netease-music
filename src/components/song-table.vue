@@ -27,7 +27,13 @@ export default {
     const commonHighLightSlotScopes = {
       default: scope => {
         const text = scope.row[scope.column.property]
-        return <HighlightText text={text} highlightText={this.highlightText} />
+        return (
+          <HighlightText
+            class="song-table-name"
+            text={text}
+            highlightText={this.highlightText}
+          />
+        )
       }
     }
     return {
@@ -69,7 +75,6 @@ export default {
         {
           prop: "name",
           label: "音乐标题",
-          labelClassName: "title-th",
           className: "title-td",
           scopedSlots: {
             default: scope => {
@@ -83,18 +88,20 @@ export default {
               }
 
               return (
-                <div class="song-table-cell">
-                  {commonHighLightSlotScopes.default(scope)}
+                <div>
+                  <div class="song-table-name-cell">
+                    {commonHighLightSlotScopes.default(scope)}
 
-                  {mvId ? (
-                    <Icon
-                      class="mv-icon"
-                      onClick={onGoMv}
-                      type="mv"
-                      color="theme"
-                      size={24}
-                    />
-                  ) : null}
+                    {mvId ? (
+                      <Icon
+                        class="mv-icon"
+                        onClick={onGoMv}
+                        type="mv"
+                        color="theme"
+                        size={24}
+                      />
+                    ) : null}
+                  </div>
 
                   {this.renderNameDesc ? this.renderNameDesc(scope) : null}
                 </div>
@@ -186,6 +193,7 @@ export default {
       props: {
         ...props,
         cellClassName: this.tableCellClassName,
+        headerCellClassName: "title-th",
         data: this.songs
       },
       style: { width: "99.9%" }
@@ -224,6 +232,11 @@ function genPropsAndAttrs(rawAttrs, componentProps) {
 
 <style lang="scss">
 .song-table {
+  .title-th {
+    color: var(--font-color-grey2);
+    font-weight: normal;
+  }
+
   .title-td {
     color: var(--font-color-white);
   }
@@ -260,12 +273,19 @@ function genPropsAndAttrs(rawAttrs, componentProps) {
     color: $blue;
   }
 
-  .song-table-cell {
+  .song-table-name-cell {
     @include text-ellipsis;
     display: flex;
     align-items: center;
+    flex: 0 0 24px;
+
+    .song-table-name {
+      overflow: hidden;
+      @include text-ellipsis;
+    }
 
     .mv-icon {
+      width: 24px;
       margin-left: 4px;
     }
   }

@@ -68,6 +68,7 @@
 .el-popover {
   background: var(--prompt-bg-color) !important;
   border: none !important;
+  text-align: left;
   @include box-shadow;
 }
 

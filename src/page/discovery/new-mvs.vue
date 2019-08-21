@@ -53,8 +53,6 @@ export default {
 
     .mv-card-item {
       width: 25%;
-      padding: 0 12px;
-      margin-bottom: 36px;
     }
   }
 }

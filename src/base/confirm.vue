@@ -3,9 +3,10 @@
     :modal="false"
     :visible.sync="visible"
     :width="$utils.toRem(320)"
+    class="confirm-dialog"
   >
     <div slot="title">提示</div>
-    <div class="login-body">{{text}}</div>
+    <div class="confirm-body">{{text}}</div>
     <span
       class="dialog-footer"
       slot="footer"
@@ -20,10 +21,10 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from 'vue'
+import Vue from "vue"
 const Confirm = {
-  name: 'Confirm',
-  props: ['visible', 'text', 'onConfirm'],
+  name: "Confirm",
+  props: ["visible", "text", "onConfirm"],
   methods: {
     confirmAndClose() {
       this.onConfirm()
@@ -37,7 +38,7 @@ export default Confirm
 // 单例减少开销
 let instanceCache
 // 命令式调用
-export const confirm = function (text, onConfirm = () => { }) {
+export const confirm = function(text, onConfirm = () => {}) {
   const ConfirmCtor = Vue.extend(Confirm)
 
   const getInstance = () => {
@@ -45,7 +46,7 @@ export const confirm = function (text, onConfirm = () => { }) {
       instanceCache = new ConfirmCtor({
         propsData: {
           text,
-          onConfirm,
+          onConfirm
         }
       })
       // 生成dom
@@ -68,7 +69,16 @@ export const confirm = function (text, onConfirm = () => { }) {
 </script>
 
 <style lang="scss" scoped>
-.confirm-btn {
-  width: 100%;
+.confirm-dialog {
+  /deep/.el-dialog__body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .confirm-body {
+    line-height: 20px;
+  }
+  .confirm-btn {
+    width: 100%;
+  }
 }
 </style>

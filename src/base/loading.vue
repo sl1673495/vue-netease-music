@@ -1,17 +1,18 @@
 <template>
   <div
     class="loading"
-    v-loading="loading"
-    element-loading-text="载入中"
-    element-loading-spinner="el-icon-loading"
     element-loading-background="transparent"
+    element-loading-spinner="el-icon-loading"
+    element-loading-text="载入中"
+    v-loading="loading"
+    v-show="loading"
   ></div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: 'Loading',
-  props: ['loading']
+  name: "Loading",
+  props: ["loading"]
 }
 </script>
 
