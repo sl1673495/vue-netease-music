@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.2](https://github.com/sl1673495/vue-netease-music/compare/v3.2.1...v3.2.2) (2019-08-21)
+
+
+### Bug Fixes
+
+* mv卡片默认的margin值导致推荐mv部分显示错误 ([e8f2f3f](https://github.com/sl1673495/vue-netease-music/commit/e8f2f3f))
+
 ### [3.2.1](https://github.com/sl1673495/vue-netease-music/compare/v3.2.0...v3.2.1) (2019-08-21)
 
 
