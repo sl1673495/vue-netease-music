@@ -3,8 +3,16 @@
     class="mvs"
     ref="page"
   >
+    <Tabs
+      :tabs="tabs"
+      @tabChange="onTabChange"
+      class="tabs"
+      type="small"
+      v-model="activeTabIndex"
+    />
     <WithPagination
       :getData="getAllMvs"
+      :getDataParams="getDataParams"
       :limit="40"
       :scrollTarget="this.$refs && this.$refs.page"
       :total="mvCount"
@@ -34,14 +42,18 @@
 import { getAllMvs } from "@/api"
 import MvCard from "@/components/mv-card"
 import WithPagination from "@/components/with-pagination"
+
+const tabs = ["全部", "内地", "港台", "欧美", "日本", "韩国"]
 export default {
   created() {
+    this.tabs = tabs
     this.getAllMvs = getAllMvs
   },
   data() {
     return {
       mvs: [],
-      mvCount: 0
+      mvCount: 0,
+      activeTabIndex: 0
     }
   },
   methods: {
@@ -50,6 +62,14 @@ export default {
       if (count) {
         this.mvCount = count
       }
+    }
+  },
+  computed: {
+    activeTabType() {
+      return tabs[this.activeTabIndex]
+    },
+    getDataParams() {
+      return { area: this.activeTabType }
     }
   },
   components: {
@@ -64,6 +84,12 @@ export default {
   max-width: 1000px;
   padding: 16px 0;
   margin: auto;
+
+  .tabs {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
 
   .list-wrap {
     display: flex;
