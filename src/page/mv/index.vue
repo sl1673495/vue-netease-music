@@ -38,22 +38,24 @@
       </div>
       <div class="right">
         <p class="title">相关推荐</p>
-        <Card
-          class="simi-mv-card"
-          :desc="`by ${simiMv.artistName}`"
-          :key="simiMv.id"
-          :name="simiMv.name"
-          @click="$utils.goMv(simiMv.id)"
-          v-for="simiMv in simiMvs"
-        >
-          <template #img-wrap>
-            <MvCard
-              :duration="simiMv.duration"
-              :img="simiMv.cover"
-              :playCount="simiMv.playCount"
-            />
-          </template>
-        </Card>
+        <div class="simi-mvs">
+          <Card
+            class="simi-mv-card"
+            :desc="`by ${simiMv.artistName}`"
+            :key="simiMv.id"
+            :name="simiMv.name"
+            @click="$utils.goMv(simiMv.id)"
+            v-for="simiMv in simiMvs"
+          >
+            <template #img-wrap>
+              <MvCard
+                :duration="simiMv.duration"
+                :img="simiMv.cover"
+                :playCount="simiMv.playCount"
+              />
+            </template>
+          </Card>
+        </div>
       </div>
     </div>
   </div>
@@ -207,8 +209,12 @@ function genResource(brs) {
       width: 36%;
       padding-left: 32px;
 
-      .simi-mv-card {
-        margin-bottom: 16px;
+      .simi-mvs {
+        padding: -8px 0;
+
+        .simi-mv-card {
+          padding: 8px 0;
+        }
       }
     }
   }

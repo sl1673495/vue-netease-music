@@ -52,7 +52,6 @@ export default {
 <style lang="scss" scoped>
 .mv-card {
   min-width: 140px;
-  padding: 0 12px;
   cursor: pointer;
 
   .img-wrap {

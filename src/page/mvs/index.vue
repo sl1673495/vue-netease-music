@@ -98,6 +98,7 @@ export default {
     .list-item {
       width: 25%;
       margin-bottom: 36px;
+      padding: 0 12px;
     }
   }
 }
