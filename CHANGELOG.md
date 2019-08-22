@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.8](https://github.com/sl1673495/vue-netease-music/compare/v3.2.7...v3.2.8) (2019-08-22)
+
+
+### Bug Fixes
+
+* 修复红色系皮肤导致input样式在别的地方错误 ([9649a8b](https://github.com/sl1673495/vue-netease-music/commit/9649a8b))
+
 ### [3.2.7](https://github.com/sl1673495/vue-netease-music/compare/v3.2.6...v3.2.7) (2019-08-22)
 
 
