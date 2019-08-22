@@ -59,7 +59,7 @@ export default {
     .content {
       flex: 1;
       overflow-y: auto;
-      min-width: $layout-content-min-width;
+      // min-width: $layout-content-min-width;
       margin-bottom: $mini-player-height;
 
       .router-view-center {

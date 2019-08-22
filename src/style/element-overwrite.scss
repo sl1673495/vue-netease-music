@@ -59,9 +59,9 @@
 }
 
 // popover
-@each $direction in "bottom" "top" "left" "right" {
-  .el-popper[x-placement^="#{$direction}"] .popper__arrow,
-  .el-popper[x-placement^="#{$direction}"] .popper__arrow::after {
+@each $direction in 'bottom' 'top' 'left' 'right' {
+  .el-popper[x-placement^='#{$direction}'] .popper__arrow,
+  .el-popper[x-placement^='#{$direction}'] .popper__arrow::after {
     border-#{$direction}-color: var(--prompt-bg-color) !important;
   }
 }
@@ -74,13 +74,13 @@
 
 // input
 $input-height: 24px;
-.el-input {
+@mixin el-input-style($color, $bg-color, $placeholder-color) {
   .el-input__inner {
     height: $input-height !important;
     line-height: $input-height !important;
-    background: var(--input-bgcolor) !important;
+    background: #{$bg-color} !important;
     border: none !important;
-    color: var(--input-color) !important;
+    color: #{$color} !important;
 
     &:hover {
       border: none !important;
@@ -89,14 +89,29 @@ $input-height: 24px;
   .el-input__prefix {
     i {
       line-height: $input-height + 1px !important;
-      color: var(--input-color) !important;   
-      transition: none !important;  
+      color: #{$color} !important;
+      transition: none !important;
     }
   }
 
   input::-webkit-input-placeholder {
-    color: var(--input-color) !important;
+    color: #{$placeholder-color} !important;
   }
+}
+
+// 外部覆写input-theme样式
+@mixin el-input-theme($color, $bg-color, $placeholder-color: $color) {
+  /deep/.el-input {
+    @include el-input-style($color, $bg-color, $placeholder-color);
+  }
+}
+
+.el-input {
+  @include el-input-style(
+    var(--input-color),
+    var(--input-bgcolor),
+    var(--font-color-grey-shallow)
+  );
 }
 
 // pagination

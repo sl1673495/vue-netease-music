@@ -94,12 +94,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/style/element-overwrite.scss";
+
 .header {
   display: flex;
   justify-content: space-between;
   height: $header-height;
   background-color: var(--header-bgcolor);
   padding-right: 36px;
+
+  @include el-input-theme(
+    var(--header-input-color),
+    var(--header-input-bgcolor),
+    var(--header-input-placeholder-color)
+  );
 
   /deep/.iconfont {
     color: var(--header-font-color);

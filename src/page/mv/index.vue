@@ -144,7 +144,7 @@ function genResource(brs, mvPlayInfo) {
 
 <style lang="scss" scoped>
 .mv {
-  margin: 16px 0 32px;
+  padding: $page-padding;
 
   .title {
     margin-bottom: 16px;

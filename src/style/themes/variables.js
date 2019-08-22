@@ -18,6 +18,9 @@ export default {
   //header
   ['--header-bgcolor']: '#252525',
   ['--header-font-color']: '#b1b1b1',
+  ['--header-input-color']: '#b1b1b1',
+  ['--header-input-bgcolor']: '#4B4B4B',
+  ['--header-input-placeholder-color']: '#727272',
 
   //menu
   ['--menu-bgcolor']: '#202020',
@@ -35,8 +38,8 @@ export default {
   ['--progress-bgcolor']: '#232323',
 
   //input
-  ['--input-bgcolor']: '#4B4B4B',
   ['--input-color']: '#b1b1b1',
+  ['--input-bgcolor']: '#4B4B4B',
 
   //button
   ['--button-border-color']: '#454545',
