@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.7](https://github.com/sl1673495/vue-netease-music/compare/v3.2.6...v3.2.7) (2019-08-22)
+
+
+### Features
+
+* 新增红色系皮肤，优化了布局，优化了tabs组件高亮逻辑 ([f6543b9](https://github.com/sl1673495/vue-netease-music/commit/f6543b9))
+
 ### [3.2.6](https://github.com/sl1673495/vue-netease-music/compare/v3.2.5...v3.2.6) (2019-08-22)
 
 
