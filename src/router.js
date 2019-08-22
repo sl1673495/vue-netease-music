@@ -14,7 +14,7 @@ const Mvs = () => import('@/page/mvs')
 const Mv = () => import('@/page/mv')
 
 // 内容需要居中的页面
-export const layoutCenterPaths = ['/discovery', '/playlists', '/songs', '/mvs']
+export const layoutCenterNames = ['discovery', 'playlists', 'songs', 'mvs']
 
 // 需要显示在侧边栏菜单的页面
 export const menuRoutes = [
@@ -82,14 +82,17 @@ export default new Router({
         },
         {
           path: 'songs',
+          name: 'searchSongs',
           component: SearchSongs,
         },
         {
           path: 'playlists',
+          name: 'searchPlaylists',
           component: SearchPlaylists,
         },
         {
           path: 'mvs',
+          name: 'searchMvs',
           component: SearchMvs,
         },
       ],

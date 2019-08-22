@@ -21,7 +21,7 @@
 <script type="text/ecmascript-6">
 import LayoutHeader from "./header"
 import LayoutMenu from "./menu"
-import { layoutCenterPaths } from "@/router"
+import { layoutCenterNames } from "@/router"
 import { mapState } from "@/store/helper/music"
 
 export default {
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     routerViewCls() {
-      return layoutCenterPaths.find(path => path === this.$route.path)
+      return layoutCenterNames.find(name => name === this.$route.name)
         ? "router-view-center"
         : ""
     },
@@ -59,11 +59,11 @@ export default {
     .content {
       flex: 1;
       overflow-y: auto;
-      // min-width: $layout-content-min-width;
+      min-width: $layout-content-min-width;
       margin-bottom: $mini-player-height;
 
       .router-view-center {
-        max-width: $center-content-width;
+        max-width: $center-content-max-width;
         margin: auto;
       }
     }

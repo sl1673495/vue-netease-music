@@ -60,7 +60,7 @@ export default {
 <style lang="scss" scoped>
 .search-playlists {
   max-width: 1000px;
-  padding: 16px 0;
+  padding: $page-padding;
   margin: auto;
 
   .list-wrap {
