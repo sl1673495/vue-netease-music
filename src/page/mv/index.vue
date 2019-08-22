@@ -10,7 +10,7 @@
 
         <div class="player">
           <VideoPlayer
-            :url="mvUrl"
+            :url="mvPlayInfo.url"
             ref="video"
           />
         </div>
@@ -40,11 +40,11 @@
         <p class="title">相关推荐</p>
         <div class="simi-mvs">
           <Card
-            class="simi-mv-card"
             :desc="`by ${simiMv.artistName}`"
             :key="simiMv.id"
             :name="simiMv.name"
             @click="$utils.goMv(simiMv.id)"
+            class="simi-mv-card"
             v-for="simiMv in simiMvs"
           >
             <template #img-wrap>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       mvDetail: {},
-      mvUrl: "",
+      mvPlayInfo: "",
       artist: {},
       simiMvs: []
     }
@@ -85,9 +85,7 @@ export default {
     async init() {
       const [
         { data: mvDetail },
-        {
-          data: { url }
-        },
+        { data: mvPlayInfo },
         { mvs: simiMvs }
       ] = await Promise.all([
         getMvDetail(this.id),
@@ -97,14 +95,14 @@ export default {
       const { artist } = await getArtists(mvDetail.artistId)
 
       this.mvDetail = mvDetail
-      this.mvUrl = url
+      this.mvPlayInfo = mvPlayInfo
       this.artist = artist
       this.simiMvs = simiMvs
 
       // 加载高清源
       this.$nextTick(() => {
         const player = this.$refs.video.player
-        player.emit("resourceReady", genResource(this.mvDetail.brs))
+        player.emit("resourceReady", genResource(this.mvDetail.brs, mvPlayInfo))
         player.on("play", () => {
           // 停止播放歌曲
           this.setPlayingState(false)
@@ -122,7 +120,8 @@ export default {
   components: { Comments, MvCard }
 }
 
-function genResource(brs) {
+function genResource(brs, mvPlayInfo) {
+  const { url: mvPlayInfoUrl, r: mvPlayInfoBr } = mvPlayInfo
   const keyNameMap = {
     "240": "标清",
     "480": "高清",
@@ -131,8 +130,10 @@ function genResource(brs) {
   }
 
   return Object.keys(brs).map(key => {
+    // 优先使用mvPlayInfo里的数据
+    const findPreferUrl = key === mvPlayInfoBr
     const name = keyNameMap[key]
-    const url = brs[key]
+    const url = findPreferUrl ? mvPlayInfoUrl : brs[key]
     return {
       url,
       name

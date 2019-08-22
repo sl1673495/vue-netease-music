@@ -48,7 +48,7 @@ export default {
     onGetMvs({ result: { mvs, mvCount } }) {
       this.mvs = mvs
       this.mvCount = mvCount
-      this.$emit("updateCount", mvCount)
+      this.searchRoot.onUpdateCount(mvCount)
     }
   },
   computed: {

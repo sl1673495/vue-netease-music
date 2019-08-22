@@ -101,6 +101,10 @@ export default {
   background-color: var(--header-bgcolor);
   padding-right: 36px;
 
+  /deep/.iconfont {
+    color: var(--header-font-color);
+  }
+
   .left {
     padding: 14px 14px 0 8px;
     display: flex;

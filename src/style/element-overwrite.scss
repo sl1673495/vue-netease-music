@@ -80,7 +80,7 @@ $input-height: 24px;
     line-height: $input-height !important;
     background: var(--input-bgcolor) !important;
     border: none !important;
-    color: var(--font-color) !important;
+    color: var(--input-color) !important;
 
     &:hover {
       border: none !important;
@@ -89,7 +89,13 @@ $input-height: 24px;
   .el-input__prefix {
     i {
       line-height: $input-height + 1px !important;
+      color: var(--input-color) !important;   
+      transition: none !important;  
     }
+  }
+
+  input::-webkit-input-placeholder {
+    color: var(--input-color) !important;
   }
 }
 

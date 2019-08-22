@@ -70,7 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  width: 300px;
+  width: 250px;
   height: 100%;
   display: flex;
   flex-direction: column;

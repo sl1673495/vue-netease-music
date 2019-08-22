@@ -11,16 +11,10 @@
     <div class="tabs-wrap">
       <Tabs
         :tabs="tabs"
-        @tabChange="onTabChange"
         itemClass="search-tab-item"
-        v-model="activeTabIndex"
       />
     </div>
-    <router-view @updateCount="onUpdateCount"></router-view>
-    <!-- <component
-      :is="searchComponent"
-      @updateCount="onUpdateCount"
-    />-->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -44,13 +38,13 @@ const tabs = [
 ]
 export default {
   props: ["keywords"],
-  created() {
-    this.tabs = tabs
-  },
   provide() {
     return {
       searchRoot: this
     }
+  },
+  created() {
+    this.tabs = tabs
   },
   data() {
     return {
@@ -61,9 +55,6 @@ export default {
   methods: {
     onUpdateCount(count) {
       this.count = count
-    },
-    onTabChange() {
-      this.$router.push(`/search/${this.currentTab.key}/${this.keywords}`)
     }
   },
   computed: {

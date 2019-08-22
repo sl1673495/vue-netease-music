@@ -17,7 +17,7 @@ export default {
   methods: {
     initPlayer() {
       if (!this.url) return
-      this.player = new Player({
+      window.player = this.player = new Player({
         el: this.$refs.player,
         url: this.url,
         videoInit: true,

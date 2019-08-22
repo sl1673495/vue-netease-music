@@ -1,7 +1,7 @@
 
 
 <script type="text/ecmascript-6">
-import { toRem } from '@/utils'
+import { toRem } from "@/utils"
 export default {
   name: "Icon",
   props: {
@@ -11,11 +11,11 @@ export default {
     },
     type: {
       type: String,
-      required: true,
+      required: true
     },
     color: {
       type: String,
-      default: '',
+      default: ""
     },
     backdrop: {
       type: Boolean,
@@ -47,9 +47,7 @@ export default {
   render() {
     const Icon = (
       <i
-        on={{
-          click: this.onClick
-        }}
+        onClick={this.onClick}
         class={`iconfont icon-component ${this.getIconCls()}`}
         style={this.getIconStyle()}
       />
@@ -58,7 +56,10 @@ export default {
       const backDropSizeRatio = 1.56
       const backDropSize = toRem(backDropSizeRatio * this.size)
       return (
-        <span style={{ width: backDropSize, height: backDropSize }} class="backdrop">
+        <span
+          style={{ width: backDropSize, height: backDropSize }}
+          class="backdrop"
+        >
           {Icon}
         </span>
       )

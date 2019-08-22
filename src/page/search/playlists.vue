@@ -42,7 +42,7 @@ export default {
     onGetPlaylists({ result: { playlists, playlistCount } }) {
       this.playlists = playlists
       this.playlistCount = playlistCount
-      this.$emit("updateCount", playlistCount)
+      this.searchRoot.onUpdateCount(playlistCount)
     }
   },
   computed: {

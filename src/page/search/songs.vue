@@ -58,7 +58,7 @@ export default {
         })
       })
       this.songCount = songCount
-      this.$emit("updateCount", songCount)
+      this.searchRoot.onUpdateCount(songCount)
     },
     renderNameDesc(scope) {
       const { alias } = scope.row

@@ -17,6 +17,7 @@ export default {
 
   //header
   ['--header-bgcolor']: '#F9F9F9',
+  ['--header-font-color']: '#4a4a4a',
 
   // menu
   ['--menu-bgcolor']: '#ededed',
@@ -34,6 +35,7 @@ export default {
 
   //input
   ['--input-bgcolor']: '#EDEDED',
+  ['--input-color']: '#4a4a4a',
 
   //button
   ['--button-border-color']: '#D9D9D9',
