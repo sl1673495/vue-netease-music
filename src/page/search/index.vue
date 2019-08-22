@@ -25,10 +25,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-import SearchSongs from "./songs"
-import SearchPlaylists from "./playlists"
-import SearchMvs from "./mvs"
-
 const tabs = [
   {
     title: "歌曲",
@@ -80,11 +76,6 @@ export default {
     searchTypeTitle() {
       return this.currentTab.title
     }
-  },
-  components: {
-    SearchSongs,
-    SearchPlaylists,
-    SearchMvs
   }
 }
 </script>
