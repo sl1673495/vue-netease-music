@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.4](https://github.com/sl1673495/vue-netease-music/compare/v3.2.3...v3.2.4) (2019-08-22)
+
+
+### Bug Fixes
+
+* 首页推荐mv卡片间距 ([eaa264c](https://github.com/sl1673495/vue-netease-music/commit/eaa264c))
+
+
+### Features
+
+* 最新MV页面新增高级筛选功能 ([d05adb0](https://github.com/sl1673495/vue-netease-music/commit/d05adb0))
+
 ### [3.2.3](https://github.com/sl1673495/vue-netease-music/compare/v3.2.2...v3.2.3) (2019-08-21)
 
 
