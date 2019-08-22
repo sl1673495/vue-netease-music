@@ -12,6 +12,8 @@ export default {
   ['--scrollbar-color']: '#3a3a3a',
   ['--round-hover-bgcolor']: '#373737',
   ['--stripe-bg']: '#323232',
+  ['--shallow-theme-bgcolor']: '#2D2625',
+  ['--shallow-theme-bgcolor-hover']: '#352726',
 
   //header
   ['--header-bgcolor']: '#252525',

@@ -49,6 +49,9 @@ export default {
     activeItemClass: {
       type: String
     },
+    // 不传的话对应大号字体 高亮加粗
+    // small对应小号字体 高亮红色
+    // split对应小号字体 分割线分隔 高亮背景色变灰文字变红
     type: {
       type: String
     }
@@ -160,6 +163,35 @@ export default {
         color: $theme-color;
         border-bottom: 2px solid $theme-color;
         font-weight: $font-weight-bold;
+      }
+    }
+
+    &.split {
+      font-size: $font-size-sm;
+      padding: 4px 12px;
+      margin: 0 16px;
+      border-radius: 999em;
+
+      &.active {
+        color: $theme-color;
+        background: var(--shallow-theme-bgcolor);
+      }
+
+      &:not(:last-child) {
+        &::after {
+          position: relative;
+          left: 28px;
+          width: 1px;
+          height: 100%;
+          background: var(--border);
+          display: inline-block;
+          vertical-align: middle;
+          content: " ";
+        }
+
+        .title {
+          vertical-align: middle;
+        }
       }
     }
 

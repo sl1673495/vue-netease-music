@@ -3,13 +3,33 @@
     class="mvs"
     ref="page"
   >
-    <Tabs
-      :tabs="tabs"
-      @tabChange="onTabChange"
-      class="tabs"
-      type="small"
-      v-model="activeTabIndex"
-    />
+    <div class="tabs-wrap">
+      <span class="tabs-type">地区：</span>
+      <Tabs
+        :tabs="areaTabs"
+        class="tabs"
+        type="split"
+        v-model="activeAreaTabIndex"
+      />
+    </div>
+    <div class="tabs-wrap">
+      <span class="tabs-type">类型：</span>
+      <Tabs
+        :tabs="typeTabs"
+        class="tabs"
+        type="split"
+        v-model="activeTypeTabIndex"
+      />
+    </div>
+    <div class="tabs-wrap">
+      <span class="tabs-type">排序：</span>
+      <Tabs
+        :tabs="sortTabs"
+        class="tabs"
+        type="split"
+        v-model="activeSortTabIndex"
+      />
+    </div>
     <WithPagination
       :getData="getAllMvs"
       :getDataParams="getDataParams"
@@ -43,17 +63,23 @@ import { getAllMvs } from "@/api"
 import MvCard from "@/components/mv-card"
 import WithPagination from "@/components/with-pagination"
 
-const tabs = ["全部", "内地", "港台", "欧美", "日本", "韩国"]
+const areaTabs = ["全部", "内地", "港台", "欧美", "日本", "韩国"]
+const typeTabs = ["全部", "官方版", "原声", "现场版", "网易出品"]
+const sortTabs = ["上升最快", "最热", "最新"]
 export default {
   created() {
-    this.tabs = tabs
+    this.areaTabs = areaTabs
+    this.typeTabs = typeTabs
+    this.sortTabs = sortTabs
     this.getAllMvs = getAllMvs
   },
   data() {
     return {
       mvs: [],
       mvCount: 0,
-      activeTabIndex: 0
+      activeAreaTabIndex: 0,
+      activeTypeTabIndex: 0,
+      activeSortTabIndex: 0
     }
   },
   methods: {
@@ -65,11 +91,12 @@ export default {
     }
   },
   computed: {
-    activeTabType() {
-      return tabs[this.activeTabIndex]
-    },
     getDataParams() {
-      return { area: this.activeTabType }
+      return {
+        area: areaTabs[this.activeAreaTabIndex],
+        order: sortTabs[this.activeSortTabIndex],
+        type: typeTabs[this.activeTypeTabIndex]
+      }
     }
   },
   components: {
@@ -85,16 +112,20 @@ export default {
   padding: 16px 0;
   margin: auto;
 
-  .tabs {
+  .tabs-wrap {
     margin-bottom: 16px;
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+
+    .tabs-type {
+      font-size: $font-size-sm;
+    }
   }
 
   .list-wrap {
     display: flex;
     flex-wrap: wrap;
-
+    margin: 0 -12px;
     .list-item {
       width: 25%;
       margin-bottom: 36px;

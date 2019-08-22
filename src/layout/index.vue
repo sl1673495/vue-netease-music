@@ -59,7 +59,7 @@ export default {
     .content {
       flex: 1;
       overflow-y: auto;
-      min-width: 1000px;
+      min-width: $layout-content-min-width;
       margin-bottom: $mini-player-height;
       padding-bottom: 32px;
 
