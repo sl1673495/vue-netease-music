@@ -54,3 +54,17 @@
   height: $d;
   border-radius: 50%;
 }
+
+@mixin list($item-width) {
+  .list-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+
+    .list-item {
+      width: $item-width;
+      margin-bottom: 36px;
+      padding: 0 12px;
+    }
+  }
+}

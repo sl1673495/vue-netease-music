@@ -69,15 +69,6 @@ export default {
   padding: 16px 0;
   margin: auto;
 
-  .list-wrap {
-    display: flex;
-    flex-wrap: wrap;
-
-    .list-item {
-      width: 25%;
-      margin-bottom: 36px;
-      padding: 0 12px;
-    }
-  }
+  @include list(25%);
 }
 </style>

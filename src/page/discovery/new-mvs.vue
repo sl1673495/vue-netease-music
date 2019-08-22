@@ -4,10 +4,10 @@
     v-if="mvs.length"
   >
     <Title>推荐MV</Title>
-    <ul class="mv-cards">
+    <ul class="list-wrap">
       <li
         :key="mv.id"
-        class="mv-card-item"
+        class="list-item"
         v-for="mv in mvs"
       >
         <MvCard
@@ -46,16 +46,6 @@ export default {
 
 <style lang="scss" scoped>
 .new-mvs {
-  .mv-cards {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -12px;
-
-    .mv-card-item {
-      width: 25%;
-      padding: 0 12px;
-      margin-bottom: 32px;
-    }
-  }
+  @include list(25%);
 }
 </style>

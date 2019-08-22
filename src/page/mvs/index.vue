@@ -122,15 +122,6 @@ export default {
     }
   }
 
-  .list-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -12px;
-    .list-item {
-      width: 25%;
-      margin-bottom: 36px;
-      padding: 0 12px;
-    }
-  }
+  @include list(25%);
 }
 </style>
