@@ -11,6 +11,7 @@
     <div class="tabs-wrap">
       <Tabs
         :tabs="tabs"
+        @tabChange="onTabChange"
         itemClass="search-tab-item"
         v-model="activeTabIndex"
       />
@@ -57,15 +58,19 @@ export default {
   data() {
     return {
       count: 0,
-      activeTabIndex: 0
+      activeTabIndex: tabs.findIndex(
+        ({ key }) => key === this.$route.params.type
+      )
     }
   },
   methods: {
     onUpdateCount(count) {
       this.count = count
+    },
+    onTabChange() {
+      this.$router.push(`/search/${this.currentTab.key}/${this.keywords}`)
     }
   },
-
   computed: {
     currentTab() {
       return tabs[this.activeTabIndex]

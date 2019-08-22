@@ -67,7 +67,7 @@ export default new Router({
       component: PlaylistDetail,
     },
     {
-      path: '/search/:keywords',
+      path: '/search/:type/:keywords',
       name: 'search',
       component: Search,
       props: true,
