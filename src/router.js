@@ -6,6 +6,10 @@ const PlaylistDetail = () => import('@/page/playlist-detail')
 const Playlists = () => import('@/page/playlists')
 const Songs = () => import('@/page/songs')
 const Search = () => import('@/page/search')
+const SearchSongs = () => import('@/page/search/songs')
+const SearchPlaylists = () => import('@/page/search/playlists')
+const SearchMvs = () => import('@/page/search/mvs')
+
 const Mvs = () => import('@/page/mvs')
 const Mv = () => import('@/page/mv')
 
@@ -42,14 +46,14 @@ export const menuRoutes = [
     },
   },
   {
-    path: "/mvs",
+    path: '/mvs',
     name: 'mvs',
     component: Mvs,
     meta: {
       title: '最新MV',
-      icon: 'mv'
-    }
-  }
+      icon: 'mv',
+    },
+  },
 ]
 
 Vue.use(Router)
@@ -67,10 +71,28 @@ export default new Router({
       component: PlaylistDetail,
     },
     {
-      path: '/search/:type/:keywords',
+      path: '/search/:keywords',
       name: 'search',
       component: Search,
       props: true,
+      children: [
+        {
+          path: '/',
+          redirect: 'songs',
+        },
+        {
+          path: 'songs',
+          component: SearchSongs,
+        },
+        {
+          path: 'playlists',
+          component: SearchPlaylists,
+        },
+        {
+          path: 'mvs',
+          component: SearchMvs,
+        },
+      ],
     },
     {
       path: '/mv/:id',

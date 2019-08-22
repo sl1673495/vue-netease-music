@@ -3,16 +3,30 @@
     :class="{[align]: true}"
     class="tab-wrap"
   >
-    <li
-      :class="getItemCls(tab, index)"
-      :key="index"
-      :style="getItemStyle(tab, index)"
-      @click="onChangeTab(tab, index)"
-      class="tab-item"
-      v-for="(tab, index) in normalizedTabs"
-    >
-      <span class="title">{{tab.title}}</span>
-    </li>
+    <template v-if="isRouteMode">
+      <router-link
+        :key="index"
+        :to="tab.to"
+        active-class="active"
+        class="tab-item"
+        tag="li"
+        v-for="(tab, index) in normalizedTabs"
+      >
+        <span class="title">{{tab.title}}</span>
+      </router-link>
+    </template>
+    <template v-else>
+      <li
+        :class="getItemCls(tab, index)"
+        :key="index"
+        :style="getItemStyle(tab, index)"
+        @click="onChangeTab(tab, index)"
+        class="tab-item"
+        v-for="(tab, index) in normalizedTabs"
+      >
+        <span class="title">{{tab.title}}</span>
+      </li>
+    </template>
   </ul>
 </template>
 

@@ -16,10 +16,11 @@
         v-model="activeTabIndex"
       />
     </div>
-    <component
+    <router-view @updateCount="onUpdateCount"></router-view>
+    <!-- <component
       :is="searchComponent"
       @updateCount="onUpdateCount"
-    />
+    />-->
   </div>
 </template>
 
@@ -32,17 +33,17 @@ const tabs = [
   {
     title: "歌曲",
     key: "songs",
-    component: "SearchSongs"
+    to: "songs"
   },
   {
     title: "歌单",
     key: "playlists",
-    component: "SearchPlaylists"
+    to: "playlists"
   },
   {
     title: "MV",
     key: "mvs",
-    component: "SearchMvs"
+    to: "mvs"
   }
 ]
 export default {
@@ -58,9 +59,7 @@ export default {
   data() {
     return {
       count: 0,
-      activeTabIndex: tabs.findIndex(
-        ({ key }) => key === this.$route.params.type
-      )
+      activeTabIndex: 0
     }
   },
   methods: {
