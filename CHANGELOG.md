@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.14](https://github.com/sl1673495/vue-netease-music/compare/v3.2.13...v3.2.14) (2019-08-23)
+
+
+### Features
+
+* mv页面增加meta title的支持，mv播放器增加rem适配 ([190290c](https://github.com/sl1673495/vue-netease-music/commit/190290c))
+
 ### [3.2.13](https://github.com/sl1673495/vue-netease-music/compare/v3.2.12...v3.2.13) (2019-08-23)
 
 
