@@ -16,7 +16,7 @@
           class="avatar"
         />
         <p class="creator">{{playlist.creator.nickname}}</p>
-        <p class="create-time">{{playlist.createTime}}创建</p>
+        <p class="create-time">{{$utils.formatDate(playlist.createTime, 'yyyy-MM-dd')}} 创建</p>
       </div>
       <div class="action-wrap">
         <NButton
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from '@/store/helper/music'
+import { mapActions, mapMutations } from "@/store/helper/music"
 export default {
   props: {
     playlist: {
@@ -67,8 +67,8 @@ export default {
       this.startSong(this.songs[0])
       this.setPlaylist(this.songs)
     },
-    ...mapMutations(['setPlaylist']),
-    ...mapActions(['startSong']),
+    ...mapMutations(["setPlaylist"]),
+    ...mapActions(["startSong"])
   },
   computed: {
     tagsText() {
