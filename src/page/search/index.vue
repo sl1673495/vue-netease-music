@@ -6,7 +6,7 @@
       ref="header"
     >
       <span class="keywords">{{keywords}}</span>
-      <span class="found">找到{{count}}个{{searchTypeTitle}}</span>
+      <span class="found">找到{{count}}个结果</span>
     </div>
     <div class="tabs-wrap">
       <Tabs
@@ -48,24 +48,12 @@ export default {
   },
   data() {
     return {
-      count: 0,
-      activeTabIndex: 0
+      count: 0
     }
   },
   methods: {
     onUpdateCount(count) {
       this.count = count
-    }
-  },
-  computed: {
-    currentTab() {
-      return tabs[this.activeTabIndex]
-    },
-    searchComponent() {
-      return this.currentTab.component
-    },
-    searchTypeTitle() {
-      return this.currentTab.title
     }
   }
 }

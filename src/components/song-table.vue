@@ -98,7 +98,7 @@ export default {
                         onClick={onGoMv}
                         type="mv"
                         color="theme"
-                        size={24}
+                        size={18}
                       />
                     ) : null}
                   </div>
