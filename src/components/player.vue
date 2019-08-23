@@ -402,7 +402,7 @@ $img-outer-d: 300px;
   left: 0;
   right: 0;
   padding: 0 36px;
-  background: var(--header-bgcolor);
+  background: var(--player-bgcolor);
   z-index: $song-detail-z-index;
   overflow: hidden;
   overflow-y: auto;

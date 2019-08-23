@@ -27,6 +27,9 @@ export default {
   ['--menu-item-hover-bg']: '#1d1d1d',
   ['--menu-item-active-bg']: '#1b1b1b',
 
+  //player
+  ['--player-bgcolor']: '#252525',
+
   //playlist
   ['--playlist-bgcolor']: '#363636',
   ['--playlist-hover-bgcolor']: '#2e2e2e',
