@@ -1,6 +1,6 @@
 {
   "name": "vue-netease-muisc",
-  "version": "3.2.14",
+  "version": "3.2.15",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

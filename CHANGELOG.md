@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.15](https://github.com/sl1673495/vue-netease-music/compare/v3.2.14...v3.2.15) (2019-08-23)
+
+
+### Bug Fixes
+
+* banner图圆角还原mac客户端 ([6e695ad](https://github.com/sl1673495/vue-netease-music/commit/6e695ad))
+
 ### [3.2.14](https://github.com/sl1673495/vue-netease-music/compare/v3.2.13...v3.2.14) (2019-08-23)
 
 
