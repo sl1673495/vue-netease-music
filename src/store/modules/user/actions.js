@@ -9,6 +9,7 @@ export default {
       notify.error('登录失败，请输入正确的uid。')
       return false
     }
+    
     if (!isDef(uid)) {
       return error()
     }
