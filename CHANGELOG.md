@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.11](https://github.com/sl1673495/vue-netease-music/compare/v3.2.10...v3.2.11) (2019-08-23)
+
+
+### Bug Fixes
+
+* 歌单创建时间未格式化 ([d5b3ec1](https://github.com/sl1673495/vue-netease-music/commit/d5b3ec1))
+
 ### [3.2.10](https://github.com/sl1673495/vue-netease-music/compare/v3.2.8...v3.2.10) (2019-08-23)
 
 
