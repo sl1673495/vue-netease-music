@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.13](https://github.com/sl1673495/vue-netease-music/compare/v3.2.12...v3.2.13) (2019-08-23)
+
+
+### Bug Fixes
+
+* banner图高度没有用rem单位 ([9af7829](https://github.com/sl1673495/vue-netease-music/commit/9af7829))
+
 ### [3.2.12](https://github.com/sl1673495/vue-netease-music/compare/v3.2.11...v3.2.12) (2019-08-23)
 
 
