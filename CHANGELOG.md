@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.10](https://github.com/sl1673495/vue-netease-music/compare/v3.2.8...v3.2.10) (2019-08-23)
+
+
+### Bug Fixes
+
+* 修复搜索页缩小后布局问题 ([20d4679](https://github.com/sl1673495/vue-netease-music/commit/20d4679))
+* 调整mv入口icon的大小，删除搜索页部分无用代码 ([7637814](https://github.com/sl1673495/vue-netease-music/commit/7637814))
+
 ### [3.2.9](https://github.com/sl1673495/vue-netease-music/compare/v3.2.8...v3.2.9) (2019-08-22)
 
 
