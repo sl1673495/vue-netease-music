@@ -67,9 +67,15 @@ import { hideMenuMixin } from "@/utils"
 import { mapMutations } from "@/store/helper/music"
 import Comments from "@/components/comments"
 import MvCard from "@/components/mv-card"
+
 export default {
   mixins: [hideMenuMixin],
   props: ["id"],
+  metaInfo() {
+    return {
+      title: this.mvDetail.name
+    }
+  },
   created() {
     this.init()
   },
