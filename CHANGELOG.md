@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.17](https://github.com/sl1673495/vue-netease-music/compare/v3.2.16...v3.2.17) (2019-08-26)
+
+
+### Features
+
+* 优化了axios loading和错误逻辑。 ([66fc425](https://github.com/sl1673495/vue-netease-music/commit/66fc425))
+
 ### [3.2.16](https://github.com/sl1673495/vue-netease-music/compare/v3.2.15...v3.2.16) (2019-08-26)
 
 
