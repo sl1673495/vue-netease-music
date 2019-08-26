@@ -1,6 +1,7 @@
 module.exports = {
   configureWebpack: {
     devServer: {
+      open: true,
       proxy: {
         '/netease-api': {
           target: 'http://localhost:3000',
