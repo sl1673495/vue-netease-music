@@ -68,18 +68,7 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 
 ### 安装与使用
 
-前端项目
-
 ```
 npm i
-npm run serve
+npm run dev
 ```
-
-后端项目 [地址](https://github.com/Binaryify/NeteaseCloudMusicApi)
-clone 下来之后执行
-
-```
-node app.js
-```
-
-默认启动在 3000 端口，之后就可以访问到接口了。
