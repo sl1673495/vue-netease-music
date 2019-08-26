@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.16](https://github.com/sl1673495/vue-netease-music/compare/v3.2.15...v3.2.16) (2019-08-26)
+
+
+### Features
+
+* 新增了dev命令 一键启动前后端，调整了播放器底部按钮的最小宽度。 ([53bcd41](https://github.com/sl1673495/vue-netease-music/commit/53bcd41))
+
 ### [3.2.15](https://github.com/sl1673495/vue-netease-music/compare/v3.2.14...v3.2.15) (2019-08-23)
 
 
