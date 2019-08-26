@@ -112,7 +112,7 @@
         />
       </el-popover>
       <!-- 音量 -->
-      <div class="mode-item volume-item">
+      <div class="volume-item">
         <Volume
           :volume="volume"
           @volumeChange="onVolumeChange"
@@ -442,7 +442,9 @@ export default {
     flex: 6;
 
     .mode-item {
+      display: block;
       margin-right: 16px;
+      width: 22px;
     }
 
     .volume-item {
