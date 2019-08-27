@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.18](https://github.com/sl1673495/vue-netease-music/compare/v3.2.17...v3.2.18) (2019-08-27)
+
+
+### Bug Fixes
+
+* 修复了toRem的计算方式，修复了左上角按钮图标不对齐的问题。 ([4800ec0](https://github.com/sl1673495/vue-netease-music/commit/4800ec0))
+
 ### [3.2.17](https://github.com/sl1673495/vue-netease-music/compare/v3.2.16...v3.2.17) (2019-08-26)
 
 
