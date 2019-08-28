@@ -13,7 +13,7 @@
         <SongCard
           :key="item.id"
           :order="getSongOrder(listIndex, index)"
-          @click.native="onClickSong(item)"
+          @click.native="onClickSong(listIndex, index)"
           class="song-card"
           v-bind="nomalizeSong(item)"
           v-for="(item,index) in list"
@@ -65,8 +65,9 @@ export default {
         mvId: mvid
       })
     },
-    onClickSong(song) {
-      const nomalizedSong = this.nomalizeSong(song)
+    onClickSong(listIndex, index) {
+      const nomalizedSongIndex = this.getSongOrder(listIndex, index)
+      const nomalizedSong = this.normalizedSongs[nomalizedSongIndex]
       this.startSong(nomalizedSong)
       this.setPlaylist(this.normalizedSongs)
     },
