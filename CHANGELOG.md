@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.20](https://github.com/sl1673495/vue-netease-music/compare/v3.2.19...v3.2.20) (2019-08-29)
+
+
+### Bug Fixes
+
+* 修复开发环境使用vue.min.js导致无法使用vue dev tools。 ([00366a5](https://github.com/sl1673495/vue-netease-music/commit/00366a5))
+
 ### [3.2.19](https://github.com/sl1673495/vue-netease-music/compare/v3.2.18...v3.2.19) (2019-08-27)
 
 
