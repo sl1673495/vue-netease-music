@@ -78,6 +78,7 @@
             <Comments
               :id="currentSong.id"
               ref="comments"
+              v-if="currentSong.id"
             />
           </div>
           <div

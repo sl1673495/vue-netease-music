@@ -12,12 +12,12 @@ module.exports = {
       },
       port: 8888,
     },
-    externals: {
+    externals: process.env.NODE_ENV === 'production' ? {
       vue: 'Vue',
       'vue-router': 'VueRouter',
       vuex: 'Vuex',
       axios: 'axios',
-    },
+    }: {},
   },
   css: {
     loaderOptions: {
