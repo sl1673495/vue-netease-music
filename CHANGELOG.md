@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.22](https://github.com/sl1673495/vue-netease-music/compare/v3.2.21...v3.2.22) (2019-09-03)
+
+
+### Bug Fixes
+
+* 修复音乐卡片在窄屏幕上显示错误 ([8d65562](https://github.com/sl1673495/vue-netease-music/commit/8d65562))
+
 ### [3.2.21](https://github.com/sl1673495/vue-netease-music/compare/v3.2.20...v3.2.21) (2019-09-03)
 
 
