@@ -64,10 +64,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-import storage from 'good-storage'
-import { UID_KEY, isDef } from '@/utils'
-import { confirm } from '@/base/confirm'
-import { mapActions as mapUserActions, mapState as mapUserState, mapGetters as mapUserGetters } from '@/store/helper/user'
+import storage from "good-storage"
+import { UID_KEY, isDef } from "@/utils"
+import { confirm } from "@/base/confirm"
+import {
+  mapActions as mapUserActions,
+  mapState as mapUserState,
+  mapGetters as mapUserGetters
+} from "@/store/helper/user"
 
 export default {
   // 自动登录
@@ -81,7 +85,7 @@ export default {
     return {
       visible: false,
       loading: false,
-      uid: '',
+      uid: ""
     }
   },
   methods: {
@@ -93,24 +97,23 @@ export default {
     },
     async onLogin(uid) {
       this.loading = true
-      const success = await this.login(uid)
-        .finally(() => {
-          this.loading = false
-        })
+      const success = await this.login(uid).finally(() => {
+        this.loading = false
+      })
       if (success) {
         this.onCloseModal()
       }
     },
     onLogout() {
-      confirm('确定要注销吗？', () => {
+      confirm("确定要注销吗？", () => {
         this.logout()
       })
     },
-    ...mapUserActions(['login', 'logout'])
+    ...mapUserActions(["login", "logout"])
   },
   computed: {
-    ...mapUserState(['user']),
-    ...mapUserGetters(['isLogin'])
+    ...mapUserState(["user"]),
+    ...mapUserGetters(["isLogin"])
   },
   components: {}
 }

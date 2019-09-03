@@ -97,6 +97,7 @@ export default {
 
     .list {
       flex: 1;
+      overflow: hidden;
     }
   }
 }

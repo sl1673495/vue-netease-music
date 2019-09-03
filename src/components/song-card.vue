@@ -59,9 +59,16 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    flex: 1;
+    overflow: hidden;
 
     .song-name {
+      @include text-ellipsis;
       color: var(--font-color-white);
+    }
+
+    .singer {
+      @include text-ellipsis;
     }
   }
 }
