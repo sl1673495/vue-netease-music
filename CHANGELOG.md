@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.21](https://github.com/sl1673495/vue-netease-music/compare/v3.2.20...v3.2.21) (2019-09-03)
+
+
+### Bug Fixes
+
+* 去除发现页多余的边距 ([c87f7e4](https://github.com/sl1673495/vue-netease-music/commit/c87f7e4))
+
 ### [3.2.20](https://github.com/sl1673495/vue-netease-music/compare/v3.2.19...v3.2.20) (2019-08-29)
 
 
