@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.25](https://github.com/sl1673495/vue-netease-music/compare/v3.2.24...v3.2.25) (2019-09-05)
+
+
+### Bug Fixes
+
+* modal弹框标题显示错误 ([c224df1](https://github.com/sl1673495/vue-netease-music/commit/c224df1))
+
 ### [3.2.24](https://github.com/sl1673495/vue-netease-music/compare/v3.2.23...v3.2.24) (2019-09-04)
 
 
