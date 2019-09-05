@@ -41,6 +41,7 @@ let instanceCache
 export const confirm = function(text, title, onConfirm = () => {}) {
   if (typeof title === "function") {
     onConfirm = title
+    title = undefined
   }
 
   const ConfirmCtor = Vue.extend(Confirm)
