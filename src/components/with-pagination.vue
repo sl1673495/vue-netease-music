@@ -4,7 +4,6 @@
     <div class="pagination-wrap">
       <Pagination
         :current-page.sync="currentPage"
-        :data="data"
         :page-size="limit"
         :total="total"
         @current-change="onPageChange"
@@ -32,7 +31,7 @@ export default {
       default: 10
     },
     scrollTarget: {
-      type: Object
+      type: HTMLElement
     },
     total: {
       type: Number,

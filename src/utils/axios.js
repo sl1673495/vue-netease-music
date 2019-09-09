@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { confirm } from '@/base/confirm'
 import { Loading } from 'element-ui'
+import { confirm } from '@/base/confirm'
+import store from '@/store'
 
 const BASE_URL = '/netease-api'
 // 不带全局loading的请求实例
@@ -31,6 +32,7 @@ function handleResponse(response) {
 
 let loading
 let loadingCount = 0
+const SET_AXIOS_LOADING = 'global/setAxiosLoading'
 function mixinLoading(interceptors) {
   interceptors.request.use(loadingRequestInterceptor)
   interceptors.response.use(
@@ -39,12 +41,14 @@ function mixinLoading(interceptors) {
   )
 
   function loadingRequestInterceptor(config) {
-    loading ||
-      (loading = Loading.service({
+    if (!loading) {
+      loading = Loading.service({
         target: 'body',
         background: 'transparent',
         text: '载入中',
-      }))
+      })
+      store.commit(SET_AXIOS_LOADING, true)
+    }
     loadingCount++
 
     return config
@@ -55,6 +59,7 @@ function mixinLoading(interceptors) {
     if (loadingCount === 0) {
       loading.close()
       loading = null
+      store.commit(SET_AXIOS_LOADING, false)
     }
   }
 
