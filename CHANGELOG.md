@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.26](https://github.com/sl1673495/vue-netease-music/compare/v3.2.25...v3.2.26) (2019-09-09)
+
+
+### Bug Fixes
+
+* 修复了搜索页面的一些报错，增加了全局loading的vuex状态。 ([403bb23](https://github.com/sl1673495/vue-netease-music/commit/403bb23))
+
 ### [3.2.25](https://github.com/sl1673495/vue-netease-music/compare/v3.2.24...v3.2.25) (2019-09-05)
 
 
