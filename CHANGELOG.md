@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.27](https://github.com/sl1673495/vue-netease-music/compare/v3.2.26...v3.2.27) (2019-09-26)
+
+
+### Bug Fixes
+
+* debounce和throttle改为lodash-es引入 mv页面的route props选项中把id由string转为number ([e07f60e](https://github.com/sl1673495/vue-netease-music/commit/e07f60e))
+* 登录接口取消代理 ([9ba4804](https://github.com/sl1673495/vue-netease-music/commit/9ba4804))
+
 ### [3.2.26](https://github.com/sl1673495/vue-netease-music/compare/v3.2.25...v3.2.26) (2019-09-09)
 
 
