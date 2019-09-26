@@ -1,5 +1,7 @@
 import { Notification } from 'element-ui'
 
+export { debounce, throttle } from 'lodash-es'
+
 export function pad(num, n = 2) {
   let len = num.toString().length
   while (len < n) {
@@ -60,41 +62,6 @@ export function genImgUrl(url, w, h) {
   return url
 }
 
-export function debounce(fn, delay) {
-  let timer = null
-
-  return function () {
-    const args = arguments
-    const context = this
-
-    if (timer) {
-      clearTimeout(timer)
-
-      timer = setTimeout(function () {
-        fn.apply(context, args)
-      }, delay)
-    } else {
-      timer = setTimeout(function () {
-        fn.apply(context, args)
-      }, delay)
-    }
-  }
-}
-
-export function throttle(action, delay) {
-  let last = 0
-  // 节流结束后需要执行一次校正
-  // 利用debouce即可
-  const lastTimeAction = debounce(action, delay)
-  return function () {
-    const curr = +new Date()
-    if (curr - last > delay) {
-      action.apply(this, arguments)
-      last = curr
-    }
-    lastTimeAction()
-  }
-}
 
 export function isLast(index, arr) {
   return index === arr.length - 1

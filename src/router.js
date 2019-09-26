@@ -101,7 +101,7 @@ export default new Router({
       path: '/mv/:id',
       name: 'mv',
       component: Mv,
-      props: true,
+      props: (route) =>  ({id: +route.params.id}),
     },
     ...menuRoutes,
   ],

@@ -70,7 +70,12 @@ import MvCard from "@/components/mv-card"
 
 export default {
   mixins: [hideMenuMixin],
-  props: ["id"],
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   metaInfo() {
     return {
       title: this.mvDetail.name
