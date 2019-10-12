@@ -115,7 +115,6 @@ export default {
           }
 
           .menu-title {
-            display: inline-block;
             font-size: $font-size-medium-sm;
             margin-left: 8px;
           }
