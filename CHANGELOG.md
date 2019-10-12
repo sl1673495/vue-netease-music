@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.2.28](https://github.com/sl1673495/vue-netease-music/compare/v3.2.27...v3.2.28) (2019-10-12)
+
+
+### Bug Fixes
+
+* 菜单栏歌单标题溢出时显示错误 ([f86bb5c](https://github.com/sl1673495/vue-netease-music/commit/f86bb5c))
+
 ### [3.2.27](https://github.com/sl1673495/vue-netease-music/compare/v3.2.26...v3.2.27) (2019-09-26)
 
 
