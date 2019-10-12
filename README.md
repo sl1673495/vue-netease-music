@@ -62,10 +62,6 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 
 ![音乐播放](https://user-images.githubusercontent.com/23615778/62509202-da358580-b83c-11e9-98e1-530e5741ff56.png)
 
-![最新MV](http://pvgju1g4v.bkt.clouddn.com/1566523445145.jpg)
-
-![MV播放](http://pvgju1g4v.bkt.clouddn.com/1566523832703.jpg)
-
 ### 安装与使用
 
 ```
