@@ -39,7 +39,7 @@ export default {
     }
   },
   created() {
-    this.onPageChange(this.currentPage)
+    this.onPageChange()
   },
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
       deep: true,
       handler() {
         this.currentPage = 1
-        this.onPageChange(1)
+        this.onPageChange()
       }
     }
   }
