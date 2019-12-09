@@ -1,6 +1,6 @@
 {
   "name": "vue-netease-muisc",
-  "version": "3.2.29",
+  "version": "3.2.30",
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run serve\" \"cd node_modules/NeteaseCloudMusicApi && node app.js\"",
