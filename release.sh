@@ -34,6 +34,7 @@ npm run $var
 if [ $? -eq 0 ]; then
     echoSuccess "release success"
     git push --follow-tags origin master
+    now
 else
     echoFail "release failed"
 fi
