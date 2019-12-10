@@ -26,7 +26,7 @@
                 ref="discRotate"
               >
                 <div class="img-wrap">
-                  <img :src="$utils.genImgUrl(currentSong.img, 400)" />
+                  <img v-lazy="$utils.genImgUrl(currentSong.img, 400)" />
                 </div>
               </div>
             </div>

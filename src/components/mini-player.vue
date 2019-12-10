@@ -1,51 +1,37 @@
 // 底部播放栏组件
 <template>
-  <div
-    class="mini-player"
-    id="mini-player"
-  >
+  <div class="mini-player" id="mini-player">
     <!-- 歌曲内容 -->
     <div class="song">
       <template v-if="hasCurrentSong">
-        <div
-          @click="togglePlayerShow"
-          class="img-wrap"
-        >
+        <div @click="togglePlayerShow" class="img-wrap">
           <div class="mask"></div>
-          <img
-            :src="$utils.genImgUrl(currentSong.img, 80)"
-            class="blur"
-          />
+          <img v-lazy="$utils.genImgUrl(currentSong.img, 80)" class="blur" />
           <div class="player-control">
-            <Icon
-              :size="24"
-              :type="playControlIcon"
-              color="white"
-            />
+            <Icon :size="24" :type="playControlIcon" color="white" />
           </div>
         </div>
         <div class="content">
           <div class="top">
-            <p class="name">{{currentSong.name}}</p>
+            <p class="name">{{ currentSong.name }}</p>
             <p class="split">-</p>
-            <p class="artists">{{currentSong.artistsText}}</p>
+            <p class="artists">{{ currentSong.artistsText }}</p>
           </div>
           <div class="time">
-            <span class="played-time">{{$utils.formatTime(currentTime)}}</span>
+            <span class="played-time">{{
+              $utils.formatTime(currentTime)
+            }}</span>
             <span class="split">/</span>
-            <span class="total-time">{{$utils.formatTime(currentSong.duration / 1000)}}</span>
+            <span class="total-time">{{
+              $utils.formatTime(currentSong.duration / 1000)
+            }}</span>
           </div>
         </div>
       </template>
     </div>
     <!-- 控制台 -->
     <div class="control">
-      <Icon
-        :size="24"
-        @click="prev"
-        class="icon"
-        type="prev"
-      />
+      <Icon :size="24" @click="prev" class="icon" type="prev" />
       <el-popover
         :value="isPlayErrorPromptShow"
         placement="top"
@@ -53,40 +39,20 @@
         width="160"
       >
         <p>请点击开始播放。</p>
-        <div
-          @click="togglePlaying"
-          class="play-icon"
-          slot="reference"
-        >
-          <Icon
-            :size="24"
-            :type="playIcon"
-          />
+        <div @click="togglePlaying" class="play-icon" slot="reference">
+          <Icon :size="24" :type="playIcon" />
         </div>
       </el-popover>
 
-      <Icon
-        :size="24"
-        @click="next"
-        class="icon"
-        type="next"
-      />
+      <Icon :size="24" @click="next" class="icon" type="next" />
     </div>
 
     <div class="mode">
-      <Share
-        :shareUrl="shareUrl"
-        class="mode-item"
-        v-show="hasCurrentSong"
-      />
+      <Share :shareUrl="shareUrl" class="mode-item" v-show="hasCurrentSong" />
 
       <!-- 模式 -->
-      <el-popover
-        placement="top"
-        trigger="hover"
-        width="160"
-      >
-        <p>{{playModeText}}</p>
+      <el-popover placement="top" trigger="hover" width="160">
+        <p>{{ playModeText }}</p>
         <Icon
           :size="20"
           :type="modeIcon"
@@ -113,18 +79,10 @@
       </el-popover>
       <!-- 音量 -->
       <div class="volume-item">
-        <Volume
-          :volume="volume"
-          @volumeChange="onVolumeChange"
-        />
+        <Volume :volume="volume" @volumeChange="onVolumeChange" />
       </div>
       <!-- github -->
-      <Icon
-        :size="20"
-        @click="goGitHub"
-        class="mode-item"
-        type="github"
-      />
+      <Icon :size="20" @click="goGitHub" class="mode-item" type="github" />
     </div>
     <div class="progress-bar-wrap">
       <ProgressBar

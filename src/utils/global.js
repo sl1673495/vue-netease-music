@@ -1,21 +1,27 @@
+import {
+  Input,
+  Dialog,
+  Button,
+  Loading,
+  Carousel,
+  CarouselItem,
+  Table,
+  TableColumn,
+  Popover,
+  Pagination,
+} from "element-ui"
+import VueLazyload from "vue-lazyload"
+import Meta from 'vue-meta'
+import * as utils from "./index"
+import { EMPTY_IMG } from "./dom"
 
-import { Input, Dialog, Button, Loading, Carousel, CarouselItem, Table, TableColumn, Popover, Pagination } from 'element-ui'
-import * as utils from './index'
-
-// 全局图片错误处理
-window.addEventListener('error', function (e) {
-  const target = e.target // 当前dom节点
-  if (target) {
-    const { tagName } = target
-    if (tagName && tagName.toUpperCase() === 'IMG') {
-      target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    }
-  }
-}, true)
-
-const requireComponent = require.context('@/base', true, /[a-z0-9]+\.(jsx?|vue)$/i)
 export default {
   install(Vue) {
+    const requireComponent = require.context(
+      "@/base",
+      true,
+      /[a-z0-9]+\.(jsx?|vue)$/i,
+    )
     // 批量注册base组件
     requireComponent.keys().forEach(fileName => {
       const componentConfig = requireComponent(fileName)
@@ -25,7 +31,7 @@ export default {
       }
     })
 
-    Vue.prototype.$ELEMENT = { size: 'small' };
+    Vue.prototype.$ELEMENT = { size: "small" }
     Vue.prototype.$utils = utils
 
     Vue.use(Input)
@@ -38,5 +44,12 @@ export default {
     Vue.use(Loading)
     Vue.use(Dialog)
     Vue.use(Button)
-  }
+
+    Vue.use(Meta)
+
+    Vue.use(VueLazyload, {
+      loading: EMPTY_IMG,
+      error: EMPTY_IMG,
+    })
+  },
 }
