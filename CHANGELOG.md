@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/sl1673495/vue-netease-music/compare/v3.2.30...v3.3.0) (2019-12-10)
+
+
+### Features
+
+* 加入图片懒加载 ([4043f87](https://github.com/sl1673495/vue-netease-music/commit/4043f87))
+
 ### [3.2.30](https://github.com/sl1673495/vue-netease-music/compare/v3.2.29...v3.2.30) (2019-12-09)
 
 
