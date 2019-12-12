@@ -105,9 +105,9 @@ export default {
       this.artist = artist
       this.simiMvs = simiMvs
 
-      // 加载高清源
       this.$nextTick(() => {
         const player = this.$refs.video.player
+        // 加载高清源
         player.emit("resourceReady", genResource(this.mvDetail.brs, mvPlayInfo))
         player.on("play", () => {
           // 停止播放歌曲
