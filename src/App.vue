@@ -2,7 +2,7 @@
   <div id="app">
     <Layout />
     <Player />
-    <MiniPlayer />
+    <MiniPlayer v-show="showMiniPlayer"/>
     <Playlist />
     <ShareReader />
   </div>
@@ -14,6 +14,7 @@ import MiniPlayer from "@/components/mini-player"
 import Playlist from "@/components/playlist"
 import Player from "@/components/player"
 import ShareReader from "@/components/share-reader"
+import { mapMutations } from "@/store/helper/music"
 
 export default {
   metaInfo() {
@@ -21,7 +22,22 @@ export default {
       title: "欢迎来到sshPlayer"
     }
   },
-  components: { Layout, MiniPlayer, Playlist, Player, ShareReader }
+  components: { Layout, MiniPlayer, Playlist, Player, ShareReader },
+  data() {
+    return {
+      showMiniPlayer: true
+    }
+  },
+  methods: {
+		...mapMutations(["setPlayingState"]),
+  },
+  watch: {
+    $route() {
+      if(this.$route.name !== 'mv') return this.showMiniPlayer = true
+        this.showMiniPlayer = false
+        this.setPlayingState(false)
+    }
+  }
 }
 </script>
 

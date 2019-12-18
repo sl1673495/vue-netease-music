@@ -18,15 +18,11 @@ export default {
     commit('setPlayingState', true)
     // 历史记录
     const { playHistory } = state
-    const playHistoryCopy = playHistory.slice()
-    const findedIndex = playHistoryCopy.findIndex(({ id }) => song.id === id)
-    if (findedIndex !== -1) {
-      // 删除旧那一项, 插入到最前面
-      playHistoryCopy.splice(findedIndex, 1)
-    }
-    playHistoryCopy.unshift(song)
-    commit('setPlayHistory', playHistoryCopy)
-    storage.set(PLAY_HISTORY_KEY, playHistoryCopy)
+    // 过滤旧的那一项
+    const newPlayHistory = playHistory.filter(({ id }) => song.id !== id)
+    newPlayHistory.unshift(song)
+    commit('setPlayHistory', newPlayHistory)
+    storage.set(PLAY_HISTORY_KEY, newPlayHistory)
     // 检查是否能播放
     const canPlay = await checkCanPlay(song.id)
     if (!canPlay) {

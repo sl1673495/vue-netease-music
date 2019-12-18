@@ -136,7 +136,8 @@ export default {
       }
     },
     goSearch(keywords) {
-      this.searchHistorys.push({ first: keywords })
+      this.searchHistorys = this.searchHistorys.filter(({ first }) => first !== keywords)
+      this.searchHistorys.unshift({first: keywords})
       storage.set(SEARCH_HISTORY_KEY, this.searchHistorys)
       this.$router.push(`/search/${keywords}`)
       this.searchPanelShow = false

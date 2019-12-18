@@ -135,8 +135,13 @@ export default {
   },
   methods: {
     onRowClick(song) {
+      // 如果是当前歌曲，不要重新开始播放
+      if (this.currentSong.id === song.id) return
       this.startSong(song)
       this.setPlaylist(this.songs)
+    },
+    onRowDblClick() {
+      this.setPlayingState(!this.playing)
     },
     isActiveSong(song) {
       return song.id === this.currentSong.id
@@ -162,7 +167,7 @@ export default {
       }
       return retCls.join(" ")
     },
-    ...mapMutations(["setPlaylist"]),
+    ...mapMutations(["setPlaylist","setPlayingState"]),
     ...mapActions(["startSong"]),
   },
   computed: {
@@ -177,7 +182,7 @@ export default {
         return !hideColumns.find(hideColumn => hideColumn === column.prop)
       })
     },
-    ...mapState(["currentSong"]),
+    ...mapState(["currentSong", "playing"])
   },
   render() {
     const elTableProps = ElTable.props
@@ -188,6 +193,7 @@ export default {
       on: {
         ...this.$listeners,
         ["row-click"]: this.onRowClick,
+        ["row-dblclick"]: this.onRowDblClick,
       },
       props: {
         ...props,

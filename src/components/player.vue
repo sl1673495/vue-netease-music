@@ -410,7 +410,7 @@ $img-outer-d: 300px;
   transition: transform 0.5s;
 
   &.hide {
-    transform: translateY(105%);
+    transform: translateY(110%);
   }
 
   &.show {
