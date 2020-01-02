@@ -9,28 +9,16 @@
       ref="input"
       v-model.trim="searchKeyword"
     ></el-input>
-    <Toggle
-      :reserveDoms="[$refs.input && $refs.input.$el]"
-      :show.sync="searchPanelShow"
-    >
-      <div
-        class="search-panel"
-        v-show="searchPanelShow"
-      >
-        <div
-          class="search-suggest"
-          v-if="suggestShow"
-        >
+    <Toggle :reserveDoms="[$refs.input && $refs.input.$el]" :show.sync="searchPanelShow">
+      <div class="search-panel" v-show="searchPanelShow">
+        <div class="search-suggest" v-if="suggestShow">
           <div
             :key="index"
             class="suggest-item"
             v-for="(normalizedSuggest, index) in normalizedSuggests"
           >
             <div class="title">
-              <Icon
-                :size="12"
-                :type="normalizedSuggest.icon"
-              />
+              <Icon :size="12" :type="normalizedSuggest.icon" />
               {{normalizedSuggest.title}}
             </div>
             <ul class="list">
@@ -48,10 +36,7 @@
             </ul>
           </div>
         </div>
-        <div
-          class="search-hots"
-          v-else
-        >
+        <div class="search-hots" v-else>
           <div class="block">
             <p class="title">热门搜索</p>
             <div class="tags">
@@ -65,10 +50,7 @@
           </div>
           <div class="block">
             <p class="title">搜索历史</p>
-            <div
-              class="tags"
-              v-if="searchHistorys.length"
-            >
+            <div class="tags" v-if="searchHistorys.length">
               <NButton
                 :key="index"
                 @click="onClickHot(history)"
@@ -76,10 +58,7 @@
                 v-for="(history, index) in searchHistorys"
               >{{history.first}}</NButton>
             </div>
-            <div
-              class="empty"
-              v-else
-            >暂无搜索历史</div>
+            <div class="empty" v-else>暂无搜索历史</div>
           </div>
         </div>
       </div>
@@ -195,9 +174,18 @@ export default {
           onClick: this.onClickSong.bind(this)
         },
         {
-          title: "歌单",
+          title: "歌手",
           icon: "playlist",
-          data: this.suggest.playlists,
+          data: this.suggest.artists,
+          onClick: this.onClickPlaylist.bind(this)
+        },
+        {
+          title: "专辑",
+          icon: "album",
+          data: this.suggest.albums,
+          renderName(album) {
+            return `${album.name} - ${album.artist.name}`
+          },
           onClick: this.onClickPlaylist.bind(this)
         },
         {
