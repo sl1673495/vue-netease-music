@@ -157,7 +157,7 @@ export default {
     suggestShow() {
       return (
         this.searchKeyword.length &&
-        ["songs", "playlists"].find(key => {
+        ["songs", "artists","albums", "playlists","mvs"].find(key => {
           return this.suggest[key] && this.suggest[key].length
         })
       )
@@ -175,7 +175,7 @@ export default {
         },
         {
           title: "歌手",
-          icon: "playlist",
+          icon: "singer",
           data: this.suggest.artists,
           onClick: this.onClickPlaylist.bind(this)
         },
@@ -196,6 +196,12 @@ export default {
             return `${mv.name} - ${genArtistisText(mv.artists)}`
           },
           onClick: this.onClickMv.bind(this)
+        },
+        {
+          title: "歌单",
+          icon: "playlists",
+          data: this.suggest.playlists,
+          onClick: this.onClickPlaylist.bind(this)
         }
       ].filter(item => item.data && item.data.length)
     }
