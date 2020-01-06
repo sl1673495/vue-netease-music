@@ -1,30 +1,13 @@
 <template >
   <transition name="slide">
-    <div
-      :class="getPlayerShowCls()"
-      class="player"
-    >
+    <div :class="getPlayerShowCls()" class="player">
       <div class="content">
         <div class="song">
           <div class="left">
-            <img
-              class="play-bar-support"
-              src="@/assets/image/play-bar-support.png"
-            />
-            <img
-              :class="{playing}"
-              class="play-bar"
-              src="@/assets/image/play-bar.png"
-            />
-            <div
-              class="img-outer-border"
-              ref="disc"
-            >
-              <div
-                :class="{paused: !playing}"
-                class="img-outer"
-                ref="discRotate"
-              >
+            <img class="play-bar-support" src="@/assets/image/play-bar-support.png" />
+            <img :class="{playing}" class="play-bar" src="@/assets/image/play-bar.png" />
+            <div class="img-outer-border" ref="disc">
+              <div :class="{paused: !playing}" class="img-outer" ref="discRotate">
                 <div class="img-wrap">
                   <img v-lazy="$utils.genImgUrl(currentSong.img, 400)" />
                 </div>
@@ -34,11 +17,7 @@
           <div class="right">
             <div class="name-wrap">
               <p class="name">{{currentSong.name}}</p>
-              <span
-                @click="onGoMv"
-                class="mv-tag"
-                v-if="currentSong.mvId"
-              >MV</span>
+              <span @click="onGoMv" class="mv-tag" v-if="currentSong.mvId">MV</span>
             </div>
             <div class="desc">
               <div class="desc-item">
@@ -75,31 +54,14 @@
         </div>
         <div class="bottom">
           <div class="left">
-            <Comments
-              :id="currentSong.id"
-              ref="comments"
-              v-if="currentSong.id"
-            />
+            <Comments :id="currentSong.id" ref="comments" v-if="currentSong.id" />
           </div>
-          <div
-            class="right"
-            v-if="simiPlaylists.concat(simiSongs).length"
-          >
-            <Loading
-              :loading="simiLoading"
-              v-if="simiLoading"
-            />
+          <div class="right" v-if="simiPlaylists.concat(simiSongs).length">
+            <Loading :loading="simiLoading" v-if="simiLoading" />
             <div v-else>
-              <div
-                class="simi-playlists"
-                v-if="simiPlaylists.length"
-              >
+              <div class="simi-playlists" v-if="simiPlaylists.length">
                 <p class="title">包含这首歌的歌单</p>
-                <div
-                  :key="simiPlaylist.id"
-                  class="simi-item"
-                  v-for="simiPlaylist in simiPlaylists"
-                >
+                <div :key="simiPlaylist.id" class="simi-item" v-for="simiPlaylist in simiPlaylists">
                   <Card
                     :img="simiPlaylist.coverImgUrl"
                     :name="simiPlaylist.name"
@@ -107,27 +69,16 @@
                   >
                     <template v-slot:desc>
                       <div class="desc">
-                        <Icon
-                          :size="12"
-                          color="shallow"
-                          type="play"
-                        />
+                        <Icon :size="12" color="shallow" type="play" />
                         <p class="count">{{$utils.formatNumber(simiPlaylist.playCount)}}</p>
                       </div>
                     </template>
                   </Card>
                 </div>
               </div>
-              <div
-                class="simi-songs"
-                v-if="simiSongs.length"
-              >
+              <div class="simi-songs" v-if="simiSongs.length">
                 <p class="title">相似歌曲</p>
-                <div
-                  :key="simiSong.id"
-                  class="simi-item"
-                  v-for="simiSong in simiSongs"
-                >
+                <div :key="simiSong.id" class="simi-item" v-for="simiSong in simiSongs">
                   <Card
                     :desc="simiSong.artistsText"
                     :img="simiSong.img"

@@ -2,16 +2,10 @@
   <div class="layout">
     <LayoutHeader />
     <div class="layout-body">
-      <div
-        class="layout-menu"
-        v-show="isMenuShow"
-      >
+      <div class="layout-menu" v-show="isMenuShow">
         <LayoutMenu />
       </div>
-      <div
-        class="content"
-        id="page-content"
-      >
+      <div class="content" id="page-content">
         <router-view :class="routerViewCls" />
       </div>
     </div>
