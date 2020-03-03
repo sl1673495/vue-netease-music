@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/sl1673495/vue-netease-music/compare/v3.3.0...v3.3.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* 未播放歌曲请求封面导致undefined请求 ([60935fb](https://github.com/sl1673495/vue-netease-music/commit/60935fb32465e3a7922d84f5d2019bab18919280))
+
 ## [3.3.0](https://github.com/sl1673495/vue-netease-music/compare/v3.2.30...v3.3.0) (2019-12-10)
 
 
