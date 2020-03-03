@@ -1,5 +1,4 @@
-import { playModeMap } from '@/utils/config'
-import { isDef } from '../../../utils'
+import { isDef, playModeMap } from '@/utils'
 
 export const currentIndex = (state) => {
   const { currentSong, playlist } = state
