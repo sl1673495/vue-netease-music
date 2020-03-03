@@ -44,6 +44,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",
+    "now": "^17.0.4",
     "postcss-pxtorem": "^4.0.1",
     "sass-loader": "^7.1.0",
     "standard-changelog": "^2.0.13",
