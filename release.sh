@@ -36,8 +36,6 @@ if [ $? -eq 0 ]; then
     echoCommon "start building"
     git push --follow-tags origin master
     npm run build
-    cd music
-    now
 else
     echoFail "release failed"
 fi
