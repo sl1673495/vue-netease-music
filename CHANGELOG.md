@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.2](https://github.com/sl1673495/vue-netease-music/compare/v3.3.1...v3.3.2) (2020-03-03)
+
+
+### Bug Fixes
+
+* http和https混合资源导致线上无法播放歌曲 ([361df32](https://github.com/sl1673495/vue-netease-music/commit/361df32ddc702f254cfeecd11586dc6340808156))
+* 去除请求http音乐资源 ([7a13ed4](https://github.com/sl1673495/vue-netease-music/commit/7a13ed4ae52d3fcbe8a4487068ad511502cd9385))
+
 ### [3.3.1](https://github.com/sl1673495/vue-netease-music/compare/v3.3.0...v3.3.1) (2020-03-03)
 
 
