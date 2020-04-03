@@ -1,5 +1,5 @@
 module.exports = {
-  outputDir: 'music',
+  outputDir: 'docs',
   configureWebpack: {
     devServer: {
       open: true,
