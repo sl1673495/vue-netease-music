@@ -1,5 +1,6 @@
 module.exports = {
   outputDir: 'docs',
+  publicPath: 'vue-netease-music',
   configureWebpack: {
     devServer: {
       open: true,
