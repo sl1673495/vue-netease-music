@@ -1,19 +1,9 @@
 // 歌单详情页面
 <template>
-  <div
-    class="playlist-detail"
-    v-if="playlist.id"
-  >
-    <DetailHeader
-      :playlist="playlist"
-      :songs="songs"
-    />
+  <div class="playlist-detail" v-if="playlist.id">
+    <DetailHeader ref="header" :playlist="playlist" :songs="songs" />
     <div class="tabs-wrap">
-      <Tabs
-        :tabs="tabs"
-        type="theme"
-        v-model="activeTab"
-      />
+      <Tabs :tabs="tabs" type="theme" v-model="activeTab" />
       <el-input
         :class="getInputCls()"
         @blur="onInputBlur"
@@ -25,12 +15,9 @@
         v-show="activeTab === SONG_IDX"
       ></el-input>
     </div>
-    <div
-      class="empty"
-      v-if="searchValue && !filteredSongs.length"
-    >
+    <div class="empty" v-if="searchValue && !filteredSongs.length">
       未能找到和
-      <span class="keyword">“{{searchValue}}”</span>
+      <span class="keyword">“{{ searchValue }}”</span>
       相关的任何音乐
     </div>
     <SongTable
@@ -39,15 +26,8 @@
       class="table"
       v-show="activeTab === SONG_IDX"
     />
-    <div
-      class="comments"
-      v-show="activeTab === COMMENT_IDX"
-    >
-      <Comments
-        :id="id"
-        @update="onCommentsUpdate"
-        type="playlist"
-      />
+    <div class="comments" v-show="activeTab === COMMENT_IDX">
+      <Comments :id="id" @update="onCommentsUpdate" type="playlist" />
     </div>
   </div>
 </template>
@@ -56,7 +36,7 @@
 import DetailHeader from "./header"
 import SongTable from "@/components/song-table"
 import Comments from "@/components/comments"
-import { createSong } from "@/utils"
+import { createSong, scrollInto } from "@/utils"
 import { getListDetail } from "@/api"
 import { getSongDetail } from "@/api"
 
@@ -66,7 +46,7 @@ const COMMENT_IDX = 1
 export default {
   metaInfo() {
     return {
-      title: this.playlist.name
+      title: this.playlist.name,
     }
   },
   async created() {
@@ -80,7 +60,7 @@ export default {
       playlist: {},
       songs: [],
       searchValue: "",
-      inputFocus: false
+      inputFocus: false,
     }
   },
   methods: {
@@ -100,8 +80,8 @@ export default {
           duration: dt,
           mvId: mv,
           albumName: al.name,
-          img: al.picUrl
-        })
+          img: al.picUrl,
+        }),
       )
       this.songs = songs
     },
@@ -116,7 +96,13 @@ export default {
     },
     getInputCls() {
       return !this.inputFocus ? "inactive" : ""
-    }
+    },
+    scrollToHeader() {
+      const { header } = this.$refs
+      if (header) {
+        scrollInto(header.$el)
+      }
+    },
   },
   computed: {
     id() {
@@ -126,20 +112,21 @@ export default {
       return this.songs.filter(({ name, artistsText, albumName }) =>
         `${name}${artistsText}${albumName}`
           .toLowerCase()
-          .includes(this.searchValue.toLowerCase())
+          .includes(this.searchValue.toLowerCase()),
       )
-    }
+    },
   },
   watch: {
     id: {
       handler() {
         this.searchValue = ""
         this.init()
+        this.scrollToHeader()
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
-  components: { DetailHeader, SongTable, Comments }
+  components: { DetailHeader, SongTable, Comments },
 }
 </script>
 

@@ -14,11 +14,16 @@
         itemClass="search-tab-item"
       />
     </div>
+    <Empty
+      class="empty"
+      v-if="showEmpty"
+    >暂无结果</Empty>
     <router-view></router-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState as mapGlobalState } from "@/store/helper/global"
 const tabs = [
   {
     title: "歌曲",
@@ -55,6 +60,12 @@ export default {
     onUpdateCount(count) {
       this.count = count
     }
+  },
+  computed: {
+    showEmpty() {
+      return !this.axiosLoading && this.count === 0
+    },
+    ...mapGlobalState(["axiosLoading"])
   }
 }
 </script>

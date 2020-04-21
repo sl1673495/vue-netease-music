@@ -7,10 +7,7 @@
         class="menu-block"
         v-for="(menu, index) in menusWithPlaylist"
       >
-        <p
-          class="menu-block-title"
-          v-if="menu.title"
-        >{{menu.title}}</p>
+        <p class="menu-block-title" v-if="menu.title">{{ menu.title }}</p>
         <ul class="menu-list">
           <router-link
             :key="index"
@@ -20,12 +17,8 @@
             tag="li"
             v-for="(item, index) in menu.children"
           >
-            <Icon
-              :size="16"
-              :type="item.meta.icon"
-              class="iconfont"
-            />
-            <span class="menu-title">{{item.meta.title}}</span>
+            <Icon :size="16" :type="item.meta.icon" class="iconfont" />
+            <span class="menu-title">{{ item.meta.title }}</span>
           </router-link>
         </ul>
       </div>
@@ -115,7 +108,6 @@ export default {
           }
 
           .menu-title {
-            display: inline-block;
             font-size: $font-size-medium-sm;
             margin-left: 8px;
           }

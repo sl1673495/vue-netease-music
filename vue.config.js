@@ -1,6 +1,9 @@
 module.exports = {
+  outputDir: 'docs',
+  publicPath: 'vue-netease-music',
   configureWebpack: {
     devServer: {
+      open: true,
       proxy: {
         '/netease-api': {
           target: 'http://localhost:3000',
@@ -11,12 +14,12 @@ module.exports = {
       },
       port: 8888,
     },
-    externals: {
+    externals: process.env.NODE_ENV === 'production' ? {
       vue: 'Vue',
       'vue-router': 'VueRouter',
       vuex: 'Vuex',
       axios: 'axios',
-    },
+    }: {},
   },
   css: {
     loaderOptions: {

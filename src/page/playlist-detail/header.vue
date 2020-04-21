@@ -1,48 +1,31 @@
 <template>
-  <div
-    class="header"
-    v-if="playlist.id"
-  >
+  <div class="header" v-if="playlist.id">
     <div class="img-wrap">
       <img :src="$utils.genImgUrl(playlist.coverImgUrl, 400)" />
     </div>
     <div class="content">
       <div class="title-wrap">
-        <p class="title">{{playlist.name}}</p>
+        <p class="title">{{ playlist.name }}</p>
       </div>
       <div class="creator-wrap">
-        <img
-          :src="playlist.creator.avatarUrl"
-          class="avatar"
-        />
-        <p class="creator">{{playlist.creator.nickname}}</p>
-        <p class="create-time">{{$utils.formatDate(playlist.createTime, 'yyyy-MM-dd')}} 创建</p>
+        <img :src="playlist.creator.avatarUrl" class="avatar" />
+        <p class="creator">{{ playlist.creator.nickname }}</p>
+        <p class="create-time">
+          {{ $utils.formatDate(playlist.createTime, "yyyy-MM-dd") }} 创建
+        </p>
       </div>
       <div class="action-wrap">
-        <NButton
-          @click="playAll"
-          class="button"
-        >
-          <Icon
-            class="icon middle"
-            color="white"
-            type="play-round"
-          />
+        <NButton @click="playAll" class="button">
+          <Icon class="icon middle" color="white" type="play-round" />
           <span class="middle">播放全部</span>
         </NButton>
       </div>
       <div class="desc-wrap">
-        <p
-          class="desc"
-          v-if="tagsText"
-        >
-          <span>标签：{{tagsText}}</span>
+        <p class="desc" v-if="tagsText">
+          <span>标签：{{ tagsText }}</span>
         </p>
-        <p
-          class="desc"
-          v-if="playlist.description"
-        >
-          <span class="value">简介：{{playlist.description}}</span>
+        <p class="desc" v-if="playlist.description">
+          <span class="value">简介：{{ playlist.description }}</span>
         </p>
       </div>
     </div>
@@ -55,12 +38,12 @@ export default {
   props: {
     playlist: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     songs: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   methods: {
     playAll() {
@@ -68,13 +51,13 @@ export default {
       this.setPlaylist(this.songs)
     },
     ...mapMutations(["setPlaylist"]),
-    ...mapActions(["startSong"])
+    ...mapActions(["startSong"]),
   },
   computed: {
     tagsText() {
       return this.playlist.tags.join("/")
-    }
-  }
+    },
+  },
 }
 </script>
 

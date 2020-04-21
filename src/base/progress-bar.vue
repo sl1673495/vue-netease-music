@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { prefixStyle, toRem } from "@/utils"
+import { prefixStyle, toCurrentRem } from "@/utils"
 
 const transform = prefixStyle("transform")
 
@@ -76,7 +76,7 @@ export default {
       this.$emit("percentChange", this._getPercent())
     },
     _offset(offsetWidth) {
-      const offsetRem = toRem(offsetWidth)
+      const offsetRem = toCurrentRem(offsetWidth)
       this.$refs.progress.style.width = `${offsetRem}`
       this.$refs.progressBtn.style[transform] = `translate3d(${offsetRem},0,0)`
     },

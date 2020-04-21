@@ -1,39 +1,34 @@
 // mv详情页面
 <template>
-  <div
-    class="mv"
-    v-if="$utils.isDef(mvDetail.id)"
-  >
+  <div class="mv" v-if="$utils.isDef(mvDetail.id)">
     <div class="mv-content">
       <div class="left">
         <p class="title">mv详情</p>
 
         <div class="player">
-          <VideoPlayer
-            :url="mvPlayInfo.url"
-            ref="video"
-          />
+          <VideoPlayer :url="mvPlayInfo.url" ref="video" />
         </div>
 
         <div class="author-wrap">
           <div class="avatar">
-            <img :src="$utils.genImgUrl(artist.picUrl, 120)" />
+            <img v-lazy="$utils.genImgUrl(artist.picUrl, 120)" />
           </div>
-          <p class="author">{{artist.name}}</p>
+          <p class="author">{{ artist.name }}</p>
         </div>
 
-        <p class="name">{{mvDetail.name}}</p>
+        <p class="name">{{ mvDetail.name }}</p>
 
         <div class="desc">
-          <span class="date">发布：{{$utils.formatDate(mvDetail.publishTime, 'yyyy-MM-dd')}}</span>
-          <span class="count">播放：{{mvDetail.playCount}}次</span>
+          <span class="date"
+            >发布：{{
+              $utils.formatDate(mvDetail.publishTime, "yyyy-MM-dd")
+            }}</span
+          >
+          <span class="count">播放：{{ mvDetail.playCount }}次</span>
         </div>
 
         <div class="comments">
-          <Comments
-            :id="id"
-            type="mv"
-          />
+          <Comments :id="id" type="mv" />
         </div>
       </div>
       <div class="right">
@@ -70,7 +65,12 @@ import MvCard from "@/components/mv-card"
 
 export default {
   mixins: [hideMenuMixin],
-  props: ["id"],
+  props: {
+    id: {
+      type: Number,
+      required: true
+    }
+  },
   metaInfo() {
     return {
       title: this.mvDetail.name
@@ -105,9 +105,9 @@ export default {
       this.artist = artist
       this.simiMvs = simiMvs
 
-      // 加载高清源
       this.$nextTick(() => {
         const player = this.$refs.video.player
+        // 加载高清源
         player.emit("resourceReady", genResource(this.mvDetail.brs, mvPlayInfo))
         player.on("play", () => {
           // 停止播放歌曲

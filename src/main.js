@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Meta from 'vue-meta'
 
 import App from './App.vue'
 import router from './router'
@@ -11,7 +10,6 @@ import store from './store/index'
 import global from './utils/global'
 
 Vue.config.productionTip = false
-Vue.use(Meta)
 Vue.use(global)
 
 new Vue({

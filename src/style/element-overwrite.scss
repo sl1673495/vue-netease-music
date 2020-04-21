@@ -25,7 +25,8 @@
 // 表格单元格的通用样式
 @mixin el-td-style($color) {
   td,
-  th {
+  th,
+  tr {
     background-color: $color !important;
     transition: background-color 0s !important;
     border-bottom: none !important;

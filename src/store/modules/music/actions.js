@@ -1,10 +1,9 @@
-import { getSongUrl } from "@/api"
 import storage from 'good-storage'
-import { PLAY_HISTORY_KEY, notify, getSongImg } from '@/utils'
+import { PLAY_HISTORY_KEY,  getSongImg } from '@/utils'
 
 export default {
   // 整合歌曲信息 并且开始播放
-  async startSong({ commit, state, dispatch }, rawSong) {
+  async startSong({ commit, state }, rawSong) {
     // 浅拷贝一份 改变引用
     // 1.不污染元数据
     // 2.单曲循环为了触发watch
@@ -27,13 +26,6 @@ export default {
     playHistoryCopy.unshift(song)
     commit('setPlayHistory', playHistoryCopy)
     storage.set(PLAY_HISTORY_KEY, playHistoryCopy)
-    // 检查是否能播放
-    const canPlay = await checkCanPlay(song.id)
-    if (!canPlay) {
-      notify(`${song.name}播放失败`)
-      // 清空当前歌曲
-      dispatch('clearCurrentSong')
-    }
   },
   clearCurrentSong({ commit }) {
     commit('setCurrentSong', {})
@@ -57,10 +49,4 @@ export default {
       commit('setPlaylist', copy)
     }
   }
-}
-
-async function checkCanPlay(id) {
-  const { data } = await getSongUrl(id)
-  const [resultSong] = data
-  return !!resultSong.url
 }

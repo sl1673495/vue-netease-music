@@ -59,7 +59,7 @@ export const menuRoutes = [
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -101,7 +101,7 @@ export default new Router({
       path: '/mv/:id',
       name: 'mv',
       component: Mv,
-      props: true,
+      props: (route) =>  ({id: +route.params.id}),
     },
     ...menuRoutes,
   ],

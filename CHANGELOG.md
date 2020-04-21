@@ -2,6 +2,129 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.2](https://github.com/sl1673495/vue-netease-music/compare/v3.3.1...v3.3.2) (2020-03-03)
+
+
+### Bug Fixes
+
+* http和https混合资源导致线上无法播放歌曲 ([361df32](https://github.com/sl1673495/vue-netease-music/commit/361df32ddc702f254cfeecd11586dc6340808156))
+* 去除请求http音乐资源 ([7a13ed4](https://github.com/sl1673495/vue-netease-music/commit/7a13ed4ae52d3fcbe8a4487068ad511502cd9385))
+
+### [3.3.1](https://github.com/sl1673495/vue-netease-music/compare/v3.3.0...v3.3.1) (2020-03-03)
+
+
+### Bug Fixes
+
+* 未播放歌曲请求封面导致undefined请求 ([60935fb](https://github.com/sl1673495/vue-netease-music/commit/60935fb32465e3a7922d84f5d2019bab18919280))
+
+## [3.3.0](https://github.com/sl1673495/vue-netease-music/compare/v3.2.30...v3.3.0) (2019-12-10)
+
+
+### Features
+
+* 加入图片懒加载 ([4043f87](https://github.com/sl1673495/vue-netease-music/commit/4043f87))
+
+### [3.2.30](https://github.com/sl1673495/vue-netease-music/compare/v3.2.29...v3.2.30) (2019-12-09)
+
+
+### Bug Fixes
+
+* 表格页面在黑暗模式下快速滚动 会出现白色背景 ([12aa873](https://github.com/sl1673495/vue-netease-music/commit/12aa873))
+
+### [3.2.29](https://github.com/sl1673495/vue-netease-music/compare/v3.2.28...v3.2.29) (2019-12-02)
+
+### [3.2.28](https://github.com/sl1673495/vue-netease-music/compare/v3.2.27...v3.2.28) (2019-10-12)
+
+
+### Bug Fixes
+
+* 菜单栏歌单标题溢出时显示错误 ([f86bb5c](https://github.com/sl1673495/vue-netease-music/commit/f86bb5c))
+
+### [3.2.27](https://github.com/sl1673495/vue-netease-music/compare/v3.2.26...v3.2.27) (2019-09-26)
+
+
+### Bug Fixes
+
+* debounce和throttle改为lodash-es引入 mv页面的route props选项中把id由string转为number ([e07f60e](https://github.com/sl1673495/vue-netease-music/commit/e07f60e))
+* 登录接口取消代理 ([9ba4804](https://github.com/sl1673495/vue-netease-music/commit/9ba4804))
+
+### [3.2.26](https://github.com/sl1673495/vue-netease-music/compare/v3.2.25...v3.2.26) (2019-09-09)
+
+
+### Bug Fixes
+
+* 修复了搜索页面的一些报错，增加了全局loading的vuex状态。 ([403bb23](https://github.com/sl1673495/vue-netease-music/commit/403bb23))
+
+### [3.2.25](https://github.com/sl1673495/vue-netease-music/compare/v3.2.24...v3.2.25) (2019-09-05)
+
+
+### Bug Fixes
+
+* modal弹框标题显示错误 ([c224df1](https://github.com/sl1673495/vue-netease-music/commit/c224df1))
+
+### [3.2.24](https://github.com/sl1673495/vue-netease-music/compare/v3.2.23...v3.2.24) (2019-09-04)
+
+
+### Bug Fixes
+
+* 使用代理池修复用户登录被禁用 ([71a7015](https://github.com/sl1673495/vue-netease-music/commit/71a7015))
+
+### [3.2.23](https://github.com/sl1673495/vue-netease-music/compare/v3.2.22...v3.2.23) (2019-09-03)
+
+
+### Bug Fixes
+
+* 最新音乐点击播放歌曲顺序错误 ([b114f46](https://github.com/sl1673495/vue-netease-music/commit/b114f46))
+
+### [3.2.22](https://github.com/sl1673495/vue-netease-music/compare/v3.2.21...v3.2.22) (2019-09-03)
+
+
+### Bug Fixes
+
+* 修复音乐卡片在窄屏幕上显示错误 ([8d65562](https://github.com/sl1673495/vue-netease-music/commit/8d65562))
+
+### [3.2.21](https://github.com/sl1673495/vue-netease-music/compare/v3.2.20...v3.2.21) (2019-09-03)
+
+
+### Bug Fixes
+
+* 去除发现页多余的边距 ([c87f7e4](https://github.com/sl1673495/vue-netease-music/commit/c87f7e4))
+
+### [3.2.20](https://github.com/sl1673495/vue-netease-music/compare/v3.2.19...v3.2.20) (2019-08-29)
+
+
+### Bug Fixes
+
+* 修复开发环境使用vue.min.js导致无法使用vue dev tools。 ([00366a5](https://github.com/sl1673495/vue-netease-music/commit/00366a5))
+
+### [3.2.19](https://github.com/sl1673495/vue-netease-music/compare/v3.2.18...v3.2.19) (2019-08-27)
+
+
+### Bug Fixes
+
+* 解决了progress-bar组件rem计算不对。 ([bd931aa](https://github.com/sl1673495/vue-netease-music/commit/bd931aa))
+
+### [3.2.18](https://github.com/sl1673495/vue-netease-music/compare/v3.2.17...v3.2.18) (2019-08-27)
+
+
+### Bug Fixes
+
+* 修复了toRem的计算方式，修复了左上角按钮图标不对齐的问题。 ([4800ec0](https://github.com/sl1673495/vue-netease-music/commit/4800ec0))
+
+### [3.2.17](https://github.com/sl1673495/vue-netease-music/compare/v3.2.16...v3.2.17) (2019-08-26)
+
+
+### Features
+
+* 优化了axios loading和错误逻辑。 ([66fc425](https://github.com/sl1673495/vue-netease-music/commit/66fc425))
+
+### [3.2.16](https://github.com/sl1673495/vue-netease-music/compare/v3.2.15...v3.2.16) (2019-08-26)
+
+
+### Features
+
+* 新增了dev命令 一键启动前后端，调整了播放器底部按钮的最小宽度。 ([53bcd41](https://github.com/sl1673495/vue-netease-music/commit/53bcd41))
+
 ### [3.2.15](https://github.com/sl1673495/vue-netease-music/compare/v3.2.14...v3.2.15) (2019-08-23)
 
 

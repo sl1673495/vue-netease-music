@@ -39,6 +39,9 @@ export default {
   methods: {
     ...mapMutations(["setPlayerShow", "setPlaylist"]),
     ...mapActions(["startSong"])
+  },
+  render() {
+    return null
   }
 }
 </script>

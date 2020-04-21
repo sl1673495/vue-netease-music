@@ -1,22 +1,22 @@
 <template>
   <div class="song-card">
     <div class="order-wrap">
-      <span class="order">{{$utils.pad(order)}}</span>
+      <span class="order">{{ $utils.pad(order) }}</span>
     </div>
     <div class="img-wrap">
-      <img :src="$utils.genImgUrl(img, 120)" />
+      <img v-lazy="$utils.genImgUrl(img, 120)" />
       <PlayIcon class="play-icon" />
     </div>
     <div class="song-content">
-      <p class="song-name">{{name}}</p>
-      <p class="singer">{{artistsText}}</p>
+      <p class="song-name">{{ name }}</p>
+      <p class="singer">{{ artistsText }}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["order", "name", "img", "artistsText"]
+  props: ["order", "name", "img", "artistsText"],
 }
 </script>
 
@@ -59,9 +59,16 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    flex: 1;
+    overflow: hidden;
 
     .song-name {
+      @include text-ellipsis;
       color: var(--font-color-white);
+    }
+
+    .singer {
+      @include text-ellipsis;
     }
   }
 }

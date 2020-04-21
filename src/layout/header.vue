@@ -129,6 +129,7 @@ export default {
           opacity: 1;
         }
       }
+
       .mac-button {
         @include round(12px);
         @include flex-center;
@@ -152,6 +153,7 @@ export default {
           transition: opacity 0.3s;
           color: $black;
           font-weight: $font-weight-bold;
+          transform-origin: center center;
         }
       }
     }

@@ -1,25 +1,18 @@
 <template>
-  <div
-    class="wrap"
-    @click="onClickCard"
-  >
+  <div class="wrap" @click="onClickCard">
     <div class="top-playlist-card">
       <div class="img-wrap">
-        <img :src="$utils.genImgUrl(img, 280)" />
+        <img v-lazy="$utils.genImgUrl(img, 280)" />
       </div>
       <div class="content">
         <div class="tag-wrap">
           <span>精品歌单</span>
         </div>
-        <p class="name">{{name}}</p>
-        <p class="desc">{{desc}}</p>
+        <p class="name">{{ name }}</p>
+        <p class="desc">{{ desc }}</p>
       </div>
-
     </div>
-    <div
-      class="background"
-      :style="{backgroundImage: `url(${img})`}"
-    ></div>
+    <div class="background" :style="{ backgroundImage: `url(${img})` }"></div>
     <div class="background-mask"></div>
   </div>
 </template>

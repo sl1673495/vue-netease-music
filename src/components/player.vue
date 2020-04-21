@@ -1,6 +1,7 @@
 <template >
   <transition name="slide">
     <div
+      v-if="hasCurrentSong"
       :class="getPlayerShowCls()"
       class="player"
     >
@@ -26,7 +27,7 @@
                 ref="discRotate"
               >
                 <div class="img-wrap">
-                  <img :src="$utils.genImgUrl(currentSong.img, 400)" />
+                  <img v-lazy="$utils.genImgUrl(currentSong.img, 400)" />
                 </div>
               </div>
             </div>
@@ -78,6 +79,7 @@
             <Comments
               :id="currentSong.id"
               ref="comments"
+              v-if="currentSong.id"
             />
           </div>
           <div
@@ -152,7 +154,7 @@ import { getLyric, getSimiSongs, getSimiPlaylists } from "@/api"
 import lyricParser from "@/utils/lrcparse"
 import { debounce, isDef, createSong, goMvWithCheck } from "@/utils"
 import Comments from "@/components/comments"
-import { mapState, mapMutations, mapActions } from "@/store/helper/music"
+import { mapState, mapMutations, mapActions, mapGetters } from "@/store/helper/music"
 
 const WHEEL_TYPE = "wheel"
 const SCROLL_TYPE = "scroll"
@@ -330,7 +332,8 @@ export default {
       }
       return ret
     },
-    ...mapState(["currentSong", "currentTime", "playing", "isPlayerShow"])
+    ...mapState(["currentSong", "currentTime", "playing", "isPlayerShow"]),
+    ...mapGetters(["hasCurrentSong"])
   },
   watch: {
     isPlayerShow(show) {

@@ -1,4 +1,4 @@
-import { playModeMap } from '@/utils/config'
+import { isDef, playModeMap } from '@/utils'
 
 export const currentIndex = (state) => {
   const { currentSong, playlist } = state
@@ -37,6 +37,7 @@ export const nextSong = (state, getters) => {
   }
 }
 
+// 上一首歌
 export const prevSong = (state, getters) => {
   const { playlist, playMode } = state
   const prevStratMap = {
@@ -64,6 +65,11 @@ export const prevSong = (state, getters) => {
   function getRandomPrevIndex() {
     return getRandomIndex(playlist, getters.currentIndex)
   }
+}
+
+// 当前是否有歌曲在播放
+export const hasCurrentSong = (state) => {
+  return isDef(state.currentSong.id)
 }
 
 function getRandomIndex(playlist, currentIndex) {

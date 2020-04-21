@@ -5,7 +5,7 @@
     :width="$utils.toRem(320)"
     class="confirm-dialog"
   >
-    <div slot="title">提示</div>
+    <div slot="title">{{title || '提示'}}</div>
     <div class="confirm-body">{{text}}</div>
     <span
       class="dialog-footer"
@@ -24,10 +24,10 @@
 import Vue from "vue"
 const Confirm = {
   name: "Confirm",
-  props: ["visible", "text", "onConfirm"],
+  props: ["visible", "text", "title", "onConfirm"],
   methods: {
     confirmAndClose() {
-      this.onConfirm()
+      this.onConfirm && this.onConfirm()
       this.visible = false
     }
   }
@@ -38,14 +38,19 @@ export default Confirm
 // 单例减少开销
 let instanceCache
 // 命令式调用
-export const confirm = function(text, onConfirm = () => {}) {
-  const ConfirmCtor = Vue.extend(Confirm)
+export const confirm = function(text, title, onConfirm = () => {}) {
+  if (typeof title === "function") {
+    onConfirm = title
+    title = undefined
+  }
 
+  const ConfirmCtor = Vue.extend(Confirm)
   const getInstance = () => {
     if (!instanceCache) {
       instanceCache = new ConfirmCtor({
         propsData: {
           text,
+          title,
           onConfirm
         }
       })
@@ -55,6 +60,7 @@ export const confirm = function(text, onConfirm = () => {}) {
     } else {
       // 更新属性
       instanceCache.text = text
+      instanceCache.title = title
       instanceCache.onConfirm = onConfirm
     }
     return instanceCache

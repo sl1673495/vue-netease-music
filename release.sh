@@ -33,7 +33,9 @@ npm run $var
 
 if [ $? -eq 0 ]; then
     echoSuccess "release success"
+    echoCommon "start building"
     git push --follow-tags origin master
+    npm run build
 else
     echoFail "release failed"
 fi

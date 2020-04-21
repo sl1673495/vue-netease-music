@@ -13,7 +13,7 @@
         <SongCard
           :key="item.id"
           :order="getSongOrder(listIndex, index)"
-          @click.native="onClickSong(item)"
+          @click.native="onClickSong(listIndex, index)"
           class="song-card"
           v-bind="nomalizeSong(item)"
           v-for="(item,index) in list"
@@ -65,8 +65,10 @@ export default {
         mvId: mvid
       })
     },
-    onClickSong(song) {
-      const nomalizedSong = this.nomalizeSong(song)
+    onClickSong(listIndex, index) {
+      // 这里因为getSongOrder是从1开始显示, 所以当做数组下标需要减一
+      const nomalizedSongIndex = this.getSongOrder(listIndex, index) - 1
+      const nomalizedSong = this.normalizedSongs[nomalizedSongIndex]
       this.startSong(nomalizedSong)
       this.setPlaylist(this.normalizedSongs)
     },
@@ -96,6 +98,7 @@ export default {
 
     .list {
       flex: 1;
+      overflow: hidden;
     }
   }
 }

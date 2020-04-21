@@ -24,9 +24,5 @@ export default {
 <style lang="scss" scoped>
 .discovery {
   padding: 18px 32px;
-
-  .discovery-content {
-    padding-bottom: 36px;
-  }
 }
 </style>
