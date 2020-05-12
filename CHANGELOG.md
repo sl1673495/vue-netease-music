@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/sl1673495/vue-netease-music/compare/v3.3.0...v3.4.0) (2020-05-12)
+
+
+### Bug Fixes
+
+* http和https混合资源导致线上无法播放歌曲 ([361df32](https://github.com/sl1673495/vue-netease-music/commit/361df32))
+* 去除请求http音乐资源 ([7a13ed4](https://github.com/sl1673495/vue-netease-music/commit/7a13ed4))
+* 未播放歌曲请求封面导致undefined请求 ([60935fb](https://github.com/sl1673495/vue-netease-music/commit/60935fb))
+
+
+### Features
+
+* **servicework:** 增加 workbox-webpack-plugin 预加载异步路由 ([8567da6](https://github.com/sl1673495/vue-netease-music/commit/8567da6))
+
 ### [3.3.2](https://github.com/sl1673495/vue-netease-music/compare/v3.3.1...v3.3.2) (2020-03-03)
 
 
