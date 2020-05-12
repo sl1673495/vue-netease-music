@@ -1,6 +1,7 @@
+const WorkboxPlugin = require("workbox-webpack-plugin");
+
 module.exports = {
-  outputDir: 'docs',
-  publicPath: 'vue-netease-music',
+  outputDir: 'music',
   configureWebpack: {
     devServer: {
       open: true,
@@ -20,6 +21,9 @@ module.exports = {
       vuex: 'Vuex',
       axios: 'axios',
     }: {},
+    plugins: [
+      new WorkboxPlugin.GenerateSW()
+    ]
   },
   css: {
     loaderOptions: {
