@@ -1,8 +1,11 @@
 const WorkboxPlugin = require("workbox-webpack-plugin");
 
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   outputDir: 'music',
   configureWebpack: {
+    devtool: isProd ? false: 'source-map',
     devServer: {
       open: true,
       proxy: {
@@ -15,7 +18,7 @@ module.exports = {
       },
       port: 8888,
     },
-    externals: process.env.NODE_ENV === 'production' ? {
+    externals: isProd ? {
       vue: 'Vue',
       'vue-router': 'VueRouter',
       vuex: 'Vuex',
