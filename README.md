@@ -8,7 +8,7 @@
 
 💐[预览地址](https://ssh-music.vercel.app)
 
-💐[源码地址](https://github.com/sl1673495/vue-netease-music)V
+💐[源码地址](https://github.com/sl1673495/vue-netease-music)
 
 ### 进度
 
