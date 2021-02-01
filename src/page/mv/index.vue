@@ -19,11 +19,7 @@
         <p class="name">{{ mvDetail.name }}</p>
 
         <div class="desc">
-          <span class="date"
-            >发布：{{
-              $utils.formatDate(mvDetail.publishTime, "yyyy-MM-dd")
-            }}</span
-          >
+          <span class="date">发布：{{ $utils.formatDate(mvDetail.publishTime, "yyyy-MM-dd") }}</span>
           <span class="count">播放：{{ mvDetail.playCount }}次</span>
         </div>
 
@@ -43,11 +39,7 @@
             v-for="simiMv in simiMvs"
           >
             <template #img-wrap>
-              <MvCard
-                :duration="simiMv.duration"
-                :img="simiMv.cover"
-                :playCount="simiMv.playCount"
-              />
+              <MvCard :duration="simiMv.duration" :img="simiMv.cover" :playCount="simiMv.playCount" />
             </template>
           </Card>
         </div>
@@ -105,10 +97,10 @@ export default {
       this.artist = artist
       this.simiMvs = simiMvs
 
-      this.$nextTick(() => {
+      this.$nextTick(async () => {
         const player = this.$refs.video.player
         // 加载高清源
-        player.emit("resourceReady", genResource(this.mvDetail.brs, mvPlayInfo))
+        player.emit("resourceReady",await genResource(this.mvDetail.brs, mvPlayInfo))
         player.on("play", () => {
           // 停止播放歌曲
           this.setPlayingState(false)
@@ -126,26 +118,31 @@ export default {
   components: { Comments, MvCard }
 }
 
-function genResource(brs, mvPlayInfo) {
-  const { url: mvPlayInfoUrl, r: mvPlayInfoBr } = mvPlayInfo
-  const keyNameMap = {
+
+  // 获取全部清晰度的视频源
+ function genResource(brs,mvPlayInfo){
+     const keyNameMap = {
     "240": "标清",
     "480": "高清",
     "720": "超清",
     "1080": "1080P"
   }
+    return Promise.all(brs.map(({br})=>{
+      return getMvUrl(mvPlayInfo.id,br)
+    })).then(dataList=>{
+      return dataList.map((res)=>{
+        const {r,url}=res.data
+        const name=keyNameMap[r]
+        // 优先使用mvPlayInfo里的数据
+        if(r===(mvPlayInfo.r)){
+          mvPlayInfo.url=url
+        }
+        return {name,url}
+      })
+    })
+  }
 
-  return Object.keys(brs).map(key => {
-    // 优先使用mvPlayInfo里的数据
-    const findPreferUrl = key === mvPlayInfoBr
-    const name = keyNameMap[key]
-    const url = findPreferUrl ? mvPlayInfoUrl : brs[key]
-    return {
-      url,
-      name
-    }
-  })
-}
+
 </script>
 
 <style lang="scss" scoped>
