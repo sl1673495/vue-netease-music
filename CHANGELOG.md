@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/sl1673495/vue-netease-music/compare/v3.4.0...v3.4.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* 修复 mv 码率切换 ([9ea0271](https://github.com/sl1673495/vue-netease-music/commit/9ea0271116eac2db907a25790cdbd02d10ab5cc8))
+
 ## [3.4.0](https://github.com/sl1673495/vue-netease-music/compare/v3.3.0...v3.4.0) (2020-05-12)
 
 
