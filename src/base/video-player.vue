@@ -1,55 +1,55 @@
 <template>
-  <div
-    class="video-player"
-    ref="player"
-  ></div>
+  <div class="video-player" ref="player"></div>
 </template>
 
 <script type="text/ecmascript-6">
-import Player from "xgplayer"
-import { toRem } from "@/utils"
+import Player from "xgplayer";
+import { toRem } from "@/utils";
 
 export default {
   name: "VideoPlayer",
-  props: ["url"],
+  props: ["url", "poster"],
   mounted() {
-    this.initPlayer()
-    this.transferRem()
+    this.initPlayer();
+    this.transferRem();
   },
   methods: {
     initPlayer() {
-      if (!this.url) return
+      if (!this.url) return;
       this.player = new Player({
         el: this.$refs.player,
         url: this.url,
+        poster: this.poster,
         videoInit: true,
         lang: "zh-cn",
         width: "100%",
-        playbackRate: [0.5, 0.75, 1, 1.5, 2]
-      })
+      });
     },
     transferRem() {
       this.player.on("ready", () => {
-        const videoWrapper = this.$refs.player
-        const height = videoWrapper.style.height
-        const remHeight = toRem(Number(height.replace("px", "")))
-        videoWrapper.style.height = remHeight
-      })
-    }
+        const videoWrapper = this.$refs.player;
+        const height = videoWrapper.style.height;
+        const remHeight = toRem(Number(height.replace("px", "")));
+        videoWrapper.style.height = remHeight;
+      });
+    },
   },
   watch: {
     url(url, oldUrl) {
       if (url && url !== oldUrl) {
         if (!this.player) {
-          this.initPlayer()
+          this.initPlayer();
         } else {
-          this.player.src = url
-          this.player.reload()
+          this.player.src = url;
+          this.player.reload();
         }
       }
+    },
+    poster(newPoster) {
+      console.log('newPoster: ', newPoster);
     }
-  }
-}
+  },
+};
 </script>
 
 <style>

@@ -6,7 +6,11 @@
         <p class="title">mv详情</p>
 
         <div class="player">
-          <VideoPlayer :url="mvPlayInfo.url" ref="video" />
+          <VideoPlayer
+            :url="mvPlayInfo.url"
+            :poster="mvDetail.cover"
+            ref="video"
+          />
         </div>
 
         <div class="author-wrap">
@@ -57,94 +61,92 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { getMvDetail, getMvUrl, getArtists, getSimiMv } from "@/api"
-import { hideMenuMixin } from "@/utils"
-import { mapMutations } from "@/store/helper/music"
-import Comments from "@/components/comments"
-import MvCard from "@/components/mv-card"
+import { getMvDetail, getMvUrl, getArtists, getSimiMv } from "@/api";
+import { hideMenuMixin } from "@/utils";
+import { mapMutations } from "@/store/helper/music";
+import Comments from "@/components/comments";
+import MvCard from "@/components/mv-card";
 
 export default {
   mixins: [hideMenuMixin],
   props: {
     id: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   metaInfo() {
     return {
-      title: this.mvDetail.name
-    }
+      title: this.mvDetail.name,
+    };
   },
   created() {
-    this.init()
+    this.init();
   },
   data() {
     return {
       mvDetail: {},
-      mvPlayInfo: "",
+      mvPlayInfo: {},
       artist: {},
-      simiMvs: []
-    }
+      simiMvs: [],
+    };
   },
   methods: {
     async init() {
       const [
         { data: mvDetail },
         { data: mvPlayInfo },
-        { mvs: simiMvs }
+        { mvs: simiMvs },
       ] = await Promise.all([
         getMvDetail(this.id),
         getMvUrl(this.id),
-        getSimiMv(this.id)
-      ])
-      const { artist } = await getArtists(mvDetail.artistId)
+        getSimiMv(this.id),
+      ]);
+      const { artist } = await getArtists(mvDetail.artistId);
 
-      this.mvDetail = mvDetail
-      this.mvPlayInfo = mvPlayInfo
-      this.artist = artist
-      this.simiMvs = simiMvs
+      this.mvDetail = mvDetail;
+      this.mvPlayInfo = mvPlayInfo;
+      this.artist = artist;
+      this.simiMvs = simiMvs;
 
       this.$nextTick(() => {
-        const player = this.$refs.video.player
-        // 加载高清源
-        player.emit("resourceReady", genResource(this.mvDetail.brs, mvPlayInfo))
+        const player = this.$refs.video.player;
         player.on("play", () => {
           // 停止播放歌曲
-          this.setPlayingState(false)
-        })
-      })
+          this.setPlayingState(false);
+        });
+      });
     },
     goMv(id) {
-      this.$router.push(`/mv/${id}`)
+      this.$router.push(`/mv/${id}`);
     },
-    ...mapMutations(["setPlayingState"])
+    ...mapMutations(["setPlayingState"]),
   },
   watch: {
-    id: "init"
+    id: "init",
   },
-  components: { Comments, MvCard }
-}
+  components: { Comments, MvCard },
+};
 
 function genResource(brs, mvPlayInfo) {
-  const { url: mvPlayInfoUrl, r: mvPlayInfoBr } = mvPlayInfo
+  const { url: mvPlayInfoUrl, r: mvPlayInfoBr } = mvPlayInfo;
   const keyNameMap = {
-    "240": "标清",
-    "480": "高清",
-    "720": "超清",
-    "1080": "1080P"
-  }
+    240: "标清",
+    480: "高清",
+    720: "超清",
+    1080: "1080P",
+  };
 
-  return Object.keys(brs).map(key => {
+  return Object.keys(brs).map((key) => {
     // 优先使用mvPlayInfo里的数据
-    const findPreferUrl = key === mvPlayInfoBr
-    const name = keyNameMap[key]
-    const url = findPreferUrl ? mvPlayInfoUrl : brs[key]
+    const findPreferUrl = key === mvPlayInfoBr;
+    const name = keyNameMap[key];
+    const url = findPreferUrl ? mvPlayInfoUrl : brs[key];
     return {
       url,
-      name
-    }
-  })
+      name,
+    };
+  });
 }
 </script>
 
