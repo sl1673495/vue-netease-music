@@ -1,4 +1,4 @@
-# 🎵基于Vue2、Vue-CLI3的高仿网易云mac客户端播放器（PC） Online Music Player
+# 🎵 基于 Vue2、Vue-CLI3 的高仿网易云 mac 客户端播放器（PC） Online Music Player
 
 音乐播放器虽然烂大街了，但是作为前端没自己撸一个一直是个遗憾。
 
@@ -32,14 +32,14 @@ https://binaryify.github.io/NeteaseCloudMusicApi
 
 ### 技术栈
 
-- ***Vue*** 全家桶 通过 Vue-CLI3 初始化生成。
-- ***ElementUI*** 魔改样式。
-- ***better-scroll*** 歌词滚动部分用了黄轶老大的 （贼爽）
-- ***CSS Variables*** 主题换肤。
-- ***ESNext*** （JavaScript 语言的下一代标准）
-- ***Sass***（CSS 预处理器）
-- ***postcss-pxtorem***（自动处理 rem，妈妈再也不用担心屏幕太大太小了）
-- ***workbox-webpack-plugin*** 谷歌开发的利用 Service Worker 实现页面预缓存的插件。
+- **_Vue_** 全家桶 通过 Vue-CLI3 初始化生成。
+- **_ElementUI_** 魔改样式。
+- **_better-scroll_** 歌词滚动部分用了黄轶老大的 （贼爽）
+- **_CSS Variables_** 主题换肤。
+- **_ESNext_** （JavaScript 语言的下一代标准）
+- **_Sass_**（CSS 预处理器）
+- **_postcss-pxtorem_**（自动处理 rem，妈妈再也不用担心屏幕太大太小了）
+- **_workbox-webpack-plugin_** 谷歌开发的利用 Service Worker 实现页面预缓存的插件。
 
 ### Screenshots
 
@@ -59,4 +59,5 @@ npm run dev
 ```
 
 ### 友情链接
+
 [mmPlayer](https://github.com/maomao1996/Vue-mmPlayer)
