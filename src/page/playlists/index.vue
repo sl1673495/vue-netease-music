@@ -110,7 +110,7 @@ export default {
       scrollInto(this.$refs.playlists)
     },
     onTabChange() {
-        this.currentPage=0
+      this.currentPage = 0
       this.initData()
     }
   },
