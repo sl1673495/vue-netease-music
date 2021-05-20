@@ -48,7 +48,7 @@
     "postcss-pxtorem": "^4.0.1",
     "sass-loader": "^7.1.0",
     "standard-changelog": "^2.0.13",
-    "standard-version": "^7.0.0",
+    "standard-version": "^8.0.1",
     "vue-template-compiler": "^2.6.10",
     "workbox-webpack-plugin": "^5.1.3"
   },
