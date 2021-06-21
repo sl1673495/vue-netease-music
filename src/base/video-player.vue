@@ -45,9 +45,6 @@ export default {
         }
       }
     },
-    poster(newPoster) {
-      console.log('newPoster: ', newPoster);
-    }
   },
 };
 </script>
