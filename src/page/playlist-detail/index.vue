@@ -4,7 +4,11 @@
     <DetailHeader ref="header" :playlist="playlist" :songs="songs" />
     
     <!--头部弹出框  -->
-    <div ref="popupHeader" v-show="popupHeaderVisible" class="popup-header">{{$metaInfo.title}}</div>
+    <transition name="slide-fade" >
+      <div ref="popupHeader" v-show="popupHeaderVisible" class="popup-header">
+        <div class="content">{{$metaInfo.title}}</div>
+      </div>
+    </transition>
     <div ref="tabsWrap" class="tabs-wrap">
       <Tabs :tabs="tabs" type="theme" v-model="activeTab" />
       <el-input
@@ -78,14 +82,14 @@ export default {
     },
     initPageScrollListener() {
       const parentScrollerNode = document.getElementById("page-content");
+      const offsetTop = this.$refs.tabsWrap.offsetTop;
+
       parentScrollerNode.insertBefore(this.$refs.popupHeader, this.$el);
       
-      const offsetTop = this.$refs.tabsWrap.offsetTop;
-      // this.offsetTop = offsetTop;
-     
-      this.$refs.playListDetail.addEventListener("scroll", (e) => {
-        this.popupHeaderVisible=offsetTop-e.target.scrollTop<100
+      this.$refs.playListDetail.addEventListener("scroll",() => {
+        this.popupHeaderVisible=offsetTop-this.$el.scrollTop<100
       });
+       
     },
     async genSonglist(playlist) {
       const trackIds = playlist.trackIds.map(({ id }) => id)
