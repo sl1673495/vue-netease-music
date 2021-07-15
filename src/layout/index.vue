@@ -70,3 +70,21 @@ export default {
   }
 }
 </style>
+
+<style>
+    #page-content{
+      position: relative;
+    }
+    .popup-header {
+      z-index: 11111111;
+      position: absolute;
+      background-color: #fff;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 10000;
+      padding: 30px;
+      box-shadow: 0 1px 0 #ddd;
+      font-size: 24px;
+    }
+</style>

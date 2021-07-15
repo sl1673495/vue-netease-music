@@ -1,8 +1,11 @@
 // 歌单详情页面
 <template>
-  <div class="playlist-detail" v-if="playlist.id">
+  <div  ref="playListDetail" class="playlist-detail" v-if="playlist.id">
     <DetailHeader ref="header" :playlist="playlist" :songs="songs" />
-    <div class="tabs-wrap">
+    
+    <!--头部弹出框  -->
+    <div ref="popupHeader" v-show="popupHeaderVisible" class="popup-header">{{$metaInfo.title}}</div>
+    <div ref="tabsWrap" class="tabs-wrap">
       <Tabs :tabs="tabs" type="theme" v-model="activeTab" />
       <el-input
         :class="getInputCls()"
@@ -61,6 +64,7 @@ export default {
       songs: [],
       searchValue: "",
       inputFocus: false,
+      popupHeaderVisible: false
     }
   },
   methods: {
@@ -68,6 +72,20 @@ export default {
       const { playlist } = await getListDetail({ id: this.id })
       this.playlist = playlist
       this.genSonglist(playlist)
+      // 添加监听当前页面滚动事件
+       await this.$nextTick();
+      this.initPageScrollListener();
+    },
+    initPageScrollListener() {
+      const parentScrollerNode = document.getElementById("page-content");
+      parentScrollerNode.insertBefore(this.$refs.popupHeader, this.$el);
+      
+      const offsetTop = this.$refs.tabsWrap.offsetTop;
+      // this.offsetTop = offsetTop;
+     
+      this.$refs.playListDetail.addEventListener("scroll", (e) => {
+        this.popupHeaderVisible=offsetTop-e.target.scrollTop<100
+      });
     },
     async genSonglist(playlist) {
       const trackIds = playlist.trackIds.map(({ id }) => id)
@@ -133,7 +151,8 @@ export default {
 <style lang="scss" scoped>
 .playlist-detail {
   width: 100%;
-
+  height: 100%;
+  overflow-y:auto;
   .tabs-wrap {
     display: flex;
     justify-content: space-between;
