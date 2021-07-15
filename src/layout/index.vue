@@ -70,3 +70,31 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+    #page-content{
+      position: relative;
+      .popup-header {
+          &.slide-fade-enter-active .content,&.slide-fade-leave-active .content,
+          &.slide-fade-enter-active, &.slide-fade-leave-active {
+            transition:200ms linear;
+          }
+          &.slide-fade-enter .content{
+            opacity:0;
+            transform:translate3d(0,10px,0)
+          }
+          z-index: 11111111;
+          position: absolute;
+          background-color: #fff;
+          width: 100%;
+          top: 0;
+          left: 0;
+          line-height:100Px ;
+          height: 100Px;
+          z-index: 1000;
+          padding:0 30px;
+          box-shadow: 0 1px 0 #ddd;
+          font-size: 24px;
+      } 
+    }
+</style>
