@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.2](https://github.com/sl1673495/vue-netease-music/compare/v3.4.1...v3.4.2) (2022-11-08)
+
+
+### Features
+
+* change api source ([f701796](https://github.com/sl1673495/vue-netease-music/commit/f7017964d6b64577ddc8c1cee3e3931ce03e237a))
+
+
+### Bug Fixes
+
+* change API ([c0fa705](https://github.com/sl1673495/vue-netease-music/commit/c0fa7058899c8e3121a368fbda4c9c8281913f19))
+
 ### [3.4.1](https://github.com/sl1673495/vue-netease-music/compare/v3.4.0...v3.4.1) (2021-02-01)
 
 
