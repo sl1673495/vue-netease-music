@@ -1,5 +1,3 @@
-const WorkboxPlugin = require("workbox-webpack-plugin");
-
 const isProd = process.env.NODE_ENV === "production";
 
 module.exports = {
@@ -26,7 +24,6 @@ module.exports = {
           axios: "axios",
         }
       : {},
-    plugins: [new WorkboxPlugin.GenerateSW()],
   },
   css: {
     loaderOptions: {
