@@ -34,9 +34,9 @@
     "xgplayer": "^2.1.9"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-plugin-eslint": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "babel-eslint": "^10.0.1",
     "babel-plugin-component": "^1.1.1",
     "commitizen": "^4.0.3",
@@ -47,7 +47,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "now": "^17.0.4",
     "postcss-pxtorem": "^4.0.1",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^13.2.0",
     "standard-changelog": "^2.0.13",
     "standard-version": "^8.0.1",
     "vue-template-compiler": "^2.6.10",
