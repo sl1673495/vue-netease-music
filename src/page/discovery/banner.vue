@@ -26,7 +26,7 @@ export default {
 
 <style lang="scss" scoped>
 .banner-carousel {
-  /deep/.el-carousel__container {
+  ::v-deep .el-carousel__container {
     height: 200px;
   }
 

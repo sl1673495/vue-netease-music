@@ -169,7 +169,7 @@ export default {
 
       &:not(:hover) {
         &.inactive {
-          /deep/.el-input__inner {
+          ::v-deep .el-input__inner {
             background: transparent !important;
           }
         }

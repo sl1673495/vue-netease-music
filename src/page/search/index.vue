@@ -93,7 +93,7 @@ export default {
     padding: 0 28px;
     border-bottom: 1px solid var(--border);
 
-    /deep/.search-tab-item {
+    ::v-deep .search-tab-item {
       font-size: $font-size;
     }
   }

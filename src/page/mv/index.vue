@@ -128,26 +128,6 @@ export default {
   components: { Comments, MvCard },
 };
 
-function genResource(brs, mvPlayInfo) {
-  const { url: mvPlayInfoUrl, r: mvPlayInfoBr } = mvPlayInfo;
-  const keyNameMap = {
-    240: "标清",
-    480: "高清",
-    720: "超清",
-    1080: "1080P",
-  };
-
-  return Object.keys(brs).map((key) => {
-    // 优先使用mvPlayInfo里的数据
-    const findPreferUrl = key === mvPlayInfoBr;
-    const name = keyNameMap[key];
-    const url = findPreferUrl ? mvPlayInfoUrl : brs[key];
-    return {
-      url,
-      name,
-    };
-  });
-}
 </script>
 
 <style lang="scss" scoped>

@@ -76,7 +76,7 @@ export const confirm = function(text, title, onConfirm = () => {}) {
 
 <style lang="scss" scoped>
 .confirm-dialog {
-  /deep/.el-dialog__body {
+  ::v-deep .el-dialog__body {
     padding-top: 20px;
     padding-bottom: 20px;
   }
